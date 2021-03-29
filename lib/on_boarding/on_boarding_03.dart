@@ -42,7 +42,7 @@ class _OnBoardState extends State<OnBoarding03> {
               SizedBox(
                 height: 48.0,
               ),
-              PageIndicator(2),
+              PageIndicator(3),
               Container(
                   margin:
                       EdgeInsets.only(left: 48, top: 16, right: 48, bottom: 0),
