@@ -3,6 +3,8 @@ import 'package:pendu_customer/on_boarding/on_boarding_03.dart';
 import 'package:pendu_customer/utils/page_indicator.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
+import '../home_directories/page_home.dart';
+
 class OnBoarding02 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -60,7 +62,10 @@ class _OnBoardState extends State<OnBoarding02> {
                     ),
                   )),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  },
                   child: Text(
                     'Skip for now',
                     style: TextStyle(color: Theme.of(context).primaryColor),

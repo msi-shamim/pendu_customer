@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/utils/PenduAppBar.dart';
@@ -10,6 +11,11 @@ class HomePage extends StatefulWidget {
     return _HomeState();
   }
 }
+
+final List<String> _imageItems = [
+  'assets/banner_01.png',
+  'assets/banner_02.png',
+];
 
 class _HomeState extends State<HomePage> {
   @override
@@ -24,7 +30,9 @@ class _HomeState extends State<HomePage> {
         shrinkWrap: true,
         padding: EdgeInsets.all(16),
         children: [
+          //section 01
           Card(
+            elevation: 4,
             child: Column(
               children: [
                 Container(
@@ -39,12 +47,37 @@ class _HomeState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconTitle(Icons.shopping_bag_outlined, 'Shop & Drop'),
-                      IconTitle(Icons.card_giftcard_outlined, 'Collect & Delivery'),
+                      IconTitle(
+                          Icons.card_giftcard_outlined, 'Collect & Delivery'),
                       IconTitle(Icons.directions_car_outlined, 'Movers'),
                     ],
                   ),
                 )
               ],
+            ),
+          ),
+          //section 02
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: CarouselSlider(
+              options: CarouselOptions(
+                height: 110,
+                initialPage: 0,
+                autoPlayInterval: Duration(seconds: 2),
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+              ),
+              items: _imageItems
+                  .map((e) => Builder(
+                      builder: (context) => Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 6.0),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor),
+                            child: Image.asset(e),
+                          )))
+                  .toList(),
             ),
           )
         ],

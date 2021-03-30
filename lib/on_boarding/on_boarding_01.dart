@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_02.dart';
+import 'file:///I:/GitHub/pendu_customer/lib/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/page_indicator.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
@@ -34,7 +35,7 @@ class _OnBoardState extends State<OnBoarding01> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Simply Make a list of the items you need.'
-                      '\nGet offers from the shoppers in minutes',
+                  '\nGet offers from the shoppers in minutes',
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -44,12 +45,14 @@ class _OnBoardState extends State<OnBoarding01> {
               PageIndicator(1),
               Container(
                   margin:
-                  EdgeInsets.only(left: 48, top: 16, right: 48, bottom: 0),
+                      EdgeInsets.only(left: 48, top: 16, right: 48, bottom: 0),
                   child: RaisedButton(
                     color: Pendu.color('5BDB98'),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => OnBoarding02()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OnBoarding02()));
                     },
                     child: Text(
                       'Next',
@@ -57,12 +60,13 @@ class _OnBoardState extends State<OnBoarding01> {
                     ),
                   )),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  },
                   child: Text(
                     'Skip for now',
-                    style: TextStyle(color: Theme
-                        .of(context)
-                        .primaryColor),
+                    style: TextStyle(color: Theme.of(context).primaryColor),
                   ))
             ],
           ),

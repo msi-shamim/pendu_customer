@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pendu_customer/page_home.dart';
+import 'file:///I:/GitHub/pendu_customer/lib/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/page_indicator.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
@@ -58,7 +58,10 @@ class _OnBoardState extends State<OnBoarding03> {
                     ),
                   )),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  },
                   child: Text(
                     'Skip for now',
                     style: TextStyle(color: Theme.of(context).primaryColor),
