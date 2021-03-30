@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_02.dart';
-import 'file:///I:/GitHub/pendu_customer/lib/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/page_indicator.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 

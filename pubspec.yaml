@@ -55,6 +55,8 @@ flutter:
     - assets/on_boarding_3.png
     - assets/banner_01.png
     - assets/banner_02.png
+    - assets/driver_image.png
+    - assets/how_it_works.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
