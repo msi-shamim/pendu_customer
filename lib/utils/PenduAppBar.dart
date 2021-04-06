@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class PenduAppBar extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _PenduAppBarState();
   }
 }
@@ -12,7 +11,7 @@ class PenduAppBar extends StatefulWidget {
 class _PenduAppBarState extends State<PenduAppBar> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return PreferredSize(
       preferredSize: Size.fromHeight(300),
       child: Container(
@@ -31,13 +30,14 @@ class _PenduAppBarState extends State<PenduAppBar> {
               direction: Axis.horizontal,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 2, right: 12, top: 0, bottom: 0),
+                  padding: const EdgeInsets.only(
+                      left: 2, right: 12, top: 0, bottom: 0),
                   child: Image.asset('assets/logo.png', height: 32, width: 32),
                 ),
                 Text(
                   'pendu',
-                  style:
-                      TextStyle(color: Theme.of(context).accentColor, fontSize: 24),
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor, fontSize: 24),
                 )
               ],
             ),
@@ -46,7 +46,8 @@ class _PenduAppBarState extends State<PenduAppBar> {
                   icon: Icon(Icons.notifications_none_rounded),
                   onPressed: () => null),
               IconButton(
-                  icon: Icon(Icons.account_circle_outlined), onPressed: () => null),
+                  icon: Icon(Icons.account_circle_outlined),
+                  onPressed: () => null),
             ],
           ),
         ),

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Screen/progress_page_2.dart';
+import 'package:pendu_customer/Screen/screen_progress.dart';
+import 'package:pendu_customer/auth_pages/login_page.dart';
+import 'package:pendu_customer/auth_pages/register_page.dart';
 import 'package:pendu_customer/splash_screen.dart';
+import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 void main() {
@@ -13,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: SplashScreen(),
+      home: ProgressPage2(),
     );
   }
 }
