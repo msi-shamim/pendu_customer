@@ -32,20 +32,41 @@ class ProgressPage2 extends StatelessWidget {
               ),
               Row(
                 children: [
-                  ContainerProgressPage2(),
-                  ContainerProgressPage2(),
+                  ContainerProgressPage2(
+                    svgPath: 'assets/clip.svg',
+                    text: 'ASAP',
+                  ),
+                  SizedBox(width: 10),
+                  ContainerProgressPage2(
+                    svgPath: 'assets/clip.svg',
+                    text: 'ASAP',
+                  ),
                 ],
               ),
               Row(
                 children: [
-                  ContainerProgressPage2(),
-                  ContainerProgressPage2(),
+                  ContainerProgressPage2(
+                    svgPath: 'assets/clip.svg',
+                    text: 'ASAP',
+                  ),
+                  SizedBox(width: 10),
+                  ContainerProgressPage2(
+                    svgPath: 'assets/clip.svg',
+                    text: 'ASAP',
+                  ),
                 ],
               ),
               Row(
                 children: [
-                  ContainerProgressPage2(),
-                  ContainerProgressPage2(),
+                  ContainerProgressPage2(
+                    svgPath: 'assets/clip.svg',
+                    text: 'ASAP',
+                  ),
+                  SizedBox(width: 10),
+                  ContainerProgressPage2(
+                    svgPath: 'assets/clip.svg',
+                    text: 'ASAP',
+                  ),
                 ],
               ),
               SizedBox(

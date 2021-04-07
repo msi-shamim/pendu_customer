@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 class ContainerProgressPage2 extends StatelessWidget {
+  final String svgPath;
+  final String text;
+  ContainerProgressPage2({this.svgPath, this.text});
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -16,13 +19,13 @@ class ContainerProgressPage2 extends StatelessWidget {
       child: Row(
         children: [
           SvgPicture.asset(
-            'assets/clip.svg',
+            svgPath,
             color: Pendu.color('EE82EE'),
             width: 50,
             height: 50,
           ),
           Text(
-            'ASAP',
+            text,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
