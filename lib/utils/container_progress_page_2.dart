@@ -10,7 +10,7 @@ class ContainerProgressPage2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       width: 160,
-      height: 120,
+      height: 110,
       margin: const EdgeInsets.only(top: 15),
       padding: const EdgeInsets.all(3.0),
       decoration: BoxDecoration(
