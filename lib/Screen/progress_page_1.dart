@@ -14,6 +14,32 @@ class ProgressPage1 extends StatefulWidget {
 }
 
 class _ProgressPage1State extends State<ProgressPage1> {
+  Widget _buildPopupDialog(BuildContext context) {
+    return new AlertDialog(
+      title: Container(
+        height: 60,
+        // width: double.infinity,
+        color: Theme.of(context).primaryColor,
+      ),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("Hello"),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Close'),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +75,20 @@ class _ProgressPage1State extends State<ProgressPage1> {
                           color: Colors.green,
                         ),
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.grey,
-                        size: 16,
-                      )
+                      IconButton(
+                          padding: EdgeInsets.only(left: 20),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  _buildPopupDialog(context),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.grey,
+                            size: 16,
+                          ))
                     ],
                   )),
               SizedBox(height: 10),
