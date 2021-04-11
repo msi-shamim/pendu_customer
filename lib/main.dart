@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Screen/checkout.dart';
 import 'package:pendu_customer/Screen/progress_page_1.dart';
 import 'package:pendu_customer/Screen/progress_page_2.dart';
 import 'package:pendu_customer/Screen/received_offers.dart';
@@ -10,6 +11,8 @@ import 'package:pendu_customer/splash_screen.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
+import 'Screen/order_status.dart';
+import 'Screen/payment_done.dart';
 import 'Screen/progress_page_3.dart';
 import 'Screen/request_status_error.dart';
 
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: RequestStatus(),
+      home: OrderStatus(),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pendu_customer/Screen/screen_progress.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
+import 'package:pendu_customer/utils/delivery_address_table.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 
 List<String> titleList = [
@@ -75,52 +76,8 @@ class _ProgressPage3State extends State<ProgressPage3> {
           children: [
             ScreenProgress(ticks: 3),
             SizedBox(height: 10),
-            Container(
-              height: 120,
-              width: double.infinity,
-              color: Colors.grey[100],
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.green,
-                        size: 24,
-                      ),
-                      DottedLine(
-                        direction: Axis.vertical,
-                        lineLength: 65.0,
-                        lineThickness: 1.0,
-                        dashLength: 4.0,
-                        dashColor: Colors.grey,
-                        dashRadius: 0.0,
-                        dashGapLength: 4.0,
-                        dashGapColor: Colors.transparent,
-                        dashGapRadius: 0.0,
-                      ),
-                      Icon(
-                        Icons.circle,
-                        color: Colors.orange,
-                        size: 14,
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                            '3/A Jadobpur, Abdul Goli, MD Pur, Dhaka, \n Abdul Goli MD Pur, Dhaka'),
-                        Text('2103 N Main St, Highlands, TX 77562'),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+            DeliverAddressTable(
+              colorCode: Colors.grey[200],
             ),
             SizedBox(height: 10),
             ProgressPageHeader(

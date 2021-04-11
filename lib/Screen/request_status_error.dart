@@ -17,7 +17,7 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Request Status'),
+        child: CommonAppBar('Request Error'),
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -120,7 +120,7 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                 Row(
                   children: [
                     Icon(
-                      Icons.warning,
+                      Icons.cancel_rounded,
                       color: Colors.red,
                     ),
                     SizedBox(
