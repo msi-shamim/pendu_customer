@@ -12,6 +12,7 @@ class RequestStatus extends StatefulWidget {
 }
 
 class _RequestStatusState extends State<RequestStatus> {
+  int _var = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,17 +21,15 @@ class _RequestStatusState extends State<RequestStatus> {
         child: CommonAppBar('Request Status'),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
               children: [
-                SvgPicture.asset(
-                  'assets/payment.svg',
-                  height: 200.0,
-                  width: 150.0,
+                Image.asset(
+                  'assets/shop_and_drop.png',
                 ),
                 Column(
                   children: [
@@ -41,7 +40,7 @@ class _RequestStatusState extends State<RequestStatus> {
                           'assets/task received.svg',
                           height: 80.0,
                           width: 50.0,
-                          color: Colors.yellow,
+                          color: Pendu.color('FFB44A'),
                         ),
                         Container(
                           color: Pendu.color('5BDB98'),
@@ -52,7 +51,7 @@ class _RequestStatusState extends State<RequestStatus> {
                           'assets/task review.svg',
                           height: 80.0,
                           width: 50.0,
-                          color: Colors.cyan,
+                          color: Pendu.color('6AD1FF'),
                         ),
                         Container(
                           color: Pendu.color('5BDB98'),
@@ -63,7 +62,7 @@ class _RequestStatusState extends State<RequestStatus> {
                           'assets/going to cloud.svg',
                           height: 80.0,
                           width: 50.0,
-                          color: Colors.green,
+                          color: Pendu.color('5BDB98'),
                         ),
                       ],
                     ),
@@ -87,7 +86,7 @@ class _RequestStatusState extends State<RequestStatus> {
                         Row(
                           children: [
                             Icon(
-                              Icons.check_circle_rounded,
+                              (_var == 1) ? null : Icons.check_circle_rounded,
                               color: Colors.green,
                               size: 14,
                             ),
@@ -98,15 +97,17 @@ class _RequestStatusState extends State<RequestStatus> {
                           ],
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.check_circle_rounded,
+                              (_var == 1) ? null : Icons.check_circle_rounded,
                               color: Colors.green,
                               size: 14,
                             ),
                             Text(
                               'Going to the \n network for offers',
                               style: TextStyle(fontSize: 12),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         )
@@ -125,12 +126,10 @@ class _RequestStatusState extends State<RequestStatus> {
                       width: MediaQuery.of(context).size.width / 2 - 20,
                       height: 40,
                       decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Colors.red[200], width: 2.0),
                           borderRadius: BorderRadius.circular(5.0)),
                       child: ElevatedButton(
-                        style:
-                            ElevatedButton.styleFrom(primary: Colors.red[200]),
+                        style: ElevatedButton.styleFrom(
+                            primary: Pendu.color('FFCE8A')),
                         onPressed: () {},
                         child: Text(
                           'Cancel',
@@ -159,6 +158,8 @@ class _RequestStatusState extends State<RequestStatus> {
                 ),
                 SizedBox(height: 10),
                 BottomWarringText(
+                    textColor: Pendu.color('1B3149'),
+                    borderColor: Pendu.color('FFCE8A'),
                     text:
                         'Quick Tip - we will notify you once your offer is accepted or a new offer is made'),
               ],

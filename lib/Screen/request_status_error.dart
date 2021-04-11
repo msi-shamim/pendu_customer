@@ -12,6 +12,7 @@ class RequestStatusError extends StatefulWidget {
 }
 
 class _RequestStatusErrorState extends State<RequestStatusError> {
+  int _var = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,17 +21,15 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
         child: CommonAppBar('Request Error'),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
               children: [
-                SvgPicture.asset(
-                  'assets/payment.svg',
-                  height: 200.0,
-                  width: 150.0,
+                Image.asset(
+                  'assets/shop_and_drop.png',
                 ),
                 Column(
                   children: [
@@ -41,7 +40,7 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                           'assets/task received.svg',
                           height: 80.0,
                           width: 50.0,
-                          color: Colors.yellow,
+                          color: Pendu.color('FFB44A'),
                         ),
                         Container(
                           color: Pendu.color('5BDB98'),
@@ -52,10 +51,10 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                           'assets/task review.svg',
                           height: 80.0,
                           width: 50.0,
-                          color: Colors.grey,
+                          color: Pendu.color('E8E8E8'),
                         ),
                         Container(
-                          color: Pendu.color('5BDB98'),
+                          color: Pendu.color('E8E8E8'),
                           height: 1.0,
                           width: 80.0,
                         ),
@@ -63,7 +62,7 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                           'assets/going to cloud.svg',
                           height: 80.0,
                           width: 50.0,
-                          color: Colors.grey,
+                          color: Pendu.color('E8E8E8'),
                         ),
                       ],
                     ),
@@ -87,55 +86,64 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                         Row(
                           children: [
                             Icon(
-                              Icons.stop,
-                              color: Colors.red,
+                              (_var == 1)
+                                  ? Icons.cancel_rounded
+                                  : Icons.check_circle_rounded,
+                              color: Pendu.color('F97A7A'),
                               size: 14,
                             ),
                             Text(
                               'Task in Review',
-                              style: TextStyle(fontSize: 12),
+                              style: TextStyle(
+                                  fontSize: 12, color: Pendu.color('707070')),
                             ),
                           ],
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.check_circle_rounded,
-                              color: Colors.white,
+                              (_var == 1) ? null : Icons.check_circle_rounded,
+                              color: Colors.green,
                               size: 14,
                             ),
                             Text(
                               'Going to the \n network for offers',
-                              style: TextStyle(fontSize: 12),
+                              style: TextStyle(
+                                  fontSize: 12, color: Pendu.color('707070')),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         )
                       ],
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.cancel_rounded,
-                      color: Colors.red,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      width: 290,
-                      height: 80,
-                      child: Text(
-                        'ndustry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-                        style: TextStyle(color: Colors.red),
-                      ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning_rounded,
+                          color: Pendu.color('F97A7A'),
+                          size: 25,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 290,
+                          height: 50,
+                          child: Text(
+                            'Industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley.',
+                            style: TextStyle(
+                              color: Pendu.color('F97A7A'),
+                            ),
+                          ),
+                        )
+                      ],
                     )
                   ],
-                )
+                ),
               ],
             ),
             Column(
@@ -147,12 +155,10 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                       width: MediaQuery.of(context).size.width / 2 - 20,
                       height: 40,
                       decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Colors.red[200], width: 2.0),
                           borderRadius: BorderRadius.circular(5.0)),
                       child: ElevatedButton(
-                        style:
-                            ElevatedButton.styleFrom(primary: Colors.red[200]),
+                        style: ElevatedButton.styleFrom(
+                            primary: Pendu.color('FFCE8A')),
                         onPressed: () {},
                         child: Text(
                           'Cancel',
@@ -179,7 +185,6 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                     )
                   ],
                 ),
-                SizedBox(height: 10),
               ],
             )
           ],

@@ -32,15 +32,15 @@ class _ProgressPage2State extends State<ProgressPage2> {
   int selectedIndex = -1;
   Widget _deliveryContainer() {
     return Container(
-      height: 300,
+      height: 340,
       // color: Colors.blue,
       child: GridView.builder(
         itemCount: iconList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: 1.5,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5),
+            crossAxisSpacing: 2,
+            mainAxisSpacing: 2),
         itemBuilder: (context, position) {
           return InkWell(
             onTap: () => setState(() => selectedIndex = position),
@@ -96,6 +96,8 @@ class _ProgressPage2State extends State<ProgressPage2> {
                 height: 5,
               ),
               BottomWarringText(
+                  textColor: Pendu.color('FFB44A'),
+                  borderColor: Pendu.color('E8E8E8'),
                   text:
                       'You can also sort out the delivery times with your dropper directly, You wonn\'t be charged until you accept an offer'),
               SizedBox(

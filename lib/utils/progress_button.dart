@@ -7,10 +7,10 @@ class ProgressButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 2 - 50,
+      width: MediaQuery.of(context).size.width / 2 - 30,
       height: 40,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: Pendu.color('5BDB98')),
+        style: ElevatedButton.styleFrom(primary: Pendu.color('60E99C')),
         onPressed: () {},
         child: Text(
           btnText,
