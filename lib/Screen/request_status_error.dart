@@ -6,12 +6,12 @@ import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_button.dart';
 
-class RequestStatus extends StatefulWidget {
+class RequestStatusError extends StatefulWidget {
   @override
-  _RequestStatusState createState() => _RequestStatusState();
+  _RequestStatusErrorState createState() => _RequestStatusErrorState();
 }
 
-class _RequestStatusState extends State<RequestStatus> {
+class _RequestStatusErrorState extends State<RequestStatusError> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +52,7 @@ class _RequestStatusState extends State<RequestStatus> {
                           'assets/task review.svg',
                           height: 80.0,
                           width: 50.0,
-                          color: Colors.cyan,
+                          color: Colors.grey,
                         ),
                         Container(
                           color: Pendu.color('5BDB98'),
@@ -63,7 +63,7 @@ class _RequestStatusState extends State<RequestStatus> {
                           'assets/going to cloud.svg',
                           height: 80.0,
                           width: 50.0,
-                          color: Colors.green,
+                          color: Colors.grey,
                         ),
                       ],
                     ),
@@ -87,8 +87,8 @@ class _RequestStatusState extends State<RequestStatus> {
                         Row(
                           children: [
                             Icon(
-                              Icons.check_circle_rounded,
-                              color: Colors.green,
+                              Icons.stop,
+                              color: Colors.red,
                               size: 14,
                             ),
                             Text(
@@ -101,7 +101,7 @@ class _RequestStatusState extends State<RequestStatus> {
                           children: [
                             Icon(
                               Icons.check_circle_rounded,
-                              color: Colors.green,
+                              color: Colors.white,
                               size: 14,
                             ),
                             Text(
@@ -114,6 +114,28 @@ class _RequestStatusState extends State<RequestStatus> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      width: 290,
+                      height: 80,
+                      child: Text(
+                        'ndustry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
             Column(
@@ -158,9 +180,6 @@ class _RequestStatusState extends State<RequestStatus> {
                   ],
                 ),
                 SizedBox(height: 10),
-                BottomWarringText(
-                    text:
-                        'Quick Tip - we will notify you once your offer is accepted or a new offer is made'),
               ],
             )
           ],
