@@ -9,18 +9,18 @@ import 'package:pendu_customer/utils/progress_button.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 
 class IconMenu {
-  final IconData iconName;
+  final String svgPath;
   final String titleIcon;
-  IconMenu({this.iconName, this.titleIcon});
+  IconMenu({this.svgPath, this.titleIcon});
 }
 
 List<IconMenu> iconList = [
-  IconMenu(iconName: Icons.ac_unit, titleIcon: "ASAP"),
-  IconMenu(iconName: Icons.access_alarm, titleIcon: "4Hrs"),
-  IconMenu(iconName: Icons.accessibility_new, titleIcon: "6Hrs"),
-  IconMenu(iconName: Icons.add, titleIcon: "Same day"),
-  IconMenu(iconName: Icons.account_balance, titleIcon: "Next day"),
-  IconMenu(iconName: Icons.access_time_sharp, titleIcon: "Set later"),
+  IconMenu(svgPath: 'assets/asap.svg', titleIcon: 'ASAP'),
+  IconMenu(svgPath: 'assets/4 hours.svg', titleIcon: '4Hrs'),
+  IconMenu(svgPath: 'assets/6 hours.svg', titleIcon: '6Hrs'),
+  IconMenu(svgPath: 'assets/sameday.svg', titleIcon: 'Same day'),
+  IconMenu(svgPath: 'assets/next day.svg', titleIcon: 'Next day'),
+  IconMenu(svgPath: 'assets/set later.svg', titleIcon: 'Set later'),
 ];
 
 class ProgressPage2 extends StatefulWidget {
@@ -44,22 +44,32 @@ class _ProgressPage2State extends State<ProgressPage2> {
         itemBuilder: (context, position) {
           return InkWell(
             onTap: () => setState(() => selectedIndex = position),
-            child: Card(
-              color: (selectedIndex == position) ? Colors.green : null,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Pendu.color('5BDB98')),
+                borderRadius: BorderRadius.circular(5.0),
+                color:
+                    (selectedIndex == position) ? Pendu.color('EEFEF5') : null,
+              ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // SvgPicture.asset(
-                  //   svgPath,
-                  //   color: Pendu.color('EE82EE'),
-                  //   width: 50,
-                  //   height: 50,
-                  // ),
-                  Text(
-                    iconList[position].titleIcon,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Pendu.color('5BDB98'),
+                  SvgPicture.asset(
+                    iconList[position].svgPath,
+                    color: Pendu.color('90A0B2'),
+                    width: 50,
+                    height: 50,
+                  ),
+                  Container(
+                    width: 65,
+                    child: Text(
+                      iconList[position].titleIcon,
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Pendu.color('5BDB98'),
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   )
                 ],
@@ -78,76 +88,46 @@ class _ProgressPage2State extends State<ProgressPage2> {
         preferredSize: Size.fromHeight(72),
         child: CommonAppBar('Shop & Drop'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //   Timeline(),
-              ScreenProgress(ticks: 2),
-              SizedBox(
-                height: 15,
-              ),
-              ProgressPageHeader(text: 'Delivery Time'),
-              _deliveryContainer(),
-              SizedBox(
-                height: 5,
-              ),
-              BottomWarringText(
-                  textColor: Pendu.color('FFB44A'),
-                  borderColor: Pendu.color('E8E8E8'),
-                  text:
-                      'You can also sort out the delivery times with your dropper directly, You wonn\'t be charged until you accept an offer'),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CloseButtonCustom(),
-                  ProgressButton(
-                    btnText: 'Review',
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _containerProgressPage2({String svgPath, String text}) {
-    return new Container(
-      width: 160,
-      height: 110,
-      margin: const EdgeInsets.only(top: 15),
-      padding: const EdgeInsets.all(3.0),
-      decoration: BoxDecoration(
-          border: Border.all(color: Pendu.color('5BDB98'), width: 2.0),
-          borderRadius: BorderRadius.circular(5.0)),
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            svgPath,
-            color: Pendu.color('EE82EE'),
-            width: 50,
-            height: 50,
-          ),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Pendu.color('5BDB98'),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //   Timeline(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ScreenProgress(ticks: 2),
+                SizedBox(
+                  height: 15,
+                ),
+                ProgressPageHeader(text: 'Delivery Time'),
+                _deliveryContainer(),
+                BottomWarringText(
+                    textColor: Pendu.color('FFB44A'),
+                    borderColor: Pendu.color('E8E8E8'),
+                    text:
+                        'You can also sort out the delivery times with your dropper directly, You wonn\'t be charged until you accept an offer'),
+              ],
             ),
-          )
-        ],
+
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CloseButtonCustom(),
+                    ProgressButton(
+                      btnText: 'Review',
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

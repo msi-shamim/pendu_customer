@@ -24,6 +24,8 @@ dependencies:
   multi_select_flutter: ^4.0.0
   dotted_line: ^3.0.0
   percent_indicator: ^3.0.1
+  rating_bar: ^0.2.0
+  slide_button: ^0.2.9
 
 dev_dependencies:
   flutter_test:
