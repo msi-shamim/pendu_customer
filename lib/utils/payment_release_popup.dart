@@ -123,20 +123,32 @@ class _PaymentReleasedState extends State<PaymentReleased> {
                 Container(
                   height: 15,
                   width: 160,
-                  child: Slider(
-                    value: _currentSliderValue,
-                    min: 0,
-                    max: 100,
-                    activeColor: Pendu.color('5BDB98'),
-                    inactiveColor: Pendu.color('E8E8E8'),
-                    focusNode: FocusNode(skipTraversal: true),
-                    divisions: 100,
-                    label: _currentSliderValue.round().toString() + '%',
-                    onChanged: (double value) {
-                      setState(() {
-                        _currentSliderValue = value;
-                      });
-                    },
+                  child: SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      //  activeTrackColor: Colors.red,
+                      //   inactiveTrackColor: Colors.green,
+
+                      trackHeight: 4.0,
+                      thumbShape: SliderComponentShape.noThumb,
+                      //overlayColor: Colors.white.withOpacity(.4),
+                      //valueIndicatorColor: Colors.white,
+                      //activeTickMarkColor: Colors.white,
+                      // inactiveTickMarkColor: Colors.red.withOpacity(.7),
+                    ),
+                    child: Slider(
+                      value: _currentSliderValue,
+                      min: 0,
+                      max: 100,
+                      activeColor: Pendu.color('5BDB98'),
+                      inactiveColor: Pendu.color('E8E8E8'),
+                      divisions: 100,
+                      label: _currentSliderValue.round().toString() + '%',
+                      onChanged: (double value) {
+                        setState(() {
+                          _currentSliderValue = value;
+                        });
+                      },
+                    ),
                   ),
                 ),
               ],

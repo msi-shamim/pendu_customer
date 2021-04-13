@@ -11,9 +11,15 @@ import 'package:pendu_customer/splash_screen.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/paymnet_release_popup2.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/utils/select_dropup_point_popup.dart';
+import 'package:pendu_customer/utils/select_picup_point_popup.dart';
 
+import 'Screen/message_screen.dart';
 import 'Screen/order_status.dart';
 import 'Screen/payment_done.dart';
+import 'Screen/select_dropup_point.dart';
+import 'Screen/select_picup_point.dart';
+import 'utils/current_location_popup.dart';
 import 'utils/payment_release_popup.dart';
 import 'Screen/progress_page_3.dart';
 import 'Screen/request_status_error.dart';
@@ -29,7 +35,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: PaymentReleased(),
+      home: ProgressPage1(),
     );
   }
 }
