@@ -26,6 +26,7 @@ dependencies:
   percent_indicator: ^3.0.1
   rating_bar: ^0.2.0
   slide_button: ^0.2.9
+  find_dropdown: ^1.0.0
 
 dev_dependencies:
   flutter_test:

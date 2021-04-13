@@ -74,7 +74,7 @@ class _ProgressPage3State extends State<ProgressPage3> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ScreenProgress(ticks: 3),
+            ScreenProgress(screenValue: 3),
             SizedBox(height: 10),
             DeliverAddressTable(
               colorCode: Colors.grey[200],

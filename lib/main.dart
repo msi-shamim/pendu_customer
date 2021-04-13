@@ -19,6 +19,7 @@ import 'Screen/order_status.dart';
 import 'Screen/payment_done.dart';
 import 'Screen/select_dropup_point.dart';
 import 'Screen/select_picup_point.dart';
+import 'Screen/timline_tile.dart';
 import 'utils/current_location_popup.dart';
 import 'utils/payment_release_popup.dart';
 import 'Screen/progress_page_3.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: ProgressPage1(),
+      home: ProgressPage3(),
     );
   }
 }

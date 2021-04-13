@@ -98,7 +98,7 @@ class _ProgressPage2State extends State<ProgressPage2> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ScreenProgress(ticks: 2),
+                ScreenProgress(screenValue: 2),
                 SizedBox(
                   height: 15,
                 ),
