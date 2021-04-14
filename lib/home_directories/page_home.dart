@@ -9,10 +9,6 @@ import 'package:pendu_customer/home_directories/first_card.dart';
 import 'package:pendu_customer/home_directories/image_carousel.dart';
 import 'package:pendu_customer/utils/PenduAppBar.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
-import 'package:pendu_customer/utils/progress_page_headertext.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'announcement_container.dart';
-import 'box_section.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,7 +23,7 @@ final List<String> _imageItems = [
   'assets/banner_02.png',
 ];
 
-final List<String> _drivers = [
+final List<String> _drivers =[
   'assets/driver_image.png',
   'assets/driver_image.png',
   'assets/driver_image.png',
@@ -60,9 +56,8 @@ class _HomeState extends State<HomePage> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: _drivers.length,
-                  itemBuilder: (BuildContext context, int i) =>
-                      DriverCard(_drivers[i]),
-                  separatorBuilder: (BuildContext context, int i2) => Divider(),
+                  itemBuilder: (BuildContext context, int i)=> DriverCard(_drivers[i]),
+                  separatorBuilder: (BuildContext context, int i2)=>Divider(),
                 ),
               )
             ],
@@ -77,15 +72,14 @@ class _HomeState extends State<HomePage> {
               ],
             ),
           ),
+          Card(
+            child: Column(
+              children: [
+                Breadcamp('Recent Drops Around You', null),
 
-          //Todo Rexent drops card slide
-          //todo Announcement
-          ProgressPageHeader(text: 'Announcement'),
-          Announcement(),
-
-          //Todo four card
-          BoxSection(),
-          //Todo Blog post
+              ],
+            ),
+          )
         ],
       ),
     );

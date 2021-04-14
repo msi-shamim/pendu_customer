@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class RecentDrop {
-  final String title;
-  final String product;
-  RecentDrop({this.title, this.product});
+class RecentDrops extends StatefulWidget{
+
+  @override
+  State<StatefulWidget> createState() => _DropState();
+
 }
 
-class RecentDrops extends StatelessWidget {
+class _DropState extends State<RecentDrops>{
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  Widget build(BuildContext context) => Container();
+
 }
