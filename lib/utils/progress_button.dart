@@ -3,7 +3,8 @@ import 'package:pendu_customer/utils/pendu_theme.dart';
 
 class ProgressButton extends StatelessWidget {
   final String btnText;
-  ProgressButton({this.btnText});
+  final Function onPressed;
+  ProgressButton({this.btnText, this.onPressed});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +12,7 @@ class ProgressButton extends StatelessWidget {
       height: 40,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: Pendu.color('60E99C')),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
           btnText,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),

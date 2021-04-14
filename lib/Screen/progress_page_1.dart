@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:pendu_customer/Screen/progress_page_2.dart';
+import 'package:pendu_customer/Screen/select_picup_point.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/close_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
@@ -237,9 +240,9 @@ class _ProgressPage1State extends State<ProgressPage1> {
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    prefixIcon: const Icon(
-                      Icons.money_outlined,
-                      color: Colors.green,
+                    prefixIcon: Icon(
+                      FontAwesomeIcons.dollarSign,
+                      color: Pendu.color('5BDB98'),
                     ),
                   ),
                 ),
@@ -299,7 +302,16 @@ class _ProgressPage1State extends State<ProgressPage1> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CloseButtonCustom(),
-                  ProgressButton(btnText: 'Next')
+                  ProgressButton(
+                    btnText: 'Next',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SelectPicupPoint()),
+                      );
+                    },
+                  )
                 ],
               ),
               SizedBox(height: 10),

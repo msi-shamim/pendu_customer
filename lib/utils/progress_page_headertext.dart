@@ -7,7 +7,7 @@ class ProgressPageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
       textAlign: TextAlign.start,
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Screen/select_dropup_point.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 class PickupPointPopUP extends StatelessWidget {
@@ -58,7 +59,13 @@ class PickupPointPopUP extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     primary: Colors.transparent, elevation: 0.0),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SelectDropupPoint()),
+                  );
+                },
                 child: Text(
                   'Confirm',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),

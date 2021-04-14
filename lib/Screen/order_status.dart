@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/payment_release_popup.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
@@ -228,7 +229,13 @@ class OrderStatus extends StatelessWidget {
                       width: MediaQuery.of(context).size.width / 2 - 60,
                       height: 40,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                               primary: Pendu.color('5BDB98')),
                           child: Row(

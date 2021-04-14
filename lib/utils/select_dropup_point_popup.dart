@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/Screen/progress_page_2.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 class DropupPointPopUP extends StatelessWidget {
@@ -91,7 +92,12 @@ class DropupPointPopUP extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     primary: Colors.transparent, elevation: 0.0),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProgressPage2()),
+                  );
+                },
                 child: Text(
                   'Confirm',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pendu_customer/Screen/request_status_error.dart';
+import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/close_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
@@ -130,7 +132,13 @@ class _RequestStatusState extends State<RequestStatus> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Pendu.color('FFCE8A')),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RequestStatusError()),
+                          );
+                        },
                         child: Text(
                           'Cancel',
                           style: TextStyle(
@@ -146,7 +154,12 @@ class _RequestStatusState extends State<RequestStatus> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             primary: Pendu.color('5BDB98')),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        },
                         child: Text(
                           'Home',
                           style: TextStyle(

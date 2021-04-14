@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class PenduAppBar extends StatefulWidget {
   @override
@@ -11,7 +12,6 @@ class PenduAppBar extends StatefulWidget {
 class _PenduAppBarState extends State<PenduAppBar> {
   @override
   Widget build(BuildContext context) {
-
     return PreferredSize(
       preferredSize: Size.fromHeight(300),
       child: Container(
@@ -32,7 +32,10 @@ class _PenduAppBarState extends State<PenduAppBar> {
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 2, right: 12, top: 0, bottom: 0),
-                  child: Image.asset('assets/logo.png', height: 32, width: 32),
+                  child: Image.asset('assets/logo.png',
+                      height: 32,
+                      width: 32,
+                      color: Theme.of(context).accentColor),
                 ),
                 Text(
                   'pendu',
@@ -42,12 +45,20 @@ class _PenduAppBarState extends State<PenduAppBar> {
               ],
             ),
             actions: [
-              IconButton(
-                  icon: Icon(Icons.notifications_none_rounded),
-                  onPressed: () => null),
-              IconButton(
-                  icon: Icon(Icons.account_circle_outlined),
-                  onPressed: () => null),
+              SvgPicture.asset(
+                'assets/notification.svg',
+                height: 32,
+                width: 32,
+                color: Theme.of(context).accentColor,
+              ),
+              SizedBox(width: 10.0),
+              SvgPicture.asset(
+                'assets/profile app.svg',
+                height: 32,
+                width: 32,
+                color: Theme.of(context).accentColor,
+              ),
+              SizedBox(width: 15.0),
             ],
           ),
         ),

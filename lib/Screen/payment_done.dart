@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/Screen/message_screen.dart';
+import 'package:pendu_customer/Screen/order_status.dart';
+import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
@@ -64,7 +67,13 @@ class PaymentDone extends StatelessWidget {
                       width: MediaQuery.of(context).size.width / 2 - 70,
                       height: 40,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MessageScreeen()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                               primary: Pendu.color('5BDB98')),
                           child: Row(
@@ -87,7 +96,13 @@ class PaymentDone extends StatelessWidget {
                       width: MediaQuery.of(context).size.width / 2 + 10,
                       height: 40,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderStatus()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                               primary: Colors.orange[200]),
                           child: Row(
@@ -116,7 +131,12 @@ class PaymentDone extends StatelessWidget {
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(5.0)),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(primary: Colors.white),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

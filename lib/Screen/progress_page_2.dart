@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/Screen/progress_page_3.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/Screen/screen_progress.dart';
 import 'package:pendu_customer/utils/close_button.dart';
@@ -121,6 +122,13 @@ class _ProgressPage2State extends State<ProgressPage2> {
                     CloseButtonCustom(),
                     ProgressButton(
                       btnText: 'Review',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProgressPage3()),
+                        );
+                      },
                     ),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/Screen/checkout.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
@@ -245,7 +246,13 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                     Container(
                         width: double.infinity,
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CheckOut()),
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                                 primary: Pendu.color('5BDB98')),
                             child: Text('Accept Offer')))

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pendu_customer/auth_pages/register_page.dart';
+import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/circular_login_logo.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
@@ -49,6 +51,10 @@ class _LogInPageState extends State<LogInPage> {
               ),
               AuthButton(
                 btnText: 'Login',
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
+                },
               ),
               SizedBox(
                 height: 10,
@@ -78,6 +84,7 @@ class _LogInPageState extends State<LogInPage> {
                   SizedBox(
                     width: 20,
                   ),
+
                   CircularLoginLogo(
                     imgPath: 'assets/facebook.png',
                   ),
@@ -90,8 +97,13 @@ class _LogInPageState extends State<LogInPage> {
                   SizedBox(
                     width: 10,
                   ),
-                  CircularLoginLogo(
-                    imgPath: 'assets/apple.png',
+                  // CircularLoginLogo(
+                  //   imgPath: 'assets/apple.png',
+                  // ),
+                  SvgPicture.asset(
+                    'assets/apple.svg',
+                    height: 28,
+                    width: 28,
                   ),
                 ],
               ),
@@ -112,7 +124,10 @@ class _LogInPageState extends State<LogInPage> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => print("Register!"),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterPage())),
                     child: Text(
                       "Register!",
                       style: TextStyle(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Screen/payment_done.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/delivery_address_table.dart';
@@ -230,7 +231,13 @@ class _CheckOutState extends State<CheckOut> {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary: Colors.orange[200]),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PaymentDone()),
+                            );
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
