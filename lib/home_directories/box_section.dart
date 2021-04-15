@@ -24,7 +24,7 @@ class BoxSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 340,
+      height: 280,
       // color: Colors.blue,
       child: GridView.builder(
         itemCount: iconList.length,

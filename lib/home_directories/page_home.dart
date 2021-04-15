@@ -7,12 +7,14 @@ import 'package:pendu_customer/home_directories/breadcramp.dart';
 import 'package:pendu_customer/home_directories/driver_card.dart';
 import 'package:pendu_customer/home_directories/first_card.dart';
 import 'package:pendu_customer/home_directories/image_carousel.dart';
+import 'package:pendu_customer/home_directories/recent_drops.dart';
 import 'package:pendu_customer/utils/PenduAppBar.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'announcement_container.dart';
 import 'box_section.dart';
+import 'our_blog.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -77,15 +79,19 @@ class _HomeState extends State<HomePage> {
               ],
             ),
           ),
-
+          SizedBox(height: 10),
           //Todo Rexent drops card slide
+          ProgressPageHeader(text: 'Recent Drops Around You'),
+          RecentDrops(),
           //todo Announcement
           ProgressPageHeader(text: 'Announcement'),
           Announcement(),
 
           //Todo four card
-          BoxSection(),
+          Expanded(child: BoxSection()),
           //Todo Blog post
+          ProgressPageHeader(text: 'Our Blog'),
+          Expanded(child: OurBlog()),
         ],
       ),
     );
