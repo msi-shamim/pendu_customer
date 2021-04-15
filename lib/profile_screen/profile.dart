@@ -4,6 +4,8 @@ import 'package:pendu_customer/Screen/progress_page_3.dart';
 
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
+import 'menu_button_icon.dart';
+
 class UserProfile extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
@@ -28,16 +30,16 @@ class _UserProfileState extends State<UserProfile> {
 
   Widget _buildAppbar() {
     return PreferredSize(
-        preferredSize: Size.fromHeight(250),
+        preferredSize: Size.fromHeight(200),
         //Full Container
         child: Container(
           padding: EdgeInsets.only(top: 20, right: 10.0, left: 10.0),
-          height: 300,
+          height: 200,
           //  color: Pendu.color('1B3149'), //Theme.of(context).accentColor,
           decoration: BoxDecoration(
               image: DecorationImage(
             image: AssetImage('assets/profile_back.png'),
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           )),
           //Circle 1
           child: Row(
@@ -49,49 +51,72 @@ class _UserProfileState extends State<UserProfile> {
                 color: Colors.white,
               ),
               CircleAvatar(
-                radius: 125,
-                backgroundColor: Pendu.color('707070'),
-
-                //Circle 2
-                child: CircleAvatar(
-                  radius: 90,
-                  backgroundColor: Pendu.color('808200'),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      //circle 3
-                      CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Pendu.color('909090'),
-                        child:
-                            //circle 4
-                            CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg'),
-                          radius: 35,
+                radius: 90,
+                backgroundColor: Pendu.color('1B3149'),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    //circle 3
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 45,
+                          backgroundColor: Pendu.color('283848'),
+                          child:
+                              //circle 4
+                              CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                'https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg'),
+                            radius: 35,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Jenifer Doe',
-                        style: TextStyle(
-                            color: Pendu.color('5BDB98'), fontSize: 18),
-                      ),
-                      Text(
-                        '+61 0215563***',
-                        style: TextStyle(
-                            color: Pendu.color('90A0B2'), fontSize: 14),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      )
-                    ],
-                  ),
+                        Positioned(
+                          top: 40,
+                          right: 4,
+                          child: InkWell(
+                            onTap: () {},
+                            child: CircleAvatar(
+                              backgroundColor: Pendu.color(
+                                '60E99C',
+                              ),
+                              radius: 8,
+                              child: Icon(
+                                Icons.edit_outlined,
+                                size: 15,
+                                color: Pendu.color(
+                                  'ffffff',
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Text(
+                      'Jenifer Doe',
+                      style:
+                          TextStyle(color: Pendu.color('5BDB98'), fontSize: 18),
+                    ),
+                    Text(
+                      '+61 0215563***',
+                      style:
+                          TextStyle(color: Pendu.color('90A0B2'), fontSize: 14),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    )
+                  ],
                 ),
               ),
-              Icon(
-                Icons.more_vert,
-                color: Colors.white,
+              PopupMenuButton(
+                child: Icon(
+                  Icons.more_vert,
+                  color: Colors.white,
+                ),
+                itemBuilder: (context) => [
+                  PopupMenuItem(child: MenuButtonList()),
+                ],
               ),
             ],
           ),

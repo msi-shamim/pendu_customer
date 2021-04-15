@@ -80,185 +80,188 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
       child: ListView.builder(
         itemCount: driverList.length,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-              // padding: EdgeInsets.only(left: 10),
-              height: 160,
-              width: double.infinity,
-              child: Card(
-                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                elevation: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    //Avobe Row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        //left side column
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        '${driverList[index].picUrl}'),
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
-
-                            Text(driverList[index].name),
-                            //Ratings Row
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                  size: 14,
-                                ),
-                                Text(driverList[index].ratings),
-                              ],
-                            )
-                          ],
-                        ),
-//Average Accurency Colimn
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CircularPercentIndicator(
-                              radius: 40.0,
-                              lineWidth: 5.0,
-                              percent:
-                                  driverList[index].averageAccuracy.toDouble() /
-                                      100,
-                              center: new Text(
-                                '${driverList[index].averageAccuracy}' + '%',
-                                style: new TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13.0),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                              progressColor: Pendu.color('5BDB98'),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              'Average\nAccuracy',
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-//Success Rate Column
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CircularPercentIndicator(
-                              radius: 40.0,
-                              lineWidth: 5.0,
-                              percent:
-                                  driverList[index].successRate.toDouble() /
-                                      100,
-                              center: new Text(
-                                '${driverList[index].successRate}' + '%',
-                                style: new TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13.0),
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                              progressColor: Pendu.color('5BDB98'),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              'Success\nRate',
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-//Vehicle Type Column
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SvgPicture.asset(
-                              driverList[index].vehicletype,
-                              color: Pendu.color('5BDB98'),
-                              width: 35,
-                              height: 35,
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              'Vehicle\nType',
-                              textAlign: TextAlign.center,
-                            )
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  width: 25,
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: CircleAvatar(
-                                    radius: 10.0,
-                                    backgroundColor: Colors.grey[400],
-                                    child: Text(
-                                      'X',
-                                      style: TextStyle(color: Colors.red),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
+          return SingleChildScrollView(
+            child: Container(
+                // padding: EdgeInsets.only(left: 10),
+                height: 160,
+                width: double.infinity,
+                child: Card(
+                  margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+                  elevation: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      //Avobe Row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //left side column
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
                                 height: 50,
-                                width: 80,
+                                width: 50,
                                 decoration: BoxDecoration(
-                                    color: Colors.red[50],
-                                    border: Border.all(
-                                      color: Colors.transparent,
-                                    ),
-                                    borderRadius: BorderRadius.horizontal(
-                                        left: Radius.circular(20))),
-                                child: Center(
-                                  child: Text(
-                                    '\$' + driverList[index].offerPrice,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 22,
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          '${driverList[index].picUrl}'),
+                                      fit: BoxFit.cover),
+                                ),
+                              ),
+
+                              Text(driverList[index].name),
+                              //Ratings Row
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                    size: 14,
+                                  ),
+                                  Text(driverList[index].ratings),
+                                ],
+                              )
+                            ],
+                          ),
+//Average Accurency Colimn
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CircularPercentIndicator(
+                                radius: 40.0,
+                                lineWidth: 5.0,
+                                percent: driverList[index]
+                                        .averageAccuracy
+                                        .toDouble() /
+                                    100,
+                                center: new Text(
+                                  '${driverList[index].averageAccuracy}' + '%',
+                                  style: new TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13.0),
+                                ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                                progressColor: Pendu.color('5BDB98'),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Average\nAccuracy',
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+//Success Rate Column
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CircularPercentIndicator(
+                                radius: 40.0,
+                                lineWidth: 5.0,
+                                percent:
+                                    driverList[index].successRate.toDouble() /
+                                        100,
+                                center: new Text(
+                                  '${driverList[index].successRate}' + '%',
+                                  style: new TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13.0),
+                                ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                                progressColor: Pendu.color('5BDB98'),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Success\nRate',
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+//Vehicle Type Column
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset(
+                                driverList[index].vehicletype,
+                                color: Pendu.color('5BDB98'),
+                                width: 35,
+                                height: 35,
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Vehicle\nType',
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  SizedBox(
+                                    width: 25,
+                                  ),
+                                  InkWell(
+                                    onTap: () {},
+                                    child: CircleAvatar(
+                                      radius: 10.0,
+                                      backgroundColor: Colors.grey[400],
+                                      child: Text(
+                                        'X',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
                                     ),
                                   ),
-                                ))
-                          ],
-                        )
-                      ],
-                    ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                  height: 50,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      color: Colors.red[50],
+                                      border: Border.all(
+                                        color: Colors.transparent,
+                                      ),
+                                      borderRadius: BorderRadius.horizontal(
+                                          left: Radius.circular(20))),
+                                  child: Center(
+                                    child: Text(
+                                      '\$' + driverList[index].offerPrice,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                      ),
+                                    ),
+                                  ))
+                            ],
+                          )
+                        ],
+                      ),
 
-                    //Button Container
-                    Container(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CheckOut()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                primary: Pendu.color('5BDB98')),
-                            child: Text('Accept Offer')))
-                  ],
-                ),
-              ));
+                      //Button Container
+                      Container(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CheckOut()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  primary: Pendu.color('5BDB98')),
+                              child: Text('Accept Offer')))
+                    ],
+                  ),
+                )),
+          );
         },
       ),
     );

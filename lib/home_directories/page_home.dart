@@ -88,10 +88,10 @@ class _HomeState extends State<HomePage> {
           Announcement(),
 
           //Todo four card
-          Expanded(child: BoxSection()),
+          BoxSection(),
           //Todo Blog post
           ProgressPageHeader(text: 'Our Blog'),
-          Expanded(child: OurBlog()),
+          OurBlog(),
         ],
       ),
     );

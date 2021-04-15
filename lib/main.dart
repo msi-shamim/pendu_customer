@@ -7,7 +7,9 @@ import 'package:pendu_customer/Screen/request_status.dart';
 import 'package:pendu_customer/Screen/screen_progress.dart';
 import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/auth_pages/register_page.dart';
+import 'package:pendu_customer/profile_screen/my_profile.dart';
 import 'package:pendu_customer/profile_screen/profile.dart';
+import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/splash_screen.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/paymnet_release_popup2.dart';
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: HomePage(),
+      home: MyProfile(),
     );
   }
 }

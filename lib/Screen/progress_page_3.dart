@@ -68,57 +68,59 @@ class _ProgressPage3State extends State<ProgressPage3> {
         preferredSize: Size.fromHeight(72),
         child: CommonAppBar('Place & Request'),
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ScreenProgress(screenValue: 3),
-            SizedBox(height: 10),
-            DeliverAddressTable(
-              colorCode: Colors.grey[200],
-            ),
-            SizedBox(height: 10),
-            ProgressPageHeader(
-              text: 'Delivery Time',
-            ),
-            _deliveryContainer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Item Cost'),
-                Container(
-                  height: 50,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.green),
-                    color: Colors.green[50],
-                  ),
-                  child: Center(
-                    child: Text(
-                      '\$ 251',
-                      style: TextStyle(fontSize: 24, color: Colors.green),
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ScreenProgress(screenValue: 3),
+              SizedBox(height: 10),
+              DeliverAddressTable(
+                colorCode: Colors.grey[200],
+              ),
+              SizedBox(height: 10),
+              ProgressPageHeader(
+                text: 'Delivery Time',
+              ),
+              _deliveryContainer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Item Cost'),
+                  Container(
+                    height: 50,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.green),
+                      color: Colors.green[50],
                     ),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 150,
-            ),
-            AuthButton(
-              btnText: 'Post Delivery Request',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ReceivedOffers()),
-                );
-              },
-            ),
-          ],
+                    child: Center(
+                      child: Text(
+                        '\$ 251',
+                        style: TextStyle(fontSize: 24, color: Colors.green),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 150,
+              ),
+              AuthButton(
+                btnText: 'Post Delivery Request',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ReceivedOffers()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

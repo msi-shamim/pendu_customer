@@ -89,52 +89,44 @@ class _ProgressPage2State extends State<ProgressPage2> {
         preferredSize: Size.fromHeight(72),
         child: CommonAppBar('Shop & Drop'),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //   Timeline(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ScreenProgress(screenValue: 2),
-                SizedBox(
-                  height: 15,
-                ),
-                ProgressPageHeader(text: 'Delivery Time'),
-                _deliveryContainer(),
-                BottomWarringText(
-                    textColor: Pendu.color('FFB44A'),
-                    borderColor: Pendu.color('E8E8E8'),
-                    text:
-                        'You can also sort out the delivery times with your dropper directly, You wonn\'t be charged until you accept an offer'),
-              ],
-            ),
-
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CloseButtonCustom(),
-                    ProgressButton(
-                      btnText: 'Review',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProgressPage3()),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              //   Timeline(),
+              ScreenProgress(screenValue: 2),
+              SizedBox(
+                height: 15,
+              ),
+              ProgressPageHeader(text: 'Delivery Time'),
+              _deliveryContainer(),
+              BottomWarringText(
+                  textColor: Pendu.color('FFB44A'),
+                  borderColor: Pendu.color('E8E8E8'),
+                  text:
+                      'You can also sort out the delivery times with your dropper directly, You wonn\'t be charged until you accept an offer'),
+              SizedBox(height: 65),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CloseButtonCustom(),
+                  ProgressButton(
+                    btnText: 'Review',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProgressPage3()),
+                      );
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
