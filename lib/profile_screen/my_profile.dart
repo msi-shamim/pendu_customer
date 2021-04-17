@@ -10,7 +10,7 @@ class MyProfile extends StatefulWidget {
 
 class _MyProfileState extends State<MyProfile> {
   Widget _builtTextField(
-      {String title, String svgUrl, String hinText, double hight = 0}) {
+      {String title, String svgUrl, String hinText, int maxline = 1}) {
     return Column(
       children: [
         Row(
@@ -27,17 +27,25 @@ class _MyProfileState extends State<MyProfile> {
         ),
         SizedBox(height: 10.0),
         Container(
-          height: hight != 0 ? hight : 40,
+          //   height: hight != 0 ? hight : 200,
+          // decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0)),
           child: TextFormField(
+            maxLines: (maxline == 1) ? 1 : maxline,
             decoration: InputDecoration(
               hintText: hinText,
               filled: true,
               fillColor: Pendu.color('F9F9F9'),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(
-                    color: Colors.red,
-                  )),
+              border: InputBorder.none,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Pendu.color('F9F9F9'),
+                ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              contentPadding:
+                  EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Pendu.color('5BDB98'),
@@ -56,7 +64,10 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(150), child: ProfileCommonAppbar()),
+          preferredSize: Size.fromHeight(150),
+          child: ProfileCommonAppbar(
+            title: 'My profile',
+          )),
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -84,7 +95,7 @@ class _MyProfileState extends State<MyProfile> {
                     title: 'Suburb',
                     svgUrl: 'assets/location.svg',
                     hinText: 'Enter your suburb',
-                    hight: 70),
+                    maxline: 5),
                 _builtTextField(
                     title: 'Phone No',
                     svgUrl: 'assets/telephone.svg',
@@ -95,21 +106,29 @@ class _MyProfileState extends State<MyProfile> {
                     svgUrl: 'assets/unlock.svg',
                     hinText: '*** *** *** ***'),
                 SizedBox(height: 50),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 50,
-                    width: MediaQuery.of(context).size.width - 50,
-                    decoration: BoxDecoration(
+
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 50,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      primary: Pendu.color('5BDB98'),
+                      onPrimary: Colors.white,
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        color: Pendu.color('5BDB98')),
+                      ),
+                      // side: BorderSide(
+                      //   color: Pendu.color('90A0B2'),
+                      // ),
+                    ),
                     child: Text(
                       'Save',
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
