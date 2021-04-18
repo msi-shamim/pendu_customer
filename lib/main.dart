@@ -7,7 +7,11 @@ import 'package:pendu_customer/Screen/request_status.dart';
 import 'package:pendu_customer/Screen/screen_progress.dart';
 import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/auth_pages/register_page.dart';
+import 'package:pendu_customer/profile_screen/app_permission.dart';
+import 'package:pendu_customer/profile_screen/app_version_popup.dart';
 import 'package:pendu_customer/profile_screen/become_driver.dart';
+import 'package:pendu_customer/profile_screen/become_driver_form.dart';
+import 'package:pendu_customer/profile_screen/chat_support.dart';
 import 'package:pendu_customer/profile_screen/my_profile.dart';
 import 'package:pendu_customer/profile_screen/payment_history.dart';
 import 'package:pendu_customer/profile_screen/profile.dart';
@@ -28,6 +32,7 @@ import 'Screen/select_picup_point.dart';
 import 'Screen/timline_tile.dart';
 import 'home_directories/page_home.dart';
 import 'home_directories/policies.dart';
+import 'profile_screen/congratulation_page.dart';
 import 'utils/current_location_popup.dart';
 import 'utils/payment_release_popup.dart';
 import 'Screen/progress_page_3.dart';
@@ -44,7 +49,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: Policies(),
+      home: ChatSupport(),
     );
   }
 }

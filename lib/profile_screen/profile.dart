@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/Screen/progress_page_3.dart';
+import 'package:pendu_customer/profile_screen/app_version_popup.dart';
 
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
@@ -337,10 +338,11 @@ class _UserProfileState extends State<UserProfile> {
                               title: 'Policies')),
                       InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  AppVersionPopUp(),
+                            );
                           },
                           child: _menuItem(
                               imgLink: 'assets/app version.svg',

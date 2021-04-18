@@ -5,10 +5,34 @@ import 'package:pendu_customer/Model/recent_drop_model.dart';
 import 'package:pendu_customer/network_data/recent_drop_network.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
-RecentDrop recentDropVar;
+List<RecentDrop> _recentDropList = [
+  RecentDrop(
+      imgUrl:
+          "https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg",
+      title: 'Buy some groceries for me',
+      product: 'x3',
+      price: 30,
+      ratings: 5.00),
+  RecentDrop(
+      imgUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-51Utmw56FMBsmHRdRVn8awPHOdTeu0Qsiw&usqp=CAU",
+      title: 'Shifted home to other city',
+      product: 'x10',
+      price: 200,
+      ratings: 4.0),
+  RecentDrop(
+      imgUrl:
+          "https://cdn.fastly.picmonkey.com/contentful/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=800&q=70",
+      title: 'Transfer Electronics',
+      product: 'x5',
+      price: 50,
+      ratings: 4.5),
+];
+// RecentDropNetwork cVar = new RecentDropNetwork();
+// RecentDrop mVar = new RecentDrop();
+// List<RecentDrop> variB = mVar._recenDropList;
 
 class RecentDrops extends StatelessWidget {
-  var _recenDropList;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +40,8 @@ class RecentDrops extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         separatorBuilder: (BuildContext context, int i2) => Divider(),
-        itemCount: _recenDropList.length,
+        //todo
+        itemCount: _recentDropList.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -34,7 +59,7 @@ class RecentDrops extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.0),
                       image: DecorationImage(
-                        image: NetworkImage(_recenDropList[index].imgUrl),
+                        image: NetworkImage(_recentDropList[index].imgUrl),
                         fit: BoxFit.cover,
                       )),
                 ),
@@ -43,14 +68,14 @@ class RecentDrops extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                        width: 130, child: Text(_recenDropList[index].title)),
+                        width: 130, child: Text(_recentDropList[index].title)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(_recenDropList[index].product),
+                        Text(_recentDropList[index].product),
                         SizedBox(width: 65),
-                        Text('\$${_recenDropList[index].price}',
+                        Text('\$${_recentDropList[index].price}',
                             style: TextStyle(fontSize: 16)),
                       ],
                     ),
@@ -63,7 +88,7 @@ class RecentDrops extends StatelessWidget {
                           color: Pendu.color('FFB44A'),
                         ),
                         SizedBox(width: 5.0),
-                        Text('${_recenDropList[index].ratings}'),
+                        Text('${_recentDropList[index].ratings}'),
                       ],
                     )
                   ],
