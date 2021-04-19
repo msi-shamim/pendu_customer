@@ -17,6 +17,7 @@ import 'package:pendu_customer/profile_screen/payment_history.dart';
 import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/profile_screen/profile_notification.dart';
+import 'package:pendu_customer/profile_screen/recent_deliveries.dart';
 import 'package:pendu_customer/splash_screen.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/paymnet_release_popup2.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: ChatSupport(),
+      home: RecentDeliveries(),
     );
   }
 }
