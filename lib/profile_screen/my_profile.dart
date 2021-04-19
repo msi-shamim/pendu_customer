@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
@@ -68,18 +69,18 @@ class _MyProfileState extends State<MyProfile> {
           child: ProfileCommonAppbar(
             title: 'My profile',
           )),
-      body: SingleChildScrollView(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Pendu.color('1B3149'),
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Pendu.color('1B3149'),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0))),
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0))),
+          child: SingleChildScrollView(
             child: Column(
               children: [
                 //todo
@@ -111,7 +112,12 @@ class _MyProfileState extends State<MyProfile> {
                   width: MediaQuery.of(context).size.width - 50,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserProfile()));
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       primary: Pendu.color('5BDB98'),

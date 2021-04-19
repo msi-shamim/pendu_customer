@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
+import 'congratulation_page.dart';
+
 class BecomeDriverForm extends StatelessWidget {
   Widget _builtTextField(
       {String title, String svgUrl, String hinText, bool isSufix = false}) {
@@ -149,7 +151,12 @@ class BecomeDriverForm extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 30,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CongratulationPage()));
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       primary: Pendu.color('5BDB98'),

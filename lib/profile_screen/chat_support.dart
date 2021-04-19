@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Screen/message_screen.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'profile_common_appbar.dart';
@@ -85,94 +86,103 @@ class _ChatSupportState extends State<ChatSupport> {
             shrinkWrap: true,
             itemCount: _chatList.length,
             itemBuilder: (context, index) {
-              return Container(
-                width: double.infinity,
-                //color: Colors.red,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    //todo Image and online
-                    Stack(
-                      children: [
-                        CircleAvatar(
-                          radius: 28,
-                          backgroundColor: Pendu.color('5BDB98'),
-                          child: CircleAvatar(
-                            radius: 27,
-                            backgroundImage:
-                                NetworkImage(_chatList[index].imgUrl),
-                          ),
-                        ),
-                        (_chatList[index].isOnline)
-                            ? Positioned(
-                                bottom: 10,
-                                right: 0,
-                                child: CircleAvatar(
-                                  radius: 5,
-                                  backgroundColor: Pendu.color('5BDB98'),
-                                ),
-                              )
-                            : SizedBox(),
-                      ],
-                    ),
-                    Container(
-                      // color: Colors.blue,
-                      width: MediaQuery.of(context).size.width - 90,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MessageScreeen()),
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  //color: Colors.red,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      //todo Image and online
+                      Stack(
                         children: [
-                          //todo name & date
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                _chatList[index].name,
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              Row(
-                                children: [
-                                  (_chatList[index].isDeliver)
-                                      ? Icon(
-                                          Icons.check,
-                                          size: 12,
-                                        )
-                                      : SizedBox(),
-                                  Text(
-                                    _chatList[index].date,
-                                    style: TextStyle(fontSize: 12),
+                          CircleAvatar(
+                            radius: 28,
+                            backgroundColor: Pendu.color('5BDB98'),
+                            child: CircleAvatar(
+                              radius: 27,
+                              backgroundImage:
+                                  NetworkImage(_chatList[index].imgUrl),
+                            ),
+                          ),
+                          (_chatList[index].isOnline)
+                              ? Positioned(
+                                  bottom: 10,
+                                  right: 0,
+                                  child: CircleAvatar(
+                                    radius: 5,
+                                    backgroundColor: Pendu.color('5BDB98'),
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 5.0),
-                          //todo last msg & msg number
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                _chatList[index].lastMsg,
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black54),
-                              ),
-                              (_chatList[index].mssgUnseenNumber == 0)
-                                  ? SizedBox()
-                                  : CircleAvatar(
-                                      radius: 8,
-                                      backgroundColor: Pendu.color('5BDB98'),
-                                      child: Text(
-                                        '${_chatList[index].mssgUnseenNumber}',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 12),
-                                      ),
-                                    )
-                            ],
-                          ),
+                                )
+                              : SizedBox(),
                         ],
                       ),
-                    )
-                  ],
+                      Container(
+                        // color: Colors.blue,
+                        width: MediaQuery.of(context).size.width - 90,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            //todo name & date
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  _chatList[index].name,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Row(
+                                  children: [
+                                    (_chatList[index].isDeliver)
+                                        ? Icon(
+                                            Icons.check,
+                                            size: 12,
+                                          )
+                                        : SizedBox(),
+                                    Text(
+                                      _chatList[index].date,
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5.0),
+                            //todo last msg & msg number
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  _chatList[index].lastMsg,
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.black54),
+                                ),
+                                (_chatList[index].mssgUnseenNumber == 0)
+                                    ? SizedBox()
+                                    : CircleAvatar(
+                                        radius: 8,
+                                        backgroundColor: Pendu.color('5BDB98'),
+                                        child: Text(
+                                          '${_chatList[index].mssgUnseenNumber}',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                      )
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
             },

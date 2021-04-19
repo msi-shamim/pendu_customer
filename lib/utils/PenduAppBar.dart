@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/profile_screen/profile.dart';
+import 'package:pendu_customer/profile_screen/profile_notification.dart';
 
 class PenduAppBar extends StatefulWidget {
   @override
@@ -15,7 +17,14 @@ class _PenduAppBarState extends State<PenduAppBar> {
     return PreferredSize(
       preferredSize: Size.fromHeight(300),
       child: Container(
-        color: Theme.of(context).accentColor,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(0),
+              topRight: Radius.circular(0),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16)),
+          color: Theme.of(context).accentColor,
+        ),
         child: Padding(
           padding: const EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 4),
           child: AppBar(
@@ -45,18 +54,32 @@ class _PenduAppBarState extends State<PenduAppBar> {
               ],
             ),
             actions: [
-              SvgPicture.asset(
-                'assets/notification.svg',
-                height: 32,
-                width: 32,
-                color: Theme.of(context).accentColor,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileNotification()));
+                },
+                child: SvgPicture.asset(
+                  'assets/notification.svg',
+                  height: 32,
+                  width: 32,
+                  color: Theme.of(context).accentColor,
+                ),
               ),
               SizedBox(width: 10.0),
-              SvgPicture.asset(
-                'assets/profile app.svg',
-                height: 32,
-                width: 32,
-                color: Theme.of(context).accentColor,
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => UserProfile()));
+                },
+                child: SvgPicture.asset(
+                  'assets/profile app.svg',
+                  height: 32,
+                  width: 32,
+                  color: Theme.of(context).accentColor,
+                ),
               ),
               SizedBox(width: 15.0),
             ],

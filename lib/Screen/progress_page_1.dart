@@ -149,36 +149,7 @@ class _ProgressPage1State extends State<ProgressPage1> {
               SizedBox(height: 8),
               //Todo
               _multiSelectedField(),
-              // Container(
-              //     width: double.infinity,
-              //     height: 35,
-              //     color: Pendu.color('F1F1F1'),
-              //     padding: EdgeInsets.symmetric(horizontal: 10),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: [
-              //         Text(
-              //           'Tap to select your categories',
-              //           style: TextStyle(
-              //             color: Pendu.color('4CB08A'),
-              //           ),
-              //         ),
-              //         IconButton(
-              //             padding: EdgeInsets.only(left: 20),
-              //             onPressed: () {
-              //               showDialog(
-              //                 context: context,
-              //                 builder: (BuildContext context) =>
-              //                     _buildPopupDialog(context),
-              //               );
-              //             },
-              //             icon: Icon(
-              //               Icons.arrow_forward_ios,
-              //               color: Pendu.color('90A0B2'),
-              //               size: 16,
-              //             ))
-              //       ],
-              //     )),
+
               SizedBox(height: 10),
               ProgressPageHeader(text: 'Products'),
               SizedBox(height: 8),
@@ -240,10 +211,21 @@ class _ProgressPage1State extends State<ProgressPage1> {
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    prefixIcon: Icon(
-                      FontAwesomeIcons.dollarSign,
-                      color: Pendu.color('5BDB98'),
+                    prefixIcon: Container(
+                      width: 10,
+                      alignment: Alignment.center,
+                      child: Text(
+                        "\$",
+                        style: TextStyle(
+                            color: Pendu.color('5BDB98'), fontSize: 20),
+                      ),
                     ),
+                    //Icon(
+                    //   FontAwesomeIcons.dollarSign,
+
+                    //   size: 18,
+                    //   color: Pendu.color('5BDB98'),
+                    // ),
                   ),
                 ),
               ),
@@ -256,7 +238,7 @@ class _ProgressPage1State extends State<ProgressPage1> {
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'Enter your total cost of the items',
+                    hintText: 'Enter your pickup address',
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,
@@ -278,7 +260,7 @@ class _ProgressPage1State extends State<ProgressPage1> {
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'Enter your total cost of the items',
+                    hintText: 'Enter your delivery address',
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,

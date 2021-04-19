@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
+import 'become_driver_form.dart';
+
 class BecomeDriver extends StatelessWidget {
   Widget _buildSimpleLine({String text}) {
     return Container(
@@ -61,7 +63,12 @@ class BecomeDriver extends StatelessWidget {
                     height: 50,
                     width: MediaQuery.of(context).size.width / 1.5,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BecomeDriverForm()));
+                      },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
                         primary: Pendu.color('5BDB98'),

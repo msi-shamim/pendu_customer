@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/Screen/message_screen.dart';
 import 'package:pendu_customer/Screen/progress_page_3.dart';
 import 'package:pendu_customer/profile_screen/app_version_popup.dart';
+import 'package:pendu_customer/profile_screen/blog_page.dart';
+import 'package:pendu_customer/profile_screen/chat_support.dart';
+import 'package:pendu_customer/profile_screen/my_profile.dart';
+import 'package:pendu_customer/profile_screen/payment_history.dart';
+import 'package:pendu_customer/profile_screen/policies.dart';
+import 'package:pendu_customer/profile_screen/profile_notification.dart';
+import 'package:pendu_customer/profile_screen/recent_deliveries.dart';
 
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
+import 'app_permission.dart';
+import 'become_driver.dart';
 import 'menu_button_icon.dart';
 
 class UserProfile extends StatefulWidget {
@@ -76,7 +86,12 @@ class _UserProfileState extends State<UserProfile> {
                           top: 40,
                           right: 4,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyProfile()));
+                            },
                             child: CircleAvatar(
                               backgroundColor: Pendu.color(
                                 '60E99C',
@@ -155,16 +170,16 @@ class _UserProfileState extends State<UserProfile> {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppbar(),
-        body: SingleChildScrollView(
+        body: Container(
+          color: Pendu.color('1B3149'),
           child: Container(
-            color: Pendu.color('1B3149'),
-            child: Container(
-              padding: EdgeInsets.only(top: 10.0),
-              decoration: BoxDecoration(
-                  color: Pendu.color('60E99C'),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0))),
+            padding: EdgeInsets.only(top: 10.0),
+            decoration: BoxDecoration(
+                color: Pendu.color('60E99C'),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0))),
+            child: SingleChildScrollView(
               child: Column(children: [
                 //Todo Row with icon
                 Row(
@@ -176,7 +191,7 @@ class _UserProfileState extends State<UserProfile> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ProgressPage3()),
+                                builder: (context) => ChatSupport()),
                           );
                         },
                         child:
@@ -199,7 +214,7 @@ class _UserProfileState extends State<UserProfile> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProgressPage3()),
+                              builder: (context) => RecentDeliveries()),
                         );
                       },
                       child: _buildHeaderButton(
@@ -233,7 +248,7 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                                    builder: (context) => ChatSupport()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/profile.svg',
@@ -243,7 +258,7 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                                    builder: (context) => PaymnetHistory()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/payment.svg',
@@ -263,7 +278,8 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                                    builder: (context) =>
+                                        ProfileNotification()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/notification.svg',
@@ -283,7 +299,7 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                                    builder: (context) => BlogPage()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/blogs.svg', title: 'Blogs')),
@@ -292,7 +308,7 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                                    builder: (context) => AppPermission()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/settings 2.svg',
@@ -302,7 +318,7 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                                    builder: (context) => BecomeDriver()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/become droper.svg',
@@ -312,7 +328,7 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                                    builder: (context) => MessageScreeen()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/support.svg',
@@ -331,7 +347,7 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                                    builder: (context) => Policies()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/terms and conditions.svg',

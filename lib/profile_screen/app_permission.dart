@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -93,7 +94,12 @@ class _AppPermissionState extends State<AppPermission> {
                   width: MediaQuery.of(context).size.width - 50,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserProfile()));
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       primary: Pendu.color('5BDB98'),
