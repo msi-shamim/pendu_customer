@@ -44,7 +44,7 @@ class ProfileNotification extends StatefulWidget {
 }
 
 class _ProfileNotificationState extends State<ProfileNotification> {
-  Widget _leadImg(ProfileNotificationModel notVar) {
+  _leadImg(ProfileNotificationModel notVar) {
     switch (notVar.notificationType) {
       case NotificationType.paymentMethodAdded:
         return SvgPicture.asset(

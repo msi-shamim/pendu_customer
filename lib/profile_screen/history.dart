@@ -28,7 +28,14 @@ List<History> _historyList = [
       discription: 'Buy some groceries for me-',
       deliverType: DeliveryType.collect_deliver,
       productList: "Toothpaste(1X), Apples(1KG), Chips(1Pack)",
-      rattings: 5.00)
+      rattings: 5.00),
+  History(
+      date: '15 Nov 2020',
+      time: '18:25',
+      discription: 'Buy some groceries for me-',
+      deliverType: DeliveryType.shop_drop,
+      productList: "Toothpaste(1X), Apples(1KG), Chips(1Pack)",
+      rattings: 5.00),
 ];
 
 class TaskHistory extends StatefulWidget {
@@ -37,6 +44,17 @@ class TaskHistory extends StatefulWidget {
 }
 
 class _TaskHistoryState extends State<TaskHistory> {
+  _cornarText(History historyVar) {
+    switch (historyVar.deliverType) {
+      case DeliveryType.shop_drop:
+        return Text('Shop & drop', style: TextStyle(color: Colors.white));
+        break;
+      case DeliveryType.collect_deliver:
+        return Text('Collect & deliver', style: TextStyle(color: Colors.white));
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +65,8 @@ class _TaskHistoryState extends State<TaskHistory> {
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
         child: ListView.separated(
-          separatorBuilder: (BuildContext context, int i2) => Divider(
-            height: 10,
-            thickness: 2,
-          ),
+          separatorBuilder: (BuildContext context, int i2) =>
+              SizedBox(height: 10),
           shrinkWrap: true,
           itemCount: _historyList.length,
           itemBuilder: (context, index) {
@@ -71,7 +87,7 @@ class _TaskHistoryState extends State<TaskHistory> {
                   ),
                   //Todo Box
                   Container(
-                    padding: EdgeInsets.only(left: 10.0, bottom: 10.00),
+                    padding: EdgeInsets.only(left: 10.0, bottom: 5.0),
                     decoration: BoxDecoration(
                         border: Border.all(color: Pendu.color('5BDB98')),
                         borderRadius: BorderRadius.circular(5.0)),
@@ -83,6 +99,7 @@ class _TaskHistoryState extends State<TaskHistory> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
+                              padding: EdgeInsets.only(left: 10.0),
                               height: 20,
                               width: 120,
                               decoration: BoxDecoration(
@@ -91,10 +108,7 @@ class _TaskHistoryState extends State<TaskHistory> {
                                     topRight: Radius.circular(5.0),
                                     bottomLeft: Radius.circular(5.0),
                                   )),
-                              child: Text(
-                                _historyList[index].deliverType.toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
+                              child: _cornarText(_historyList[index]),
                             ),
                           ],
                         ),
@@ -114,7 +128,7 @@ class _TaskHistoryState extends State<TaskHistory> {
                                         Text(_historyList[index].discription)),
                                 SizedBox(height: 10.0),
                                 Container(
-                                    height: 40,
+                                    height: 30,
                                     width: 200,
                                     alignment: Alignment.topLeft,
                                     child:
@@ -149,7 +163,11 @@ class _TaskHistoryState extends State<TaskHistory> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Container(child: Text('Images')),
+                            Container(
+                                padding: EdgeInsets.only(right: 10.0),
+                                child: Image(
+                                  image: AssetImage('assets/history_img.png'),
+                                )),
                           ],
                         ),
                       ],

@@ -14,8 +14,6 @@ class MenuButtonList extends StatelessWidget {
             bottomLeft: Radius.circular(8),
             bottomRight: Radius.circular(8),
           )),
-      //height: 50,
-      //width: 90,
       child: Column(
         children: [
           Row(

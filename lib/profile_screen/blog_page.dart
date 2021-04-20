@@ -4,6 +4,8 @@ import 'package:pendu_customer/network_data/blog_network.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
+import 'menu_button_icon.dart';
+
 class BlogPage extends StatefulWidget {
   @override
   _BlogPageState createState() => _BlogPageState();
@@ -11,8 +13,30 @@ class BlogPage extends StatefulWidget {
 
 class _BlogPageState extends State<BlogPage> {
   final BlogNetwork blogNetwork = BlogNetwork();
+  String sortVal = 'All';
+  int intValue = 0;
+
   @override
   Widget build(BuildContext context) {
+    Widget _buildSortByList() {
+      return Container(
+        width: 81,
+        alignment: Alignment.topRight,
+        color: Colors.red,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text('All'),
+            Divider(height: 10),
+            Text('This Month'),
+            Divider(height: 10),
+            Text('This year'),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(150),
@@ -36,22 +60,61 @@ class _BlogPageState extends State<BlogPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Sort by'),
+                  Text(
+                    'Sort by',
+                    style:
+                        TextStyle(fontSize: 16, color: Pendu.color('707070')),
+                  ),
                   Container(
-                    height: 25,
-                    width: 60,
+                    height: 30,
+                    width: 110,
                     decoration: BoxDecoration(
-                      border: Border.all(),
+                      border: Border.all(color: Pendu.color('90A0B2')),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
+                        Text(sortVal),
                         SizedBox(width: 5),
-                        Text('All'),
-                        Icon(
-                          Icons.unfold_more_rounded,
-                          size: 16,
+                        PopupMenuButton(
+                          child: Icon(
+                            Icons.unfold_more_rounded,
+                            color: Pendu.color('90A0B2'),
+                          ),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text('All'),
+                              value: 0,
+                            ),
+                            PopupMenuItem(
+                              child: Text('This month'),
+                              value: 1,
+                            ),
+                            PopupMenuItem(
+                              child: Text('This year'),
+                              value: 2,
+                            ),
+                          ],
+                          initialValue: intValue,
+                          onSelected: (result) {
+                            if (result == 0) {
+                              setState(() {
+                                sortVal = 'All';
+                                intValue = 0;
+                              });
+                            } else if (result == 1) {
+                              setState(() {
+                                sortVal = 'This month';
+                                intValue = 1;
+                              });
+                            } else if (result == 2) {
+                              setState(() {
+                                sortVal = 'This year';
+                                intValue = 2;
+                              });
+                            }
+                          },
                         ),
                       ],
                     ),
