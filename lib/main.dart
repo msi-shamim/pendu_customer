@@ -21,6 +21,7 @@ import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/profile_screen/profile_notification.dart';
 import 'package:pendu_customer/profile_screen/task.dart';
+import 'package:pendu_customer/profile_screen/task2.dart';
 import 'package:pendu_customer/profile_screen/task_view.dart';
 import 'package:pendu_customer/splash_screen.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
@@ -54,7 +55,79 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: ProDriver(),
+      home: TaskView(),
     );
   }
 }
+
+// import 'package:buttons_tabbar/buttons_tabbar.dart';
+
+// void main() => runApp(MyApp());
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Example(),
+//     );
+//   }
+// }
+
+// class Example extends StatefulWidget {
+//   // Example({Key? key}) : super(key: key);
+
+//   @override
+//   _ExampleState createState() => _ExampleState();
+// }
+
+// class _ExampleState extends State<Example> {
+//   buildTab(String name) {
+//     return Container(
+//       width: MediaQuery.of(context).size.width / 2 - 20,
+//       height: 40,
+//       margin: EdgeInsets.symmetric(vertical: 10.0),
+//       decoration: BoxDecoration(
+//           //border: Border.all(color: Pendu.color('707070')),
+//           borderRadius: BorderRadius.circular(5.0)),
+//       child: Center(child: Text(name)),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: SafeArea(
+//         child: DefaultTabController(
+//           length: 2,
+//           child: Column(
+//             children: <Widget>[
+//               ButtonsTabBar(
+//                 backgroundColor: Pendu.color('5BDB98'),
+//                 unselectedBackgroundColor: Colors.white,
+//                 unselectedLabelStyle: TextStyle(color: Pendu.color('8F8F8F')),
+//                 labelStyle:
+//                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+//                 tabs: [
+//                   Tab(
+//                     child: buildTab('In progress'),
+//                   ),
+//                   Tab(
+//                     child: buildTab('Pending'),
+//                   ),
+//                 ],
+//               ),
+//               Expanded(
+//                 child: TabBarView(
+//                   children: <Widget>[
+//                     TaskInProgress(),
+//                     TaskPending(),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

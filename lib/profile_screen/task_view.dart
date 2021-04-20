@@ -3,6 +3,7 @@ import 'package:pendu_customer/profile_screen/task.dart';
 import 'package:pendu_customer/profile_screen/task2.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 
 TextStyle myStyle = TextStyle(fontSize: 17, color: Colors.black);
 
@@ -21,9 +22,7 @@ class _TaskViewState extends State<TaskView>
       height: 40,
       margin: EdgeInsets.symmetric(vertical: 10.0),
       decoration: BoxDecoration(
-          border: Border.all(color: Pendu.color('707070')),
-          color:
-              (tabController.index == 0) ? Colors.red : Pendu.color('5BDB98'),
+          //border: Border.all(color: Pendu.color('707070')),
           borderRadius: BorderRadius.circular(5.0)),
       child: Center(child: Text(name)),
     );
@@ -45,26 +44,44 @@ class _TaskViewState extends State<TaskView>
           preferredSize: Size.fromHeight(72),
           child: CommonAppBar('Task'),
         ),
-        body: Column(
-          children: [
-            TabBar(
-              indicatorWeight: .01,
-              indicatorColor: Colors.white,
-              labelColor: Colors.white,
-              unselectedLabelColor: Pendu.color('8F8F8F'),
-              controller: tabController,
-              tabs: [
-                buildTab('In Progress'),
-                buildTab('Pending'),
-              ],
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          child: Expanded(
+            child: DefaultTabController(
+              length: 2,
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: 25),
+                    child: ButtonsTabBar(
+                      height: 50,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 40),
+                      backgroundColor: Pendu.color('5BDB98'),
+                      unselectedBackgroundColor: Colors.white,
+                      borderColor: Pendu.color('5BDB98'),
+                      borderWidth: 2,
+                      unselectedBorderColor: Pendu.color('707070'),
+                      labelStyle: TextStyle(color: Colors.white),
+                      unselectedLabelStyle:
+                          TextStyle(color: Pendu.color('707070')),
+                      tabs: [
+                        Tab(child: Center(child: Text('In Progress'))),
+                        Tab(child: Center(child: Text('  Pending  '))),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: <Widget>[
+                        TaskInProgress(),
+                        TaskPending(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Expanded(
-              child: TabBarView(controller: tabController, children: [
-                TaskInProgress(),
-                TaskPending(),
-              ]),
-            ),
-          ],
+          ),
         ));
   }
 }
