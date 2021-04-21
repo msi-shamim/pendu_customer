@@ -44,7 +44,7 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                         color: Pendu.color('FFB44A'),
                       ),
                       Container(
-                        color: Pendu.color('5BDB98'),
+                        color: Theme.of(context).accentColor,
                         height: 1.0,
                         width: 80.0,
                       ),
@@ -178,7 +178,8 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                     height: 40,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          primary: Pendu.color('5BDB98')),
+                        primary: Theme.of(context).accentColor,
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,

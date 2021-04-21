@@ -20,7 +20,7 @@ class _MyProfileState extends State<MyProfile> {
               svgUrl,
               height: 18,
               width: 18,
-              color: Pendu.color('5BDB98'),
+              color: Theme.of(context).accentColor,
             ),
             SizedBox(width: 5.0),
             Text(title),
@@ -49,7 +49,7 @@ class _MyProfileState extends State<MyProfile> {
                   EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Pendu.color('5BDB98'),
+                  color: Theme.of(context).accentColor,
                 ),
                 borderRadius: BorderRadius.circular(8.0),
               ),
@@ -120,7 +120,7 @@ class _MyProfileState extends State<MyProfile> {
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      primary: Pendu.color('5BDB98'),
+                      primary: Theme.of(context).accentColor,
                       onPrimary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),

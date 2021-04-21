@@ -89,7 +89,9 @@ class _TaskHistoryState extends State<TaskHistory> {
                   Container(
                     padding: EdgeInsets.only(left: 10.0, bottom: 5.0),
                     decoration: BoxDecoration(
-                        border: Border.all(color: Pendu.color('5BDB98')),
+                        border: Border.all(
+                          color: Theme.of(context).accentColor,
+                        ),
                         borderRadius: BorderRadius.circular(5.0)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,7 +105,7 @@ class _TaskHistoryState extends State<TaskHistory> {
                               height: 20,
                               width: 120,
                               decoration: BoxDecoration(
-                                  color: Pendu.color('5BDB98'),
+                                  color: Theme.of(context).accentColor,
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(5.0),
                                     bottomLeft: Radius.circular(5.0),

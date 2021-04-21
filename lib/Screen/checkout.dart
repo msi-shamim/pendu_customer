@@ -85,7 +85,7 @@ class _CheckOutState extends State<CheckOut> {
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       decoration: BoxDecoration(
         border: Border.all(
-          color: Pendu.color('5BDB98'),
+          color: Theme.of(context).accentColor,
           width: 1,
         ),
         borderRadius: BorderRadius.circular(5.0),
@@ -218,7 +218,7 @@ class _CheckOutState extends State<CheckOut> {
                   Text(
                     'Total : \$125.00',
                     style: TextStyle(
-                      color: Pendu.color('5BDB98'),
+                      color: Theme.of(context).accentColor,
                       fontSize: 24,
                     ),
                   ),

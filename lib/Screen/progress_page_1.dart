@@ -217,7 +217,7 @@ class _ProgressPage1State extends State<ProgressPage1> {
                       child: Text(
                         "\$",
                         style: TextStyle(
-                            color: Pendu.color('5BDB98'), fontSize: 20),
+                            color: Theme.of(context).accentColor, fontSize: 20),
                       ),
                     ),
                     //Icon(
@@ -268,7 +268,7 @@ class _ProgressPage1State extends State<ProgressPage1> {
                     disabledBorder: InputBorder.none,
                     suffixIcon: Icon(
                       Icons.location_on_outlined,
-                      color: Pendu.color('5BDB98'),
+                      color: Theme.of(context).accentColor,
                     ),
                   ),
                 ),

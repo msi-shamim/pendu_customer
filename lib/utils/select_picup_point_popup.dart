@@ -35,7 +35,10 @@ class PickupPointPopUP extends StatelessWidget {
                   decoration: BoxDecoration(
                       border: Border.all(color: Pendu.color('D6D6D6')),
                       borderRadius: BorderRadius.circular(20.0)),
-                  child: Icon(Icons.home, color: Pendu.color('5BDB98')),
+                  child: Icon(
+                    Icons.home,
+                    color: Theme.of(context).accentColor,
+                  ),
                 ),
                 SizedBox(width: 10.0),
                 Container(

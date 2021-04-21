@@ -8,6 +8,7 @@ class OurBlog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 400,
       child: FutureBuilder(
         future: blogNetwork.getBlog(),
         builder:

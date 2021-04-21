@@ -10,11 +10,14 @@ import 'package:pendu_customer/profile_screen/payment_history.dart';
 import 'package:pendu_customer/profile_screen/policies.dart';
 import 'package:pendu_customer/profile_screen/profile_notification.dart';
 import 'package:pendu_customer/profile_screen/recent_deliveries.dart';
+import 'package:pendu_customer/profile_screen/task_view.dart';
+import 'package:pendu_customer/utils/nav_bar.dart';
 
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 import 'app_permission.dart';
 import 'become_driver.dart';
+import 'history.dart';
 import 'menu_button_icon.dart';
 
 class UserProfile extends StatefulWidget {
@@ -111,8 +114,8 @@ class _UserProfileState extends State<UserProfile> {
                     ),
                     Text(
                       'Jenifer Doe',
-                      style:
-                          TextStyle(color: Pendu.color('5BDB98'), fontSize: 18),
+                      style: TextStyle(
+                          color: Theme.of(context).accentColor, fontSize: 18),
                     ),
                     Text(
                       '+61 0215563***',
@@ -125,15 +128,7 @@ class _UserProfileState extends State<UserProfile> {
                   ],
                 ),
               ),
-              PopupMenuButton(
-                child: Icon(
-                  Icons.more_vert,
-                  color: Colors.white,
-                ),
-                itemBuilder: (context) => [
-                  PopupMenuItem(child: MenuButtonList()),
-                ],
-              ),
+              MenuButtonList(),
             ],
           ),
         ));
@@ -150,7 +145,7 @@ class _UserProfileState extends State<UserProfile> {
               imgLink,
               height: 30.0,
               width: 30.0,
-              color: Pendu.color('5BDB98'),
+              color: Theme.of(context).accentColor,
             ),
             SizedBox(width: 20),
             Text(title)
@@ -169,6 +164,7 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: BottomNavigation(initValue: "My profile"),
         appBar: _buildAppbar(),
         body: Container(
           color: Pendu.color('1B3149'),
@@ -200,8 +196,7 @@ class _UserProfileState extends State<UserProfile> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => ProgressPage3()),
+                          MaterialPageRoute(builder: (context) => TaskView()),
                         );
                       },
                       child: _buildHeaderButton(
@@ -223,6 +218,13 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                     ),
                     InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TaskHistory()),
+                        );
+                      },
                       child: _buildHeaderButton(
                         'assets/history.svg',
                         'History',
@@ -248,7 +250,7 @@ class _UserProfileState extends State<UserProfile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ChatSupport()));
+                                    builder: (context) => MyProfile()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/profile.svg',

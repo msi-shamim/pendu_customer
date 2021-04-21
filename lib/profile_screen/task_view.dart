@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/profile_screen/task.dart';
-import 'package:pendu_customer/profile_screen/task2.dart';
+import 'package:pendu_customer/profile_screen/task_in_progress_.dart';
+import 'package:pendu_customer/profile_screen/task_pending.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
+import 'package:pendu_customer/utils/nav_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 
@@ -40,6 +41,7 @@ class _TaskViewState extends State<TaskView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: BottomNavigation(initValue: "Tasks"),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(72),
           child: CommonAppBar('Task'),
@@ -56,9 +58,9 @@ class _TaskViewState extends State<TaskView>
                     child: ButtonsTabBar(
                       height: 50,
                       contentPadding: EdgeInsets.symmetric(horizontal: 40),
-                      backgroundColor: Pendu.color('5BDB98'),
+                      backgroundColor: Theme.of(context).accentColor,
                       unselectedBackgroundColor: Colors.white,
-                      borderColor: Pendu.color('5BDB98'),
+                      borderColor: Theme.of(context).accentColor,
                       borderWidth: 2,
                       unselectedBorderColor: Pendu.color('707070'),
                       labelStyle: TextStyle(color: Colors.white),

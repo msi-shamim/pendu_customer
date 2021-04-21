@@ -42,7 +42,10 @@ class PaymentDone extends StatelessWidget {
               Image.asset('assets/payment_done.png'),
               Text(
                 'Payment Done!',
-                style: TextStyle(fontSize: 24, color: Pendu.color('5BDB98')),
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Theme.of(context).accentColor,
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -71,7 +74,8 @@ class PaymentDone extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: Pendu.color('5BDB98')),
+                          primary: Theme.of(context).accentColor,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

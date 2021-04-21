@@ -35,7 +35,7 @@ class ScreenProgress extends StatelessWidget {
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   backgroundColor: (screenValue >= 1)
-                      ? Pendu.color('5BDB98')
+                      ? Theme.of(context).accentColor
                       : Pendu.color('90A0B2'),
                 ),
               ),
@@ -63,7 +63,7 @@ class ScreenProgress extends StatelessWidget {
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   backgroundColor: (screenValue >= 2)
-                      ? Pendu.color('5BDB98')
+                      ? Theme.of(context).accentColor
                       : Pendu.color('90A0B2'),
                 ),
               ),
@@ -98,7 +98,7 @@ class ScreenProgress extends StatelessWidget {
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   backgroundColor: (screenValue >= 3)
-                      ? Pendu.color('5BDB98')
+                      ? Theme.of(context).accentColor
                       : Pendu.color('90A0B2'),
                 ),
               ),

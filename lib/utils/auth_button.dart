@@ -11,7 +11,9 @@ class AuthButton extends StatelessWidget {
       width: double.infinity,
       height: 40,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: Pendu.color('5BDB98')),
+        style: ElevatedButton.styleFrom(
+          primary: Theme.of(context).accentColor,
+        ),
         onPressed: onPressed,
         child: Text(
           btnText,

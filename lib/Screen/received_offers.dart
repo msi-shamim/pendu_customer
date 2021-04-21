@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/Screen/checkout.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
+import 'package:pendu_customer/utils/nav_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -142,7 +143,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                                       fontSize: 13.0),
                                 ),
                                 circularStrokeCap: CircularStrokeCap.round,
-                                progressColor: Pendu.color('5BDB98'),
+                                progressColor: Theme.of(context).accentColor,
                               ),
                               SizedBox(height: 10),
                               Text(
@@ -168,7 +169,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                                       fontSize: 13.0),
                                 ),
                                 circularStrokeCap: CircularStrokeCap.round,
-                                progressColor: Pendu.color('5BDB98'),
+                                progressColor: Theme.of(context).accentColor,
                               ),
                               SizedBox(height: 10),
                               Text(
@@ -183,7 +184,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                             children: [
                               SvgPicture.asset(
                                 driverList[index].vehicletype,
-                                color: Pendu.color('5BDB98'),
+                                color: Theme.of(context).accentColor,
                                 width: 35,
                                 height: 35,
                               ),
@@ -256,7 +257,8 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                                 );
                               },
                               style: ElevatedButton.styleFrom(
-                                  primary: Pendu.color('5BDB98')),
+                                primary: Theme.of(context).accentColor,
+                              ),
                               child: Text('Accept Offer')))
                     ],
                   ),
@@ -270,6 +272,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigation(initValue: "Offers"),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
         child: CommonAppBar('Received Offers'),

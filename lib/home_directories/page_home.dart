@@ -10,6 +10,7 @@ import 'package:pendu_customer/home_directories/image_carousel.dart';
 import 'package:pendu_customer/home_directories/recent_drops.dart';
 import 'package:pendu_customer/utils/PenduAppBar.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
+import 'package:pendu_customer/utils/nav_bar.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'announcement_container.dart';
@@ -39,8 +40,9 @@ final List<String> _drivers = [
 class _HomeState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    double _widthHight = MediaQuery.of(context).size.width / 2 - 50;
     return Scaffold(
+      bottomNavigationBar: BottomNavigation(initValue: "Home"),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
         child: PenduAppBar(),
@@ -88,7 +90,9 @@ class _HomeState extends State<HomePage> {
           Announcement(),
 
           //Todo four card
-          BoxSection(),
+          BoxSection(
+            widthData: _widthHight,
+          ),
           //Todo Blog post
           ProgressPageHeader(text: 'Our Blog'),
           OurBlog(),

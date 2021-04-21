@@ -86,7 +86,9 @@ class _PaymentRelesedPopUp2State extends State<PaymentRelesedPopUp2> {
                         primary: Pendu.color('E7F8EF')),
                     child: Text(
                       'Confirm',
-                      style: TextStyle(color: Pendu.color('5BDB98')),
+                      style: TextStyle(
+                        color: Theme.of(context).accentColor,
+                      ),
                     )),
               ),
             ),

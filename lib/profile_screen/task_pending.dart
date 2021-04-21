@@ -52,12 +52,12 @@ List<TaskModel> _taskList = [
       rattings: 5.00),
 ];
 
-class TaskInProgress extends StatefulWidget {
+class TaskPending extends StatefulWidget {
   @override
-  _TaskInProgressState createState() => _TaskInProgressState();
+  _TasksState createState() => _TasksState();
 }
 
-class _TaskInProgressState extends State<TaskInProgress> {
+class _TasksState extends State<TaskPending> {
   _cornarText(TaskModel historyVar) {
     switch (historyVar.deliverType) {
       case DeliveryType.shop_drop:
@@ -76,7 +76,7 @@ class _TaskInProgressState extends State<TaskInProgress> {
       child: Column(
         children: [
           //todo upper button row
-          _buildListView(),
+          _buildListView()
         ],
       ),
     ));
@@ -109,7 +109,9 @@ class _TaskInProgressState extends State<TaskInProgress> {
                       bottom: 5.0,
                     ),
                     decoration: BoxDecoration(
-                        border: Border.all(color: Pendu.color('5BDB98')),
+                        border: Border.all(
+                          color: Theme.of(context).accentColor,
+                        ),
                         borderRadius: BorderRadius.circular(5.0)),
                     child: Row(
                       children: [
@@ -166,7 +168,7 @@ class _TaskInProgressState extends State<TaskInProgress> {
                                       height: 20,
                                       width: 120,
                                       decoration: BoxDecoration(
-                                          color: Pendu.color('5BDB98'),
+                                          color: Theme.of(context).accentColor,
                                           borderRadius: BorderRadius.only(
                                             //  topRight: Radius.circular(4.0),
                                             bottomLeft: Radius.circular(5.0),

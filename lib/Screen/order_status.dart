@@ -229,7 +229,8 @@ class OrderStatus extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: Pendu.color('5BDB98')),
+                          primary: Theme.of(context).accentColor,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

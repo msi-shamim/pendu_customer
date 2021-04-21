@@ -32,7 +32,7 @@ class AppVersionPopUp extends StatelessWidget {
                   'assets/app version.svg',
                   height: 50,
                   width: 50,
-                  color: Pendu.color('5BDB98'),
+                  color: Theme.of(context).accentColor,
                 ),
                 SizedBox(
                   height: 20.0,

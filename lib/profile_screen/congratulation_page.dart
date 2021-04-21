@@ -51,7 +51,7 @@ class CongratulationPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      primary: Pendu.color('5BDB98'),
+                      primary: Theme.of(context).accentColor,
                       onPrimary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),

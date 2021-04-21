@@ -48,7 +48,9 @@ class _ProgressPage2State extends State<ProgressPage2> {
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
               decoration: BoxDecoration(
-                border: Border.all(color: Pendu.color('5BDB98')),
+                border: Border.all(
+                  color: Theme.of(context).accentColor,
+                ),
                 borderRadius: BorderRadius.circular(5.0),
                 color:
                     (selectedIndex == position) ? Pendu.color('EEFEF5') : null,
@@ -68,7 +70,7 @@ class _ProgressPage2State extends State<ProgressPage2> {
                       iconList[position].titleIcon,
                       style: TextStyle(
                         fontSize: 24,
-                        color: Pendu.color('5BDB98'),
+                        color: Theme.of(context).accentColor,
                       ),
                       textAlign: TextAlign.center,
                     ),

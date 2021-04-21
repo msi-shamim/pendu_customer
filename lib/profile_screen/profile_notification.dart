@@ -51,7 +51,7 @@ class _ProfileNotificationState extends State<ProfileNotification> {
           'assets/payment_method.svg',
           height: 30,
           width: 30,
-          color: Pendu.color('5BDB98'),
+          color: Theme.of(context).accentColor,
         );
         break;
       case NotificationType.referralCompleted:
@@ -59,7 +59,7 @@ class _ProfileNotificationState extends State<ProfileNotification> {
           'assets/refer and earn.svg',
           height: 30,
           width: 30,
-          color: Pendu.color('5BDB98'),
+          color: Theme.of(context).accentColor,
         );
         break;
       case NotificationType.requestAccepted:
@@ -67,7 +67,7 @@ class _ProfileNotificationState extends State<ProfileNotification> {
           'assets/request_accepted.svg',
           height: 30,
           width: 30,
-          color: Pendu.color('5BDB98'),
+          color: Theme.of(context).accentColor,
         );
         break;
     }

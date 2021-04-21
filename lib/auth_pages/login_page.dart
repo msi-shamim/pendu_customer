@@ -67,7 +67,9 @@ class _LogInPageState extends State<LogInPage> {
                       onTap: () => print('Forgot Password'),
                       child: Text(
                         'Forgot Password?',
-                        style: TextStyle(color: Pendu.color('5BDB98')),
+                        style: TextStyle(
+                          color: Theme.of(context).accentColor,
+                        ),
                       )),
                 ],
               ),
@@ -133,7 +135,7 @@ class _LogInPageState extends State<LogInPage> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Pendu.color('5BDB98'),
+                        color: Theme.of(context).accentColor,
                       ),
                     ),
                   ),

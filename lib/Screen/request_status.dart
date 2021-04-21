@@ -44,7 +44,7 @@ class _RequestStatusState extends State<RequestStatus> {
                         color: Pendu.color('FFB44A'),
                       ),
                       Container(
-                        color: Pendu.color('5BDB98'),
+                        color: Theme.of(context).accentColor,
                         height: 1.0,
                         width: 80.0,
                       ),
@@ -55,7 +55,7 @@ class _RequestStatusState extends State<RequestStatus> {
                         color: Pendu.color('6AD1FF'),
                       ),
                       Container(
-                        color: Pendu.color('5BDB98'),
+                        color: Theme.of(context).accentColor,
                         height: 1.0,
                         width: 80.0,
                       ),
@@ -63,7 +63,7 @@ class _RequestStatusState extends State<RequestStatus> {
                         'assets/going to cloud.svg',
                         height: 80.0,
                         width: 50.0,
-                        color: Pendu.color('5BDB98'),
+                        color: Theme.of(context).accentColor,
                       ),
                     ],
                   ),
@@ -149,7 +149,8 @@ class _RequestStatusState extends State<RequestStatus> {
                     height: 40,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          primary: Pendu.color('5BDB98')),
+                        primary: Theme.of(context).accentColor,
+                      ),
                       onPressed: () {
                         Navigator.push(
                           context,

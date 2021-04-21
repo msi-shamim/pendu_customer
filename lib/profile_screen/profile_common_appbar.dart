@@ -29,56 +29,16 @@ class ProfileCommonAppbar extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              PopupMenuButton(
-                child: Icon(
-                  Icons.more_vert,
-                  color: Colors.white,
-                ),
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    value: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Logout', style: TextStyle(fontSize: 12)),
-                        SvgPicture.asset(
-                          'assets/signout.svg',
-                          height: 15.0,
-                          width: 15.0,
-                          color: Pendu.color('60E99C'),
-                        )
-                      ],
-                    ),
-                  ),
-                  PopupMenuItem(
-                      value: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Help & Support',
-                            style: TextStyle(fontSize: 12),
-                          ),
-                          SvgPicture.asset(
-                            'assets/help_support.svg',
-                            height: 15.0,
-                            width: 15.0,
-                            color: Pendu.color('60E99C'),
-                          )
-                        ],
-                      ))
-                ],
-                //Todo Button click work
-                onSelected: (result) {
-                  if (result == 0) {
-                  } else if (result == 1) {}
-                },
-              ),
+              //todo
+              MenuButtonList(),
             ],
           ),
           Text(
             title,
-            style: TextStyle(fontSize: 30, color: Pendu.color('5BDB98')),
+            style: TextStyle(
+              fontSize: 30,
+              color: Theme.of(context).accentColor,
+            ),
           )
         ],
       ),

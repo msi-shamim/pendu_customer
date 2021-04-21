@@ -69,7 +69,7 @@ class _PaymentReleasedState extends State<PaymentReleased> {
             Text(
               'Review your experience',
               style: TextStyle(
-                  color: Pendu.color('5BDB98'),
+                  color: Theme.of(context).accentColor,
                   fontSize: 12,
                   decoration: TextDecoration.none),
             ),
@@ -139,7 +139,7 @@ class _PaymentReleasedState extends State<PaymentReleased> {
                       value: _currentSliderValue,
                       min: 0,
                       max: 100,
-                      activeColor: Pendu.color('5BDB98'),
+                      activeColor: Theme.of(context).accentColor,
                       inactiveColor: Pendu.color('E8E8E8'),
                       divisions: 100,
                       label: _currentSliderValue.round().toString() + '%',
@@ -188,8 +188,9 @@ class _PaymentReleasedState extends State<PaymentReleased> {
                       builder: (BuildContext context) => PaymentRelesedPopUp2(),
                     );
                   },
-                  style:
-                      ElevatedButton.styleFrom(primary: Pendu.color('5BDB98')),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).accentColor,
+                  ),
                   child: Text(
                     'Submit',
                     style: TextStyle(color: Colors.white),

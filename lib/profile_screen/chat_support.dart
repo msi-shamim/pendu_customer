@@ -104,7 +104,7 @@ class _ChatSupportState extends State<ChatSupport> {
                         children: [
                           CircleAvatar(
                             radius: 28,
-                            backgroundColor: Pendu.color('5BDB98'),
+                            backgroundColor: Theme.of(context).accentColor,
                             child: CircleAvatar(
                               radius: 27,
                               backgroundImage:
@@ -117,7 +117,8 @@ class _ChatSupportState extends State<ChatSupport> {
                                   right: 0,
                                   child: CircleAvatar(
                                     radius: 5,
-                                    backgroundColor: Pendu.color('5BDB98'),
+                                    backgroundColor:
+                                        Theme.of(context).accentColor,
                                   ),
                                 )
                               : SizedBox(),
@@ -168,7 +169,8 @@ class _ChatSupportState extends State<ChatSupport> {
                                     ? SizedBox()
                                     : CircleAvatar(
                                         radius: 8,
-                                        backgroundColor: Pendu.color('5BDB98'),
+                                        backgroundColor:
+                                            Theme.of(context).accentColor,
                                         child: Text(
                                           '${_chatList[index].mssgUnseenNumber}',
                                           style: TextStyle(

@@ -7,8 +7,12 @@ import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'congratulation_page.dart';
 
 class BecomeDriverForm extends StatelessWidget {
-  Widget _builtTextField(
-      {String title, String svgUrl, String hinText, bool isSufix = false}) {
+  Widget _builtTextField({
+    String title,
+    String svgUrl,
+    String hinText,
+    bool isSufix = false,
+  }) {
     return Column(
       children: [
         Row(
@@ -66,7 +70,7 @@ class BecomeDriverForm extends StatelessWidget {
 
   Widget _uploadButton(BuildContext context) {
     return DottedBorder(
-      color: Pendu.color('5BDB98'),
+      color: Theme.of(context).accentColor,
       borderType: BorderType.RRect,
       dashPattern: [4, 4],
       strokeWidth: 1,
@@ -91,7 +95,7 @@ class BecomeDriverForm extends StatelessWidget {
             'assets/upload.svg',
             height: 40,
             width: 40,
-            color: Pendu.color('5BDB98'),
+            color: Theme.of(context).accentColor,
           ),
         ),
       ),
@@ -159,7 +163,7 @@ class BecomeDriverForm extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      primary: Pendu.color('5BDB98'),
+                      primary: Theme.of(context).accentColor,
                       onPrimary: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),

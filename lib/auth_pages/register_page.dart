@@ -84,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Pendu.color('5BDB98'),
+                        color: Theme.of(context).accentColor,
                       ),
                     ),
                   ),
