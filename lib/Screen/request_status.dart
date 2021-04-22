@@ -7,6 +7,7 @@ import 'package:pendu_customer/utils/close_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_button.dart';
+import 'package:pendu_customer/utils/tip_sent_popup.dart';
 
 class RequestStatus extends StatefulWidget {
   @override
@@ -155,6 +156,10 @@ class _RequestStatusState extends State<RequestStatus> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => HomePage()),
+                        );
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => TipSentPopUp(),
                         );
                       },
                       child: Text(

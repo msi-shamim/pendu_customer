@@ -11,9 +11,9 @@ class BottomWarringText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 60,
+
       // margin: const EdgeInsets.symmetric(horizontal: 15),
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
           border: Border.all(
               color:
@@ -24,7 +24,7 @@ class BottomWarringText extends StatelessWidget {
         text,
         style: TextStyle(
             color: (textColor == null) ? Colors.black : textColor,
-            fontSize: 15),
+            fontSize: 13),
         textAlign: TextAlign.center,
       ),
     );

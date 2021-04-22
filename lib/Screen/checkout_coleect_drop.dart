@@ -21,19 +21,12 @@ List<String> paymentUrlList = [
   'assets/mastercard_logo.png'
 ];
 
-List<Products> productList = [
-  Products(productName: 'Toothpaste(2x)', productPrice: 99.00),
-  Products(productName: 'Brush-Oral(2x)', productPrice: 9.00),
-  Products(productName: 'Burgers(2x)', productPrice: 14.00),
-  Products(productName: 'Pizza(1x)', productPrice: 4.00),
-];
-
-class CheckOut extends StatefulWidget {
+class CheckOutCollectDrop extends StatefulWidget {
   @override
-  _CheckOutState createState() => _CheckOutState();
+  _CheckOutCollectDropState createState() => _CheckOutCollectDropState();
 }
 
-class _CheckOutState extends State<CheckOut> {
+class _CheckOutCollectDropState extends State<CheckOutCollectDrop> {
   int selectedIndex = -1;
   Widget _paymentContainer() {
     return Container(
@@ -80,44 +73,6 @@ class _CheckOutState extends State<CheckOut> {
     );
   }
 
-  Widget _productList() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).accentColor,
-          width: 1,
-        ),
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: ListView.separated(
-        separatorBuilder: (BuildContext context, int i) =>
-            Divider(height: 10, thickness: 1, indent: 0, endIndent: 0),
-        shrinkWrap: true,
-        itemCount: productList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-              child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    productList[index].productName,
-                    style: TextStyle(color: Pendu.color('90A0B2')),
-                  ),
-                  Text('\$${productList[index].productPrice}'),
-                ],
-              ),
-            ],
-          ));
-
-          //Text(productList[index].productName)
-        },
-      ),
-    );
-  }
-
   Widget _rowList(String title, double money) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,12 +101,7 @@ class _CheckOutState extends State<CheckOut> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
-              ProgressPageHeader(
-                text: 'Products',
-              ),
-              //Todo ListView
-              _productList(),
-              SizedBox(height: 10),
+
               ProgressPageHeader(
                 text: 'Delivery info',
               ),
@@ -233,8 +183,7 @@ class _CheckOutState extends State<CheckOut> {
                           borderRadius: BorderRadius.circular(5.0)),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Pendu.color('FFCE8A'),
-                          ),
+                              primary: Pendu.color('FFCE8A')),
                           onPressed: () {
                             Navigator.push(
                               context,

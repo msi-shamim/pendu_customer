@@ -31,7 +31,11 @@ import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/select_dropup_point_popup.dart';
 import 'package:pendu_customer/utils/select_picup_point_popup.dart';
 
+import 'Screen/checkout_coleect_drop.dart';
+import 'Screen/collect_drop_page_1.dart';
+import 'Screen/collect_drop_page_3.dart';
 import 'Screen/message_screen.dart';
+import 'Screen/movers_1.dart';
 import 'Screen/order_status.dart';
 import 'Screen/payment_done.dart';
 import 'Screen/select_dropup_point.dart';
