@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:pendu_customer/Screen/select_picup_point.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
@@ -8,7 +11,7 @@ import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_button.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 
-import 'screen_progress.dart';
+import '../Screen/screen_progress.dart';
 
 class ItemModel {
   final String itemName;
@@ -17,16 +20,32 @@ class ItemModel {
 }
 
 List<ItemModel> _itemList = [
-  ItemModel(itemName: 'Toothpaste(2x)', itemQuantity: 2),
-  ItemModel(itemName: 'Brush-Oral B (2x)', itemQuantity: 1)
+  ItemModel(itemName: 'Furniture', itemQuantity: 10),
+  ItemModel(itemName: 'Beds', itemQuantity: 1)
 ];
 
-class CollectDropPage1 extends StatefulWidget {
-  @override
-  _CollectDropPage1State createState() => _CollectDropPage1State();
+class VehicleModel {
+  final String imgLink;
+  final String name;
+  VehicleModel({this.imgLink, this.name});
 }
 
-class _CollectDropPage1State extends State<CollectDropPage1> {
+List<VehicleModel> _vehicleList = [
+  VehicleModel(imgLink: 'assets/car.png', name: 'Car'),
+  VehicleModel(imgLink: 'assets/ute.png', name: 'Ute'),
+  VehicleModel(imgLink: 'assets/van.png', name: 'Van'),
+  VehicleModel(imgLink: 'assets/mintruck.png', name: 'Mini truck'),
+  VehicleModel(imgLink: 'assets/ute.png', name: 'Ute'),
+  VehicleModel(imgLink: 'assets/van.png', name: 'Van'),
+];
+
+class MoversPage1 extends StatefulWidget {
+  @override
+  _MoversPage1State createState() => _MoversPage1State();
+}
+
+class _MoversPage1State extends State<MoversPage1> {
+  int selectedIndex = -1;
   Widget _buildProdcutDetails() {
     return ListView.builder(
         itemCount: _itemList.length,
@@ -85,12 +104,66 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
         });
   }
 
+  Widget _buildVehicleList() {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: _vehicleList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: () => setState(() => selectedIndex = index),
+            child: (selectedIndex == index)
+                ? Container(
+                    margin: EdgeInsets.symmetric(horizontal: 6.0),
+                    child: Column(
+                      children: [
+                        Image(
+                          height: 38,
+                          width: 45,
+                          fit: BoxFit.fill,
+                          image: AssetImage(_vehicleList[index].imgLink),
+                        ),
+                        Text(
+                          _vehicleList[index].name,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Theme.of(context).accentColor),
+                        )
+                      ],
+                    ),
+                  )
+                : Container(
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 8.0),
+                    child: Column(
+                      children: [
+                        ImageFiltered(
+                          imageFilter:
+                              ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+                          child: Image(
+                            height: 30,
+                            width: 35,
+                            fit: BoxFit.fill,
+                            image: AssetImage(_vehicleList[index].imgLink),
+                          ),
+                        ),
+                        Text(
+                          _vehicleList[index].name,
+                          style: TextStyle(fontSize: 11, color: Colors.grey),
+                        )
+                      ],
+                    ),
+                  ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Shop & Drop'),
+        child: CommonAppBar('Movers'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -105,14 +178,13 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text('Vehicle type-'),
-                    Image(
-                      image: AssetImage('assets/car.png'),
-                      height: 40,
-                      width: 60,
-                      fit: BoxFit.fill,
-                    )
+                    Container(
+                        width: 180,
+                        height: 60,
+                        child: Expanded(child: _buildVehicleList())),
                   ],
                 ),
               ),
@@ -136,14 +208,13 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
                 ),
               ),
               SizedBox(height: 10),
-              ProgressPageHeader(
-                  text: 'Please list the items you need collected'),
+              ProgressPageHeader(text: 'Items'),
               SizedBox(height: 8),
               BottomWarringText(
                   borderColor: Pendu.color('E8E8E8'),
                   textColor: Pendu.color('FFB44A'),
                   text:
-                      'Please provide the name and quantity of the thing you need collected & Add photos only if you have them.'),
+                      'Please provide clear name and details for the movers to give you an accirate quote.'),
               //Todo Product Container
               SizedBox(height: 10),
               Container(
@@ -167,7 +238,7 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
                   )),
               SizedBox(height: 10),
 
-              ProgressPageHeader(text: 'Enter shops/Pickup address'),
+              ProgressPageHeader(text: 'Pickup address'),
               SizedBox(height: 8),
               //Todo TextField
               Container(
@@ -211,12 +282,20 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
                 ),
               ),
               SizedBox(height: 10),
-              BottomWarringText(
-                  borderColor: Pendu.color('E8E8E8'),
-                  textColor: Pendu.color('FFB44A'),
-                  text:
-                      'No Purchases- Dropper would not be able to make any purchase. Restricted item - Please don\'t hand over any restricted item.'),
-              SizedBox(height: 10),
+              Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Pendu.color('90A0B2')),
+                    borderRadius: BorderRadius.circular(5.0)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Add photos to the task (Optional)'),
+                    SvgPicture.asset('assets/image_add.svg'),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/screen_movers/movers_1.dart';
 import 'package:pendu_customer/Screen/progress_page_1.dart';
 import 'package:pendu_customer/Screen/progress_page_2.dart';
 import 'package:pendu_customer/Screen/progress_page_3.dart';
+import 'package:pendu_customer/screen_coleect_and_deliver/collect_drop_page_1.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
 
 class FirstCard extends StatefulWidget {
@@ -43,7 +45,7 @@ class _FirstCardState extends State<FirstCard> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProgressPage2()),
+                              builder: (context) => CollectDropPage1()),
                         );
                       },
                       child: HomePageIcon(
@@ -54,7 +56,7 @@ class _FirstCardState extends State<FirstCard> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProgressPage3()),
+                              builder: (context) => MoversPage1()),
                         );
                       },
                       child: HomePageIcon(

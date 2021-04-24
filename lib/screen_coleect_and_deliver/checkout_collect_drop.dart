@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/Screen/payment_done.dart';
+import 'package:pendu_customer/screen_common/payment_done.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/delivery_address_table.dart';

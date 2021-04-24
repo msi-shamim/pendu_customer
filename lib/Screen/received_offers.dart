@@ -32,7 +32,7 @@ List<DriverDetails> driverList = [
     name: 'Suji',
     picUrl:
         'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    vehicletype: 'assets/car.svg',
+    vehicletype: 'assets/mintruck.png',
     averageAccuracy: 89,
     successRate: 86,
     offerPrice: '15',
@@ -42,7 +42,7 @@ List<DriverDetails> driverList = [
     name: 'Sonet',
     picUrl:
         'https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg',
-    vehicletype: 'assets/truck.svg',
+    vehicletype: 'assets/ute.png',
     averageAccuracy: 85,
     successRate: 90,
     offerPrice: '17.30',
@@ -52,7 +52,7 @@ List<DriverDetails> driverList = [
     name: 'Jamy',
     picUrl:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-51Utmw56FMBsmHRdRVn8awPHOdTeu0Qsiw&usqp=CAU',
-    vehicletype: 'assets/van.svg',
+    vehicletype: 'assets/van.png',
     averageAccuracy: 92,
     successRate: 89,
     offerPrice: '18.50',
@@ -62,7 +62,7 @@ List<DriverDetails> driverList = [
     name: 'Max',
     picUrl:
         'https://cdn.fastly.picmonkey.com/contentful/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=800&q=70',
-    vehicletype: 'assets/car.svg',
+    vehicletype: 'assets/car.png',
     averageAccuracy: 60,
     successRate: 40,
     offerPrice: '13.20',
@@ -182,11 +182,13 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SvgPicture.asset(
-                                driverList[index].vehicletype,
-                                color: Theme.of(context).accentColor,
-                                width: 35,
+                              Image.asset(
+                                (driverList[index].vehicletype != null)
+                                    ? driverList[index].vehicletype
+                                    : 'assets/car.png',
+                                //color: Theme.of(context).accentColor,
                                 height: 35,
+                                width: 35,
                               ),
                               SizedBox(height: 10),
                               Text(

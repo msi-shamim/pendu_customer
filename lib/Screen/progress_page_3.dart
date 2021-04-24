@@ -1,7 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/Screen/received_offers.dart';
-import 'package:pendu_customer/Screen/request_status.dart';
+import 'package:pendu_customer/screen_common/request_status.dart';
 import 'package:pendu_customer/Screen/screen_progress.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';

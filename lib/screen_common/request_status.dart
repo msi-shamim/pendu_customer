@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pendu_customer/Screen/request_status_error.dart';
+import 'package:pendu_customer/screen_common/request_status_error.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/close_button.dart';

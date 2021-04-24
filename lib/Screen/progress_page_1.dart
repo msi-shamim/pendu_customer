@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
-import 'package:pendu_customer/Screen/progress_page_2.dart';
 import 'package:pendu_customer/Screen/select_picup_point.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/close_button.dart';
@@ -105,7 +103,7 @@ class _ProgressPage1State extends State<ProgressPage1> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(
-                width: 100,
+                width: 170,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -197,7 +195,6 @@ class _ProgressPage1State extends State<ProgressPage1> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildProdcutDetails(),
-                      _buildProdcutDetails(),
                       InkWell(
                         onTap: () => {},
                         child: Text(
@@ -271,9 +268,18 @@ class _ProgressPage1State extends State<ProgressPage1> {
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    suffixIcon: Icon(
-                      Icons.location_on_outlined,
-                      color: Pendu.color('FFB44A'),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectPicupPoint()),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.location_on_outlined,
+                        color: Pendu.color('FFB44A'),
+                      ),
                     ),
                   ),
                 ),

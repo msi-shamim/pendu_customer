@@ -267,10 +267,10 @@ class _UserProfileState extends State<UserProfile> {
                               title: 'Payments')),
                       InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => ProgressPage3()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/pendupay.svg',
@@ -288,10 +288,10 @@ class _UserProfileState extends State<UserProfile> {
                               title: 'Notification')),
                       InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => ProgressPage3()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/refer and earn.svg',
@@ -337,10 +337,10 @@ class _UserProfileState extends State<UserProfile> {
                               title: 'Chat support')),
                       InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProgressPage3()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => ProgressPage3()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/faq.svg', title: 'FAQ')),

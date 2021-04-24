@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/Screen/request_status.dart';
+import 'package:pendu_customer/screen_common/request_status.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
