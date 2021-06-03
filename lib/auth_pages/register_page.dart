@@ -1,6 +1,9 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
+import 'package:pendu_customer/model/register_model.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/normal_textform_field.dart';
@@ -13,8 +16,171 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  bool _isLoading = false;
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  final confirmPassController = TextEditingController();
+  final suburbController = TextEditingController();
+  final contactController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passController.dispose();
+    confirmPassController.dispose();
+    contactController.dispose();
+    suburbController..dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool validatePassword(String pass) {
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(pass);
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget _buildForm() {
+      return Form(
+        key: _formKey,
+        child: Wrap(
+          runSpacing: 20,
+          children: [
+            NormalTextFormField(
+              validator: (fName) {
+                if (fName == null || fName.isEmpty) {
+                  return 'Name is required';
+                }
+                return null;
+              },
+              textLabel: "Name",
+              controller: nameController,
+              isPhonekey: false,
+            ),
+            NormalTextFormField(
+              validator: (eMail) {
+                if (eMail == null || eMail.isEmpty) {
+                  return 'Email Name is required';
+                } else if (!EmailValidator.validate(eMail)) {
+                  return 'Invalid Email';
+                }
+                return null;
+              },
+              textLabel: "Email",
+              controller: emailController,
+              isPhonekey: false,
+            ),
+            NormalTextFormField(
+              validator: (suburb) {
+                if (suburb == null || suburb.isEmpty) {
+                  return 'Suburb is required';
+                }
+                return null;
+              },
+              textLabel: "Suburb",
+              controller: suburbController,
+              isPhonekey: false,
+            ),
+            NormalTextFormField(
+              validator: (cnt) {
+                if (cnt == null || cnt.isEmpty) {
+                  return 'Phone number is required';
+                }
+                if (cnt.length < 9) {
+                  return "Please enter valid phone";
+                }
+                return null;
+              },
+              textLabel: "Phone",
+              controller: contactController,
+              isPhonekey: true,
+            ),
+            PasswordTextFormField(
+              validator: (pass) {
+                if (pass == null || pass.isEmpty) {
+                  return 'Password is required';
+                }
+                return null;
+              },
+              textLabel: "Password",
+              controller: passController,
+            ),
+            PasswordTextFormField(
+              validator: (passCon) {
+                if (passCon == null || passCon.isEmpty) {
+                  return 'Confirm Password is required';
+                }
+                if (passController.text != confirmPassController.text) {
+                  return "Password Do not match";
+                }
+                return null;
+              },
+              textLabel: "Password",
+              controller: confirmPassController,
+            ),
+            AuthButton(
+              btnText: 'Register',
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  var sighnUpinApi = CallApi(context);
+                  // sighnUpinApi.callSignUpApi(RegisterModel.fromJson(
+
+                  // ));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
+                }
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget _buildBottomRow() {
+      return Container(
+        margin: EdgeInsets.only(top: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Already have an account, ",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            InkWell(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LogInPage())),
+              child: Text(
+                "Login!",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
@@ -26,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/on_boarding_1.png'),
+              Image.asset('assets/auth_pic.png'),
               // SvgPicture.asset(
               //   'assets/clip.svg',
               //   //  color: Colors.red,
@@ -34,62 +200,8 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 height: 40,
               ),
-              NormalTextFormField(
-                labelText: 'Name',
-              ),
-              _sizedBox(), //sized box hight same 16, thats why making function
-
-              NormalTextFormField(
-                labelText: 'Email',
-              ),
-              _sizedBox(),
-              NormalTextFormField(
-                labelText: 'Suburb',
-              ),
-              _sizedBox(),
-              NormalTextFormField(
-                labelText: 'Phone',
-              ),
-              _sizedBox(),
-              PasswordTextFormField(
-                labelText: 'Password',
-              ),
-              _sizedBox(),
-              AuthButton(
-                btnText: 'Register',
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account, ",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LogInPage())),
-                    child: Text(
-                      "Login!",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).accentColor,
-                      ),
-                    ),
-                  ),
-                ],
-              )
+              _buildForm(),
+              _buildBottomRow()
             ],
           ),
         ),
