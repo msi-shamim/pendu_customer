@@ -52,48 +52,6 @@ class ProgressPage1 extends StatefulWidget {
 }
 
 class _ProgressPage1State extends State<ProgressPage1> {
-  final _items = _category
-      .map((category) => MultiSelectItem<Category>(category, category.title))
-      .toList();
-  _multiSelectedField() {
-    return MultiSelectDialogField(
-      chipDisplay: MultiSelectChipDisplay(
-        chipColor: Colors.transparent,
-        textStyle: TextStyle(color: Colors.black),
-      ),
-      checkColor: Pendu.color('60E99C'),
-      confirmText: Text('CONFIRM',
-          style: TextStyle(color: Pendu.color('60E99C'), fontSize: 16)),
-      cancelText: Text('CANCEL',
-          style: TextStyle(color: Pendu.color('FFB44A'), fontSize: 16)),
-      items: _items,
-      title: Container(
-        //  alignment: Alignment.center,
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 10.0),
-        color: Pendu.color('60E99C'),
-        child: Center(child: Text("Categories")),
-      ),
-      selectedItemsTextStyle: TextStyle(color: Pendu.color('60E99C')),
-      selectedColor: Pendu.color('ffffff'),
-      unselectedColor: Pendu.color('ffffff'),
-      decoration: BoxDecoration(
-        color: Pendu.color('F1F1F1'),
-        // borderRadius: BorderRadius.all(Radius.circular(40)),
-        //   border: Border.all(color: Colors.blue, width: 2),
-      ),
-      buttonIcon:
-          Icon(Icons.arrow_forward_ios, color: Pendu.color('90A0B2'), size: 16),
-      buttonText: Text(
-        'Tap to select your categories',
-        style: TextStyle(color: Pendu.color('4CB08A')),
-      ),
-      onConfirm: (results) {
-        //  _selectedAnimals = results;
-      },
-    );
-  }
-
   Widget _buildProdcutDetails() {
     return ListView.builder(
         itemCount: _itemList.length,
@@ -152,6 +110,57 @@ class _ProgressPage1State extends State<ProgressPage1> {
         });
   }
 
+  _buildMultiselect() {
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              height: MediaQuery.of(context).size.height * 0.60,
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+              decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0))),
+              child: ListView(
+                children: [
+                  Text(
+                    'Select Categories',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+
+                  //!Multiselec work
+                  //Todo Listview Builder work
+                  Container(
+                      height: 200,
+                      child: CheckboxListTile(
+                        controlAffinity: ListTileControlAffinity.leading,
+                        activeColor: Theme.of(context).accentColor,
+                        title: Text('user'),
+                        value: true,
+                        onChanged: (bool selected) {
+                          //onUserSelected(selected, user.uid);
+                          if (selected == true) {
+                            setState(() {});
+                          }
+                        },
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CloseButtonCustom(),
+                      ProgressButton(
+                        btnText: 'Next',
+                        onPressed: () {},
+                      )
+                    ],
+                  )
+                ],
+              ));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,8 +182,30 @@ class _ProgressPage1State extends State<ProgressPage1> {
               ProgressPageHeader(text: 'Categories'),
               SizedBox(height: 8),
               //Todo
-              _multiSelectedField(),
-
+              // _multiSelectedField(),
+              Container(
+                color: Colors.grey[200],
+                height: 40,
+                padding: EdgeInsets.only(left: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Tap to select your categories',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          _buildMultiselect();
+                        },
+                        icon: Icon(
+                          Icons.keyboard_arrow_right_outlined,
+                          color: Colors.grey,
+                        ))
+                  ],
+                ),
+              ),
               SizedBox(height: 10),
               ProgressPageHeader(text: 'Products'),
               SizedBox(height: 8),

@@ -61,7 +61,7 @@ class _LogInPageState extends State<LogInPage> {
           NormalTextFormField(
             validator: (eMail) {
               if (eMail == null || eMail.isEmpty) {
-                return 'Email Name is required';
+                return 'Email is required';
               } else if (!EmailValidator.validate(eMail)) {
                 return 'Invalid Email';
               }
@@ -69,6 +69,7 @@ class _LogInPageState extends State<LogInPage> {
             },
             textLabel: "Email",
             controller: emailController,
+            isPhonekey: false,
           ),
           PasswordTextFormField(
             validator: (pass) {

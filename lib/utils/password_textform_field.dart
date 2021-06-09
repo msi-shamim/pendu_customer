@@ -15,6 +15,7 @@ class PasswordTextFormField extends StatelessWidget {
         obscureText: true,
         validator: validator,
         decoration: InputDecoration(
+          // labelStyle: TextStyle(color: Colors.black, fontSize: 14),
           labelText: textLabel,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         ));

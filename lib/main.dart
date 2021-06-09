@@ -1,52 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/Screen/checkout.dart';
-import 'package:pendu_customer/Screen/progress_page_1.dart';
-import 'package:pendu_customer/Screen/progress_page_2.dart';
-import 'package:pendu_customer/Screen/received_offers.dart';
-import 'package:pendu_customer/screen_common/request_status.dart';
-import 'package:pendu_customer/Screen/screen_progress.dart';
-import 'package:pendu_customer/auth_pages/login_page.dart';
-import 'package:pendu_customer/auth_pages/register_page.dart';
-import 'package:pendu_customer/profile_screen/app_permission.dart';
-import 'package:pendu_customer/profile_screen/app_version_popup.dart';
-import 'package:pendu_customer/profile_screen/become_driver.dart';
-import 'package:pendu_customer/profile_screen/become_driver_form.dart';
-import 'package:pendu_customer/profile_screen/blog_page.dart';
-import 'package:pendu_customer/profile_screen/chat_support.dart';
-import 'package:pendu_customer/profile_screen/driver_profile.dart';
-import 'package:pendu_customer/profile_screen/history.dart';
-import 'package:pendu_customer/profile_screen/my_profile.dart';
-import 'package:pendu_customer/profile_screen/payment_history.dart';
-import 'package:pendu_customer/profile_screen/pro_driver.dart';
-import 'package:pendu_customer/profile_screen/profile.dart';
-import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
-import 'package:pendu_customer/profile_screen/profile_notification.dart';
-import 'package:pendu_customer/profile_screen/task_in_progress_.dart';
-import 'package:pendu_customer/profile_screen/task_pending.dart';
-import 'package:pendu_customer/profile_screen/task_view.dart';
-import 'package:pendu_customer/splash_screen.dart';
-import 'package:pendu_customer/utils/common_app_bar.dart';
-import 'package:pendu_customer/utils/paymnet_release_popup2.dart';
+import 'package:pendu_customer/screen_coleect_and_deliver/checkout_collect_drop.dart';
+import 'package:pendu_customer/screen_coleect_and_deliver/collect_drop_page_1.dart';
+
 import 'package:pendu_customer/utils/pendu_theme.dart';
-import 'package:pendu_customer/utils/select_dropup_point_popup.dart';
-import 'package:pendu_customer/utils/select_picup_point_popup.dart';
 
-import 'screen_coleect_and_deliver/checkout_collect_drop.dart';
-
-import 'Screen/message_screen.dart';
-import 'screen_movers/movers_1.dart';
-import 'screen_common/order_status.dart';
-import 'screen_common/payment_done.dart';
-import 'Screen/select_dropup_point.dart';
-import 'Screen/select_picup_point.dart';
-import 'Screen/timline_tile.dart';
-import 'home_directories/page_home.dart';
-import 'profile_screen/policies.dart';
-import 'profile_screen/congratulation_page.dart';
-import 'utils/current_location_popup.dart';
-import 'utils/payment_release_popup.dart';
-import 'Screen/progress_page_3.dart';
-import 'screen_common/request_status_error.dart';
+import 'Screen/progress_page_1.dart';
 
 void main() {
   runApp(MyApp());
@@ -58,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: LogInPage(),
+      home: ProgressPage1(),
     );
   }
 }
