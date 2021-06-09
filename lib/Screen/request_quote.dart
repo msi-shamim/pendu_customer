@@ -10,6 +10,6 @@ class RequestQuote extends StatefulWidget {
 class _RequestQuoteState extends State<RequestQuote> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
   }
 }

@@ -74,7 +74,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Reset Password'),
+        child: CommonAppBar('New Password'),
       ),
       body: SingleChildScrollView(
         child: Container(
