@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/auth_pages/create_new_pass.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
@@ -155,7 +156,11 @@ class _OtpScreenState extends State<OtpScreen> {
                 setState(
                   () {
                     hasError = false;
-                    snackBar("OTP Verified!!");
+                    // snackBar("OTP Verified!!");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateNewPassword()));
                   },
                 );
               }

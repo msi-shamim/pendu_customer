@@ -14,6 +14,8 @@ import 'package:pendu_customer/utils/password_textform_field.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'forgot_pass_page.dart';
+
 class LogInPage extends StatefulWidget {
   @override
   _LogInPageState createState() => _LogInPageState();
@@ -101,9 +103,11 @@ class _LogInPageState extends State<LogInPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        //Todo Checkbox
         Text('Remember Me'),
         InkWell(
-            onTap: () => print('Forgot Password'),
+            onTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ForgotPassword())),
             child: Text(
               'Forgot Password?',
               style: TextStyle(

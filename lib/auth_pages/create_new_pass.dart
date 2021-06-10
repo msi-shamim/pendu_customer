@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/password_textform_field.dart';
@@ -61,7 +62,10 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
           AuthButton(
             btnText: 'Set Password',
             onPressed: () {
-              if (_formKey.currentState.validate()) {}
+              if (_formKey.currentState.validate()) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LogInPage()));
+              }
             },
           ),
         ],

@@ -7,9 +7,11 @@ import 'package:pendu_customer/profile_screen/blog_page.dart';
 import 'package:pendu_customer/profile_screen/chat_support.dart';
 import 'package:pendu_customer/profile_screen/my_profile.dart';
 import 'package:pendu_customer/profile_screen/payment_history.dart';
+import 'package:pendu_customer/profile_screen/pendu_pay.dart';
 import 'package:pendu_customer/profile_screen/policies.dart';
 import 'package:pendu_customer/profile_screen/profile_notification.dart';
 import 'package:pendu_customer/profile_screen/recent_deliveries.dart';
+import 'package:pendu_customer/profile_screen/refer_earn_page.dart';
 import 'package:pendu_customer/profile_screen/task_view.dart';
 import 'package:pendu_customer/utils/nav_bar.dart';
 
@@ -267,10 +269,10 @@ class _UserProfileState extends State<UserProfile> {
                               title: 'Payments')),
                       InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ProgressPage3()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PenduPay()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/pendupay.svg',
@@ -288,10 +290,10 @@ class _UserProfileState extends State<UserProfile> {
                               title: 'Notification')),
                       InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ProgressPage3()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ReferNEarn()));
                           },
                           child: _menuItem(
                               imgLink: 'assets/refer and earn.svg',

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/profile_screen/privacy_policy.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
+import 'package:pendu_customer/profile_screen/terms_conditions.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 class Policies extends StatelessWidget {
@@ -29,7 +31,12 @@ class Policies extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 50,
                   height: 90,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TermsConditions()));
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       primary: Theme.of(context).accentColor,
@@ -62,7 +69,12 @@ class Policies extends StatelessWidget {
                   width: MediaQuery.of(context).size.width - 50,
                   height: 90,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PrivacyPolicy()));
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       primary: Theme.of(context).accentColor,

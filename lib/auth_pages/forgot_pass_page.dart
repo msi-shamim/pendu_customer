@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/auth_pages/otp_screen.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/normal_textform_field.dart';
@@ -45,7 +46,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           AuthButton(
             btnText: 'Reset',
             onPressed: () {
-              if (_formKey.currentState.validate()) {}
+              if (_formKey.currentState.validate()) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OtpScreen()));
+              }
             },
           ),
         ],
