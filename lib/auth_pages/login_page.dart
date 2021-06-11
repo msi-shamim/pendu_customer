@@ -23,7 +23,7 @@ class LogInPage extends StatefulWidget {
 
 class _LogInPageState extends State<LogInPage> {
   final _formKey = GlobalKey<FormState>();
-
+  bool checkValue = false;
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
@@ -104,7 +104,26 @@ class _LogInPageState extends State<LogInPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         //Todo Checkbox
-        Text('Remember Me'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Transform.scale(
+              scale: .9,
+              child: Checkbox(
+                checkColor: Colors.white,
+                activeColor: Theme.of(context).accentColor,
+                value: this.checkValue,
+                onChanged: (bool value) {
+                  setState(() {
+                    this.checkValue = value;
+                  });
+                },
+              ),
+            ),
+            Text('Remember Me'),
+          ],
+        ),
+
         InkWell(
             onTap: () => Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ForgotPassword())),

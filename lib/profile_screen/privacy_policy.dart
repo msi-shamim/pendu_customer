@@ -11,6 +11,41 @@ class PrivacyPolicy extends StatefulWidget {
 }
 
 class _PrivacyPolicyState extends State<PrivacyPolicy> {
+  String dText =
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit.';
+
+  Widget _buildTextArea() {
+    return Container(
+        child: Column(
+      children: [
+        Row(
+          children: [
+            Text('01. ',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Theme.of(context).accentColor,
+                    fontWeight: FontWeight.bold)),
+            Text('Lorem ipsum dolor',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Theme.of(context).accentColor,
+                    fontWeight: FontWeight.bold))
+          ],
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 10.0),
+          child: Text(
+            dText,
+            style: TextStyle(
+                letterSpacing: 1,
+                fontSize: 16,
+                color: Colors.black.withOpacity(0.5)),
+          ),
+        )
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +66,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                   topLeft: Radius.circular(30.0),
                   topRight: Radius.circular(30.0))),
           child: ListView(
-            children: [],
+            children: [_buildTextArea()],
           ),
         ),
       ),

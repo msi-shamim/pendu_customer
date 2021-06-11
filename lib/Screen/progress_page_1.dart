@@ -275,12 +275,6 @@ class _ProgressPage1State extends State<ProgressPage1> {
                             color: Theme.of(context).accentColor, fontSize: 20),
                       ),
                     ),
-                    //Icon(
-                    //   FontAwesomeIcons.dollarSign,
-
-                    //   size: 18,
-                    //   color: Pendu.color('5BDB98'),
-                    // ),
                   ),
                 ),
               ),
