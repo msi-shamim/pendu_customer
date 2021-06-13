@@ -26,24 +26,22 @@ List<ItemModel> _itemList = [
 class Category {
   final int id;
   final String title;
+  bool isSelect;
 
-  Category({
-    this.id,
-    this.title,
-  });
+  Category({this.id, this.title, this.isSelect});
 }
 
-List<Category> _category = [
-  Category(id: 1, title: "Groceries"),
-  Category(id: 2, title: "Documents"),
-  Category(id: 3, title: "Electronis"),
-  Category(id: 4, title: "Furniture"),
-  Category(id: 5, title: "Cloths"),
-  Category(id: 6, title: "Foods"),
-  Category(id: 7, title: "Office Staffs"),
-  Category(id: 8, title: "Pet"),
-  Category(id: 9, title: "Plants"),
-  Category(id: 10, title: "Live Food"),
+List<Category> _categoryList = [
+  Category(id: 1, title: "Groceries", isSelect: false),
+  Category(id: 2, title: "Documents", isSelect: false),
+  Category(id: 3, title: "Electronis", isSelect: false),
+  Category(id: 4, title: "Furniture", isSelect: false),
+  Category(id: 5, title: "Cloths", isSelect: false),
+  Category(id: 6, title: "Foods", isSelect: false),
+  Category(id: 7, title: "Office Staffs", isSelect: false),
+  Category(id: 8, title: "Pet", isSelect: false),
+  Category(id: 9, title: "Plants", isSelect: false),
+  Category(id: 10, title: "Live Food", isSelect: false),
 ];
 
 class ProgressPage1 extends StatefulWidget {
@@ -110,59 +108,78 @@ class _ProgressPage1State extends State<ProgressPage1> {
         });
   }
 
-  _buildMultiselect() {
-    return showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-              height: MediaQuery.of(context).size.height * 0.60,
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-              decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0))),
-              child: ListView(
-                children: [
-                  Text(
-                    'Select Categories',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-
-                  //!Multiselec work
-                  //Todo Listview Builder work
-                  Container(
-                      height: 200,
-                      child: CheckboxListTile(
-                        controlAffinity: ListTileControlAffinity.leading,
-                        activeColor: Theme.of(context).accentColor,
-                        title: Text('user'),
-                        value: true,
-                        onChanged: (bool selected) {
-                          //onUserSelected(selected, user.uid);
-                          if (selected == true) {
-                            setState(() {});
-                          }
-                        },
-                      )),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CloseButtonCustom(),
-                      ProgressButton(
-                        btnText: 'Next',
-                        onPressed: () {},
-                      )
-                    ],
-                  )
-                ],
-              ));
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
+    _buildMultiselect() {
+      return showModalBottomSheet(
+          backgroundColor: Colors.transparent,
+          isScrollControlled: true,
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+                height: MediaQuery.of(context).size.height * 0.60,
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0))),
+                child: ListView(
+                  children: [
+                    Text(
+                      'Select Categories',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+
+                    //!Multiselec work
+                    //Todo Listview Builder work
+
+                    Container(
+                      height: 320,
+                      margin: EdgeInsets.symmetric(vertical: 5.0),
+                      child: ListView.builder(
+                        itemCount: _categoryList.length,
+                        // shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return StatefulBuilder(
+                            builder: (context, _setState) => CheckboxListTile(
+                              controlAffinity: ListTileControlAffinity.leading,
+                              activeColor: Theme.of(context).accentColor,
+                              autofocus: true,
+                              dense: true,
+                              title: Text(
+                                _categoryList[index].title,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              selected: _categoryList[index].isSelect,
+                              value: _categoryList[index].isSelect,
+                              onChanged: (bool value) {
+                                _setState(() {
+                                  _categoryList[index].isSelect = value;
+                                });
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CloseButtonCustom(),
+                        ProgressButton(
+                          btnText: 'Next',
+                          onPressed: () {},
+                        )
+                      ],
+                    )
+                  ],
+                ));
+          });
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),

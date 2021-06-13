@@ -8,64 +8,115 @@ import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/task_view.dart';
 import 'package:pendu_customer/utils/pendu_icon.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 
 class BottomNavigation extends StatefulWidget {
-  final String initValue;
+  final int initValue;
   BottomNavigation({this.initValue});
 
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
 
-class _BottomNavigationState extends State<BottomNavigation>
-    with TickerProviderStateMixin {
-  MotionTabController _tabController;
+class _BottomNavigationState extends State<BottomNavigation> {
+  //MotionTabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController =
-        MotionTabController(initialIndex: 0, vsync: this, length: 4);
+    // _tabController =
+    //     MotionTabController(initialIndex: 0, vsync: this, length: 4);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
+    // _tabController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MotionTabBar(
-      labels: ["Home", "Tasks", "Offers", "My profile"],
-      initialSelectedTab: widget.initValue,
-      tabIconColor: Colors.black,
-      tabSelectedColor: Pendu.color('60E99C'),
-      onTabItemSelected: (int value) {
+    int selectedIndex = widget.initValue;
+    return FFNavigationBar(
+      theme: FFNavigationBarTheme(
+        barBackgroundColor: Colors.white,
+        selectedItemBorderColor: Colors.transparent,
+        selectedItemBackgroundColor: Theme.of(context).accentColor,
+        selectedItemIconColor: Colors.white,
+        selectedItemLabelColor: Colors.black,
+        showSelectedItemShadow: false,
+        barHeight: 60,
+      ),
+      selectedIndex: selectedIndex,
+      onSelectTab: (index) {
         setState(() {
-          _tabController.index = value;
+          selectedIndex = index;
+
+          if (selectedIndex == 0) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+          } else if (selectedIndex == 1) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => TaskView()));
+          } else if (selectedIndex == 2) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ReceivedOffers()));
+          } else if (selectedIndex == 3) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => UserProfile()));
+          }
         });
-        if (value == 0) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
-        } else if (value == 1) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => TaskView()));
-        } else if (value == 2) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ReceivedOffers()));
-        } else if (value == 3) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => UserProfile()));
-        }
       },
-      icons: [
-        PenduIcon.home,
-        PenduIcon.tasks,
-        PenduIcon.offers,
-        PenduIcon.profile
+      items: [
+        FFNavigationBarItem(
+          iconData: PenduIcon.home,
+          label: 'Home',
+        ),
+        FFNavigationBarItem(
+          iconData: PenduIcon.tasks,
+          label: 'Tasks',
+        ),
+        FFNavigationBarItem(
+          iconData: PenduIcon.offers,
+          label: 'Offers',
+        ),
+        FFNavigationBarItem(
+          iconData: PenduIcon.profile,
+          label: 'My profile',
+        ),
       ],
-      textStyle: TextStyle(color: Colors.black),
     );
+
+    // return MotionTabBar(
+    //   labels: ["Home", "Tasks", "Offers", "My profile"],
+    //   initialSelectedTab: widget.initValue,
+    //   tabIconColor: Colors.black,
+    //   tabSelectedColor: Pendu.color('60E99C'),
+    //   onTabItemSelected: (int value) {
+    //     setState(() {
+    //       _tabController.index = value;
+    //     });
+    //     if (value == 0) {
+    //       Navigator.push(
+    //           context, MaterialPageRoute(builder: (context) => HomePage()));
+    //     } else if (value == 1) {
+    //       Navigator.push(
+    //           context, MaterialPageRoute(builder: (context) => TaskView()));
+    //     } else if (value == 2) {
+    //       Navigator.push(context,
+    //           MaterialPageRoute(builder: (context) => ReceivedOffers()));
+    //     } else if (value == 3) {
+    //       Navigator.push(
+    //           context, MaterialPageRoute(builder: (context) => UserProfile()));
+    //     }
+    //   },
+    //   icons: [
+    //     PenduIcon.home,
+    //     PenduIcon.tasks,
+    //     PenduIcon.offers,
+    //     PenduIcon.profile
+    //   ],
+    //   textStyle: TextStyle(color: Colors.black),
+    // );
   }
 }

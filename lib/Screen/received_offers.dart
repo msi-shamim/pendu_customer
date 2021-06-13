@@ -274,7 +274,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigation(initValue: "Offers"),
+      bottomNavigationBar: BottomNavigation(initValue: 2),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
         child: CommonAppBar('Received Offers'),

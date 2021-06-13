@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Screen/request_quote.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
@@ -19,6 +20,16 @@ class ProDriver extends StatefulWidget {
 }
 
 class _ProDriverState extends State<ProDriver> {
+  _buildMultiselect() {
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          return RequestQuote();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,11 +100,19 @@ class _ProDriverState extends State<ProDriver> {
                             Container(
                               margin: EdgeInsets.only(
                                   left: 8, right: 8, top: 0, bottom: 8),
-                              child: RaisedButton(
-                                onPressed: () {},
-                                color: Theme.of(context).accentColor,
-                                child: Text('Request a quote',
-                                    style: TextStyle(color: Colors.white)),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  _buildMultiselect();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  primary: Theme.of(context).accentColor,
+                                  onPrimary: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                ),
+                                child: Text('Request a quote'),
                               ),
                             )
                           ],

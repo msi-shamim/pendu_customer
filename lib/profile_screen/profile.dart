@@ -166,7 +166,7 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: BottomNavigation(initValue: "My profile"),
+        bottomNavigationBar: BottomNavigation(initValue: 3),
         appBar: _buildAppbar(),
         body: Container(
           color: Pendu.color('1B3149'),

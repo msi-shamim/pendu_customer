@@ -9,6 +9,7 @@ import 'package:pendu_customer/home_directories/first_card.dart';
 import 'package:pendu_customer/home_directories/image_carousel.dart';
 import 'package:pendu_customer/home_directories/recent_drops.dart';
 import 'package:pendu_customer/home_directories/PenduAppBar.dart';
+import 'package:pendu_customer/profile_screen/pro_driver.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
 import 'package:pendu_customer/utils/nav_bar.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
@@ -42,7 +43,7 @@ class _HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     double _widthHight = MediaQuery.of(context).size.width / 2 - 50;
     return Scaffold(
-      bottomNavigationBar: BottomNavigation(initValue: "Home"),
+      bottomNavigationBar: BottomNavigation(initValue: 0),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
         child: PenduAppBar(),
@@ -58,7 +59,7 @@ class _HomeState extends State<HomePage> {
           //section 03
           Column(
             children: [
-              Breadcamp('Pro Drivers in Your Area', null),
+              Breadcamp('Pro Drivers in Your Area', ProDriver()),
               Container(
                 height: 280,
                 child: ListView.separated(

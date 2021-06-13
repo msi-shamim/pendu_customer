@@ -41,7 +41,7 @@ class _TaskViewState extends State<TaskView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: BottomNavigation(initValue: "Tasks"),
+        bottomNavigationBar: BottomNavigation(initValue: 1),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(72),
           child: CommonAppBar('Task'),
