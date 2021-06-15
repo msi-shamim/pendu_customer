@@ -220,13 +220,14 @@ class _PaymnetHistoryState extends State<PaymnetHistory> {
   Widget _buildAddCardTextField(
       {String title, String hintText, bool isObsecure}) {
     return Wrap(
+  crossAxisAlignment: WrapCrossAlignment.start,
       children: [
         Text(
           title,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
         ),
         Container(
-          margin: EdgeInsets.symmetric(vertical: 5.0),
+          margin: EdgeInsets.symmetric(vertical: 10.0),
           height: 40,
           decoration: BoxDecoration(
               color: Colors.grey[100],
@@ -278,6 +279,7 @@ class _PaymnetHistoryState extends State<PaymnetHistory> {
   _buildAddCardForm() {
     return showModalBottomSheet(
         backgroundColor: Colors.transparent,
+isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
           return Container(
