@@ -1,8 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class AppVersionPopUp extends StatelessWidget {
+class AppVersionPopUp extends StatefulWidget {
+  @override
+  _AppVersionPopUpState createState() => _AppVersionPopUpState();
+}
+
+class _AppVersionPopUpState extends State<AppVersionPopUp> {
+  // PackageInfo _packageInfo = PackageInfo(
+  //   appName: 'Know',
+  //   packageName: 'Unknown',
+  //   version: 'Unknown',
+  //   buildNumber: 'Unknown',
+  // );
+  String appName, packageName, version, buildNumber;
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
+
+  Future<void> _initPackageInfo() async {
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      appName = packageInfo.appName;
+      packageName = packageInfo.packageName;
+      version = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -38,12 +65,12 @@ class AppVersionPopUp extends StatelessWidget {
                   height: 20.0,
                 ),
                 Text(
-                  'Your app is up to date',
+                  'Your app is upto date',
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20.0),
                 Text(
-                  '03.25.251.0003',
+                  version,
                   style: TextStyle(color: Pendu.color('90A0B2')),
                   textAlign: TextAlign.center,
                 ),

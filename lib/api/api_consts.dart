@@ -9,6 +9,8 @@ class PenduConstants {
   static final contentTypeValue = 'application/json';
   static final acceptType = 'Accept';
   static final acceptTypeValue = 'application/json';
+  static final accessToken = 'access_token';
+
   static final sessionKey = 'x-api-key';
 
   //sharedPrefs

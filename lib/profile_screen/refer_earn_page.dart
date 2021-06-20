@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:flutter/services.dart';
+import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:social_share/social_share.dart';
 
 class ReferNEarn extends StatefulWidget {
-  const ReferNEarn({Key key}) : super(key: key);
+  final dynamic userVar;
+
+  const ReferNEarn({Key key, this.userVar}) : super(key: key);
 
   @override
-  _ReferNEarnState createState() => _ReferNEarnState();
+  _ReferNEarnState createState() => _ReferNEarnState(userVar);
 }
 
 class _ReferNEarnState extends State<ReferNEarn> {
+  final dynamic userVar;
+  _ReferNEarnState(this.userVar);
   Widget _buildTextField() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10.0),
@@ -59,7 +66,11 @@ class _ReferNEarnState extends State<ReferNEarn> {
       width: MediaQuery.of(context).size.width - 50,
       height: 50,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Clipboard.setData(ClipboardData(text: userVar["referral_link"]));
+          SnackBarClass.snackBarMethod(
+              message: "Link Copied to Clipboard", context: context);
+        },
         style: ElevatedButton.styleFrom(
           elevation: 0,
           primary: Theme.of(context).primaryColor,
@@ -86,7 +97,19 @@ class _ReferNEarnState extends State<ReferNEarn> {
             'Share- ',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
-          SvgPicture.asset('assets/twitter2.svg'),
+          InkWell(
+              onTap: () {
+                SocialShare.shareTwitter(
+                  "Use pendu with this refeler link " +
+                      userVar["referral_link"],
+                  hashtags: ["share", "pendu", "customer", "australia"],
+                  url: "",
+                  trailingText: "\nhello",
+                ).then((data) {
+                  print(data);
+                });
+              },
+              child: SvgPicture.asset('assets/twitter2.svg')),
           SvgPicture.asset('assets/facebook3.svg'),
           SvgPicture.asset('assets/insta.svg'),
         ],
@@ -102,18 +125,18 @@ class _ReferNEarnState extends State<ReferNEarn> {
           child: ProfileCommonAppbar(
             title: 'Refer and earn',
           )),
-      body: SingleChildScrollView(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Pendu.color('1B3149'),
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Pendu.color('1B3149'),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0))),
+          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0))),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -155,7 +178,7 @@ class _ReferNEarnState extends State<ReferNEarn> {
                       color: Pendu.color('F1F1F1')),
                   alignment: Alignment.center,
                   child: Text(
-                    "https:// www.pendshf.sdajfsd/dsfds",
+                    userVar["referral_link"],
                     style: TextStyle(color: Colors.black54),
                   ),
                 ),

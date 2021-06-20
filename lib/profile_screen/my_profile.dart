@@ -5,11 +5,15 @@ import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 class MyProfile extends StatefulWidget {
+  final dynamic userVar;
+  MyProfile({this.userVar});
   @override
-  _MyProfileState createState() => _MyProfileState();
+  _MyProfileState createState() => _MyProfileState(userVar);
 }
 
 class _MyProfileState extends State<MyProfile> {
+  final dynamic userVar;
+  _MyProfileState(this.userVar);
   Widget _builtTextField(
       {String title, String svgUrl, String hinText, int maxline = 1}) {
     return Column(
@@ -87,20 +91,20 @@ class _MyProfileState extends State<MyProfile> {
                 _builtTextField(
                     title: 'Name',
                     svgUrl: 'assets/profile.svg',
-                    hinText: 'John'),
+                    hinText: userVar["name"]),
                 _builtTextField(
                     title: 'Email (Optional)',
                     svgUrl: 'assets/mail.svg',
-                    hinText: 'Enter Your mail'),
+                    hinText: userVar["email"]),
                 _builtTextField(
                     title: 'Suburb',
                     svgUrl: 'assets/location.svg',
-                    hinText: 'Enter your suburb',
+                    hinText: userVar["suburb"],
                     maxline: 5),
                 _builtTextField(
                     title: 'Phone No',
                     svgUrl: 'assets/telephone.svg',
-                    hinText: '+880'),
+                    hinText: userVar["phone"]),
 
                 _builtTextField(
                     title: 'Password',

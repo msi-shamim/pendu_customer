@@ -40,6 +40,8 @@ dependencies:
   intl:
   pin_code_fields: ^7.2.0
   ff_navigation_bar: ^0.1.5
+  social_share: ^2.1.1
+  package_info_plus: ^1.0.3
 
 dev_dependencies:
   flutter_test:

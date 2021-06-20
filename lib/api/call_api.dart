@@ -69,28 +69,33 @@ class CallApi {
       print(response.statusCode);
     }
   }
+
+  Future<RegisterModel> callProfileInfoApi({String accessTokenValue}) async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+      PenduConstants.accessToken:
+          accessTokenValue //access_token: accessTokenValue
+    };
+
+    var request = http.Request('GET',
+        Uri.parse(PenduConstants.baseUrl + PenduConstants.userProfileUrl));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      var res = await response.stream.bytesToString();
+      final registerModel = registerModelFromJson(res);
+      return registerModel;
+    }
+    return null;
+  }
 }
 
 //Profile Info Method
-Future<void> callProfileInfoApi() async {
-  var headers = {
-    PenduConstants.contentType: PenduConstants.contentTypeValue,
-    PenduConstants.acceptType: PenduConstants.acceptTypeValue
-  };
-
-  var request = http.Request(
-      'GET', Uri.parse(PenduConstants.baseUrl + PenduConstants.userProfileUrl));
-
-  request.headers.addAll(headers);
-
-  http.StreamedResponse response = await request.send();
-
-  if (response.statusCode == 200) {
-    print(await response.stream.bytesToString());
-  } else {
-    print(response.reasonPhrase);
-  }
-}
 
 void _allocateInSharedPref(BuildContext context, String s) async {
   print(s);
