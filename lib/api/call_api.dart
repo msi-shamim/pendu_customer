@@ -15,7 +15,10 @@ class CallApi {
   Future<void> callLoginApi(String _email, String _password) async {
     var loginData = {'email': _email, 'password': _password};
 
-    var headers = {PenduConstants.contentType: PenduConstants.contentTypeValue};
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue
+    };
     var request = http.Request(
         'POST', Uri.parse(PenduConstants.baseUrl + PenduConstants.loginUrl));
 
@@ -31,12 +34,23 @@ class CallApi {
     }
   }
 
-  Future<void> callSignUpApi(RegisterModel _registrationModel) async {
-    var headers = {PenduConstants.contentType: PenduConstants.contentTypeValue};
+  Future<void> callSignUpApi(
+      {String name, email, phone, suburb, password}) async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue
+    };
     var request = http.Request(
         'POST', Uri.parse(PenduConstants.baseUrl + PenduConstants.registerUrl));
 
-    request.body = jsonEncode(_registrationModel.toJson());
+    // request.body = json.encode({_registrationModel.toJson()});
+    request.body = json.encode({
+      "name": name,
+      "email": email,
+      "phone": phone,
+      "suburb": suburb,
+      "password": password
+    });
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -44,12 +58,37 @@ class CallApi {
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
       print(response.statusCode);
-      //!Email is not working
-      callLoginApi(_registrationModel.user.email, _registrationModel.user.name);
+
+      callLoginApi(email, password);
+      // callLoginApi(
+      //     _registrationModel.user.email, _registrationModel.user.password);
     } else {
+      print("*****");
       print(response.reasonPhrase);
+      print("#####");
       print(response.statusCode);
     }
+  }
+}
+
+//Profile Info Method
+Future<void> callProfileInfoApi() async {
+  var headers = {
+    PenduConstants.contentType: PenduConstants.contentTypeValue,
+    PenduConstants.acceptType: PenduConstants.acceptTypeValue
+  };
+
+  var request = http.Request(
+      'GET', Uri.parse(PenduConstants.baseUrl + PenduConstants.userProfileUrl));
+
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(await response.stream.bytesToString());
+  } else {
+    print(response.reasonPhrase);
   }
 }
 

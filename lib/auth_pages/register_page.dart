@@ -112,6 +112,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 if (pass == null || pass.isEmpty) {
                   return 'Password is required';
                 }
+                if (pass.length < 8) {
+                  return "Password at least 8 charecter";
+                }
                 return null;
               },
               textLabel: "Password",
@@ -135,11 +138,23 @@ class _RegisterPageState extends State<RegisterPage> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   var sighnUpinApi = CallApi(context);
-                  // sighnUpinApi.callSignUpApi(RegisterModel.fromJson(
-
+                  // sighnUpinApi.callSignUpApi(RegisterModel(
+                  //   user: User(
+                  //     name: nameController.text,
+                  //     email: emailController.text,
+                  //     phone: contactController.text,
+                  //     suburb: suburbController.text,
+                  //     password: passController.text,
+                  //   ),
                   // ));
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+
+                  sighnUpinApi.callSignUpApi(
+                    name: nameController.text,
+                    email: emailController.text,
+                    phone: contactController.text,
+                    suburb: suburbController.text,
+                    password: passController.text,
+                  );
                 }
               },
             ),

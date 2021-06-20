@@ -40,6 +40,7 @@ class User {
     this.referrerId,
     this.suburb,
     this.phone,
+    this.password,
     this.profileImage,
     this.roleId,
     this.email,
@@ -51,15 +52,16 @@ class User {
 
   int id;
   String name;
+  String email;
   dynamic referrerId;
   String suburb;
   String phone;
+  String password;
   dynamic profileImage;
   String roleId;
-  String email;
   dynamic emailVerifiedAt;
-  DateTime createdAt;
-  DateTime updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   String referralLink;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -68,12 +70,13 @@ class User {
         referrerId: json["referrer_id"],
         suburb: json["suburb"],
         phone: json["phone"],
+        password: json["password"],
         profileImage: json["profile_image"],
         roleId: json["role_id"],
         email: json["email"],
         emailVerifiedAt: json["email_verified_at"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         referralLink: json["referral_link"],
       );
 
@@ -83,12 +86,13 @@ class User {
         "referrer_id": referrerId,
         "suburb": suburb,
         "phone": phone,
+        "password": password,
         "profile_image": profileImage,
         "role_id": roleId,
         "email": email,
         "email_verified_at": emailVerifiedAt,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt(),
+        "updated_at": updatedAt(),
         "referral_link": referralLink,
       };
 }

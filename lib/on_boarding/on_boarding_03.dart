@@ -50,7 +50,7 @@ class _OnBoardState extends State<OnBoarding03> {
                     color: Pendu.color('5BDB98'),
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => LogInPage()));
                     },
                     child: Text(
                       'Next',

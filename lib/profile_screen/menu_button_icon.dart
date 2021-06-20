@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pendu_customer/api/api_consts.dart';
+import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuButtonList extends StatelessWidget {
   @override
@@ -13,35 +16,50 @@ class MenuButtonList extends StatelessWidget {
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Logout', style: TextStyle(fontSize: 12)),
-              SvgPicture.asset(
-                'assets/signout.svg',
-                height: 15.0,
-                width: 15.0,
-                color: Pendu.color('60E99C'),
-              )
-            ],
-          ),
-        ),
-        PopupMenuItem(
-            value: 1,
+          child: InkWell(
+            onTap: () {
+              Future<SharedPreferences> sharedPref =
+                  SharedPreferences.getInstance();
+              sharedPref.then((value) {
+                value.remove(PenduConstants.spUser);
+                value.remove(PenduConstants.spToken);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LogInPage()));
+              });
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Help & Support',
-                  style: TextStyle(fontSize: 12),
-                ),
+                Text('Logout', style: TextStyle(fontSize: 12)),
                 SvgPicture.asset(
-                  'assets/help_support.svg',
+                  'assets/signout.svg',
                   height: 15.0,
                   width: 15.0,
                   color: Pendu.color('60E99C'),
                 )
               ],
+            ),
+          ),
+        ),
+        PopupMenuItem(
+            value: 1,
+            child: InkWell(
+              onTap: () {},
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Help & Support',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  SvgPicture.asset(
+                    'assets/help_support.svg',
+                    height: 15.0,
+                    width: 15.0,
+                    color: Pendu.color('60E99C'),
+                  )
+                ],
+              ),
             ))
       ],
       //Todo Button click work

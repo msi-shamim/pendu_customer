@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_02.dart';
 import 'package:pendu_customer/utils/page_indicator.dart';
@@ -62,7 +63,7 @@ class _OnBoardState extends State<OnBoarding01> {
               TextButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                        MaterialPageRoute(builder: (context) => LogInPage()));
                   },
                   child: Text(
                     'Skip for now',

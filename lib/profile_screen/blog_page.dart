@@ -4,8 +4,6 @@ import 'package:pendu_customer/network_data/blog_network.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
-import 'menu_button_icon.dart';
-
 class BlogPage extends StatefulWidget {
   @override
   _BlogPageState createState() => _BlogPageState();
