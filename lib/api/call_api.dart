@@ -114,7 +114,7 @@ class CallApi {
     }
   }
 
-  Future<void> callVerifyMailApi({String otpCode}) async {
+  Future<void> callVerifyMailApi({String inputMail,otpCode}) async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
       PenduConstants.acceptType: PenduConstants.acceptTypeValue,
@@ -122,7 +122,26 @@ class CallApi {
 
     var request = http.Request('POST',
         Uri.parse(PenduConstants.baseUrl + PenduConstants.verifyMailOtpUrl));
-    request.body = json.encode({"otp": otpCode});
+    request.body = json.encode({ "email": inputMail, "otp": otpCode});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+  Future<void> callResetPasswordApi({String inputMail,otpCode, password}) async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+    };
+
+    var request = http.Request('PUT',
+        Uri.parse(PenduConstants.baseUrl + PenduConstants.changePasswordUrl));
+    request.body = json.encode({ "email": inputMail,"password": password, "otp": otpCode});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

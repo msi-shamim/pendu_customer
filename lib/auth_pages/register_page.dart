@@ -113,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   return 'Password is required';
                 }
                 if (pass.length < 8) {
-                  return "Password at least 8 charecter";
+                  return "Password at least 8 character";
                 }
                 return null;
               },
@@ -147,7 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   //     password: passController.text,
                   //   ),
                   // ));
-
+//
                   sighnUpinApi.callSignUpApi(
                     name: nameController.text,
                     email: emailController.text,

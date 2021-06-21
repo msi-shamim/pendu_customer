@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/password_textform_field.dart';
 
 class CreateNewPassword extends StatefulWidget {
-  const CreateNewPassword({Key key}) : super(key: key);
+  final String  inputMail, otp;
+  const CreateNewPassword({Key key, this.inputMail, this.otp}) : super(key: key);
 
   @override
-  _CreateNewPasswordState createState() => _CreateNewPasswordState();
+  _CreateNewPasswordState createState() => _CreateNewPasswordState(inputMail, otp);
 }
 
 class _CreateNewPasswordState extends State<CreateNewPassword> {
+  final String  inputMail, otp;
+  _CreateNewPasswordState(this.inputMail, this.otp);
   final _formKey = GlobalKey<FormState>();
   final passController = TextEditingController();
   final confirmPassController = TextEditingController();
@@ -56,13 +60,17 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
               }
               return null;
             },
-            textLabel: "Confrim New Password",
+            textLabel: "Confirm New Password",
             controller: confirmPassController,
           ),
           AuthButton(
             btnText: 'Set Password',
             onPressed: () {
               if (_formKey.currentState.validate()) {
+                //Call reset pass api
+                var resetPassApi = CallApi(context);
+                resetPassApi.callResetPasswordApi(inputMail: "", otpCode: "", password: passController.text);
+                //Navigate to nest page
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LogInPage()));
               }
