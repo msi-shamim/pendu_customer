@@ -168,6 +168,7 @@ class _LogInPageState extends State<LogInPage> {
           'assets/apple.svg',
           height: 28,
           width: 28,
+          color: Colors.black,
         ),
       ],
     );

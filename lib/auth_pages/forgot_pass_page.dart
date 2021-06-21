@@ -1,9 +1,12 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/auth_pages/otp_screen.dart';
+import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/normal_textform_field.dart';
+import 'package:pendu_customer/utils/snackBar_page.dart';
+
+import 'otp_screen_mail.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key key}) : super(key: key);
@@ -47,8 +50,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             btnText: 'Reset',
             onPressed: () {
               if (_formKey.currentState.validate()) {
+                var mailApi = CallApi(context);
+                mailApi.callMailApi(mail: emailController.text);
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OtpScreen()));
+                    MaterialPageRoute(builder: (context) => OtpScreenMail()));
+                SnackBarClass.snackBarMethod(
+                    message: "OTP send to your Email", context: context);
               }
             },
           ),

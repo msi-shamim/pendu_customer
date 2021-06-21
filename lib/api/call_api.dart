@@ -93,6 +93,66 @@ class CallApi {
     }
     return null;
   }
+
+  Future<void> callMailApi({String mail}) async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      //PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+    };
+
+    var request = http.Request(
+        'POST', Uri.parse(PenduConstants.baseUrl + PenduConstants.sendMailUrl));
+    request.body = json.encode({"email": mail});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  Future<void> callVerifyMailApi({String otpCode}) async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+    };
+
+    var request = http.Request('POST',
+        Uri.parse(PenduConstants.baseUrl + PenduConstants.verifyMailOtpUrl));
+    request.body = json.encode({"otp": otpCode});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
+  Future<void> callVerifyPhoneApi({String otpCode}) async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+    };
+
+    var request = http.Request('POST',
+        Uri.parse(PenduConstants.baseUrl + PenduConstants.verifyPhoneUrl));
+    request.body = json.encode({"otp": otpCode});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
 }
 
 //Profile Info Method
