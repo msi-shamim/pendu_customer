@@ -18,6 +18,8 @@ class PasswordTextFormField extends StatelessWidget {
           // labelStyle: TextStyle(color: Colors.black, fontSize: 14),
           labelText: textLabel,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          contentPadding:
+              EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
         ));
   }
 }

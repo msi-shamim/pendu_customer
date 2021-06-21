@@ -24,6 +24,8 @@ class NormalTextFormField extends StatelessWidget {
           labelText: textLabel,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           hintText: hintText,
+          contentPadding:
+              EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
         ));
   }
 }

@@ -70,6 +70,42 @@ class CallApi {
     }
   }
 
+  Future<void> callUserInfoUpdateApi(
+      {String name, email, phone, suburb, password}) async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue
+    };
+    var request = http.Request('PUT',
+        Uri.parse(PenduConstants.baseUrl + PenduConstants.userProfileUrl));
+
+    // request.body = json.encode({_registrationModel.toJson()});
+    request.body = json.encode({
+      "name": name,
+      // "email": email,
+      "phone": phone,
+      "suburb": suburb,
+      // "password": password
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      print(response.statusCode);
+
+      callLoginApi(email, password);
+      // callLoginApi(
+      //     _registrationModel.user.email, _registrationModel.user.password);
+    } else {
+      print("*****");
+      print(response.reasonPhrase);
+      print("#####");
+      print(response.statusCode);
+    }
+  }
+
   Future<RegisterModel> callProfileInfoApi({String accessTokenValue}) async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
@@ -114,7 +150,7 @@ class CallApi {
     }
   }
 
-  Future<void> callVerifyMailApi({String inputMail,otpCode}) async {
+  Future<void> callVerifyMailApi({String inputMail, otpCode}) async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
       PenduConstants.acceptType: PenduConstants.acceptTypeValue,
@@ -122,7 +158,7 @@ class CallApi {
 
     var request = http.Request('POST',
         Uri.parse(PenduConstants.baseUrl + PenduConstants.verifyMailOtpUrl));
-    request.body = json.encode({ "email": inputMail, "otp": otpCode});
+    request.body = json.encode({"email": inputMail, "otp": otpCode});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -133,7 +169,9 @@ class CallApi {
       print(response.reasonPhrase);
     }
   }
-  Future<void> callResetPasswordApi({String inputMail,otpCode, password}) async {
+
+  Future<void> callResetPasswordApi(
+      {String inputMail, otpCode, password}) async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
       PenduConstants.acceptType: PenduConstants.acceptTypeValue,
@@ -141,7 +179,8 @@ class CallApi {
 
     var request = http.Request('PUT',
         Uri.parse(PenduConstants.baseUrl + PenduConstants.changePasswordUrl));
-    request.body = json.encode({ "email": inputMail,"password": password, "otp": otpCode});
+    request.body =
+        json.encode({"email": inputMail, "password": password, "otp": otpCode});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
