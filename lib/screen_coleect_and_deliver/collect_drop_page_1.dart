@@ -13,13 +13,14 @@ import '../Screen/screen_progress.dart';
 
 class ItemModel {
   final String itemName;
+  final double itemPrice;
   final int itemQuantity;
-  ItemModel({this.itemName, this.itemQuantity});
+  ItemModel({this.itemName, this.itemPrice, this.itemQuantity});
 }
 
 List<ItemModel> _itemList = [
-  ItemModel(itemName: 'Toothpaste(2x)', itemQuantity: 2),
-  ItemModel(itemName: 'Brush-Oral B (2x)', itemQuantity: 1)
+  ItemModel(itemName: 'Toothpaste(2x)', itemPrice: 10, itemQuantity: 2),
+  ItemModel(itemName: 'Brush-Oral B (2x)', itemPrice: 15, itemQuantity: 1)
 ];
 
 class CollectDropPage1 extends StatefulWidget {
@@ -28,6 +29,88 @@ class CollectDropPage1 extends StatefulWidget {
 }
 
 class _CollectDropPage1State extends State<CollectDropPage1> {
+  TextEditingController _textFieldController = TextEditingController();
+  String codeDialog;
+  String valueText;
+  Future<void> _displayTextInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Input Product Details'),
+            //Todo Textfield need to added
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        valueText = value;
+                      });
+                    },
+                    controller: _textFieldController,
+                    decoration: InputDecoration(hintText: "Product Title"),
+                  ),
+                  TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        valueText = value;
+                      });
+                    },
+                    controller: _textFieldController,
+                    decoration: InputDecoration(hintText: "Product Price"),
+                  ),
+                  TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        valueText = value;
+                      });
+                    },
+                    controller: _textFieldController,
+                    decoration: InputDecoration(hintText: "Product Quantity"),
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    codeDialog = valueText;
+                    Navigator.pop(context);
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  primary: Pendu.color('5BDB98'),
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Text(' Save '),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  primary: Colors.red,
+                  onPrimary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: Text('Cancel'),
+              ),
+            ],
+          );
+        });
+  }
+
   Widget _buildProdcutDetails() {
     return ListView.builder(
         itemCount: _itemList.length,
@@ -50,6 +133,13 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
                           TextStyle(color: Pendu.color('4CB08A'), fontSize: 16),
                     ),
                   ],
+                ),
+              ),
+              SizedBox(
+                //width: 50,
+                child: Text(
+                  '\$${_itemList[index].itemPrice}',
+                  style: TextStyle(color: Pendu.color('4CB08A'), fontSize: 16),
                 ),
               ),
               Spacer(),
@@ -84,6 +174,28 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
             ],
           );
         });
+  }
+
+  Widget _buildProductListBox() {
+    return Container(
+        color: Pendu.color('E7F9EF'),
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildProdcutDetails(),
+            InkWell(
+              onTap: () => {_displayTextInputDialog(context)},
+              child: Text(
+                '+ Add another',
+                style: TextStyle(color: Colors.grey, fontSize: 16),
+              ),
+            ),
+            SizedBox(height: 30.0),
+          ],
+        ));
   }
 
   @override
@@ -147,25 +259,8 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
                       'Please provide the name and quantity of the thing you need collected & Add photos only if you have them.'),
               //Todo Product Container
               SizedBox(height: 10),
-              Container(
-                  color: Pendu.color('E7F9EF'),
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildProdcutDetails(),
-                      InkWell(
-                        onTap: () => {},
-                        child: Text(
-                          '+ Add another',
-                          style: TextStyle(color: Colors.grey, fontSize: 16),
-                        ),
-                      ),
-                      SizedBox(height: 30.0),
-                    ],
-                  )),
+
+              _buildProductListBox(),
               SizedBox(height: 10),
 
               ProgressPageHeader(text: 'Enter shops/Pickup address'),

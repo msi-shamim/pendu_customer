@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pendu_customer/home_directories/page_home.dart';
+import 'package:pendu_customer/model/blog_post_model.dart';
+import 'package:pendu_customer/model/product_categories_model.dart';
 import 'package:pendu_customer/model/register_model.dart';
+import 'package:pendu_customer/model/vehical_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 import 'api_consts.dart';
@@ -130,6 +133,53 @@ class CallApi {
     return null;
   }
 
+  Future<BlogPostModel> callBlogPostApi() async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+    };
+
+    var request = http.Request('GET',
+        Uri.parse(PenduConstants.baseUrl + PenduConstants.allBlogPostUrl));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      //  print(await response.stream.bytesToString());
+      var res = await response.stream.bytesToString();
+      final blogModel = blogPostModelFromJson(res);
+      return blogModel;
+    }
+    return null;
+  }
+
+  Future<BlogPostModel> callBlogSinglePostApi({int blogId}) async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+    };
+
+    var request = http.Request(
+        'GET',
+        Uri.parse(PenduConstants.baseUrl +
+            PenduConstants.allBlogPostUrl +
+            "$blogId"));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      //  print(await response.stream.bytesToString());
+      var res = await response.stream.bytesToString();
+      final blogModel = blogPostModelFromJson(res);
+      return blogModel;
+    }
+    return null;
+  }
+
   Future<void> callMailApi({String mail}) async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
@@ -210,6 +260,52 @@ class CallApi {
     } else {
       print(response.reasonPhrase);
     }
+  }
+
+  Future<ProductCategoriesModel> callProductCategoryApi() async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+    };
+
+    var request = http.Request('GET',
+        Uri.parse(PenduConstants.baseUrl + PenduConstants.productCategoryUrl));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print("#########");
+      print(await response.stream.bytesToString());
+      print("#########");
+      var res = await response.stream.bytesToString();
+      final productModel = productCategoriesModelFromJson(res);
+      return productModel;
+    }
+    return null;
+  }
+
+  Future<VehicalModel> callVehicalDataApi() async {
+    var headers = {
+      PenduConstants.contentType: PenduConstants.contentTypeValue,
+      PenduConstants.acceptType: PenduConstants.acceptTypeValue,
+    };
+
+    var request = http.Request('GET',
+        Uri.parse(PenduConstants.baseUrl + PenduConstants.vehicalDataUrl));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      var res = await response.stream.bytesToString();
+      final vehicalModel = vehicalModelFromJson(res);
+      return vehicalModel;
+    }
+    return null;
   }
 }
 

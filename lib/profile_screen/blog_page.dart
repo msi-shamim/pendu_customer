@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/Model/blog_model.dart';
+import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/model/blog_post_model.dart';
 import 'package:pendu_customer/network_data/blog_network.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
@@ -10,28 +12,108 @@ class BlogPage extends StatefulWidget {
 }
 
 class _BlogPageState extends State<BlogPage> {
-  final BlogNetwork blogNetwork = BlogNetwork();
+  // final BlogNetwork blogNetwork = BlogNetwork();
   String sortVal = 'All';
   int intValue = 0;
 
+  List<BlogPostList> _blogList;
+  @override
+  void initState() {
+    _getBlogInfo();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _getBlogInfo() async {
+    var blogModel = CallApi(context).callBlogPostApi();
+
+    blogModel.then((value) {
+      setState(() {
+        _blogList = value.blogPostList.toList();
+        //  print(_blogList);
+      });
+    });
+  }
+
+  Future buildText() {
+    return Future.delayed(Duration(seconds: 3), () => print('waiting...'));
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget _buildSortByList() {
+    final _scaffoldHomeKey = GlobalKey<ScaffoldState>();
+
+    Widget _buildSorting() {
       return Container(
-        width: 81,
-        alignment: Alignment.topRight,
-        color: Colors.red,
-        child: Column(
+        height: 30,
+        width: 110,
+        decoration: BoxDecoration(
+          border: Border.all(color: Pendu.color('90A0B2')),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text('All'),
-            Divider(height: 10),
-            Text('This Month'),
-            Divider(height: 10),
-            Text('This year'),
+            Text(sortVal),
+            SizedBox(width: 5),
+            PopupMenuButton(
+              child: Icon(
+                Icons.unfold_more_rounded,
+                color: Pendu.color('90A0B2'),
+              ),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: Text('All'),
+                  value: 0,
+                ),
+                PopupMenuItem(
+                  child: Text('This month'),
+                  value: 1,
+                ),
+                PopupMenuItem(
+                  child: Text('This year'),
+                  value: 2,
+                ),
+              ],
+              initialValue: intValue,
+              onSelected: (result) {
+                if (result == 0) {
+                  setState(() {
+                    sortVal = 'All';
+                    intValue = 0;
+                  });
+                } else if (result == 1) {
+                  setState(() {
+                    sortVal = 'This month';
+                    intValue = 1;
+                  });
+                } else if (result == 2) {
+                  setState(() {
+                    sortVal = 'This year';
+                    intValue = 2;
+                  });
+                }
+              },
+            ),
           ],
         ),
+      );
+    }
+
+    Widget _buildHeader() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Sort by',
+            style: TextStyle(fontSize: 16, color: Pendu.color('707070')),
+          ),
+          _buildSorting(),
+        ],
       );
     }
 
@@ -55,133 +137,84 @@ class _BlogPageState extends State<BlogPage> {
           child: Column(
             children: [
               //todo
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Sort by',
-                    style:
-                        TextStyle(fontSize: 16, color: Pendu.color('707070')),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 110,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Pendu.color('90A0B2')),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(sortVal),
-                        SizedBox(width: 5),
-                        PopupMenuButton(
-                          child: Icon(
-                            Icons.unfold_more_rounded,
-                            color: Pendu.color('90A0B2'),
-                          ),
-                          itemBuilder: (context) => [
-                            PopupMenuItem(
-                              child: Text('All'),
-                              value: 0,
-                            ),
-                            PopupMenuItem(
-                              child: Text('This month'),
-                              value: 1,
-                            ),
-                            PopupMenuItem(
-                              child: Text('This year'),
-                              value: 2,
-                            ),
-                          ],
-                          initialValue: intValue,
-                          onSelected: (result) {
-                            if (result == 0) {
-                              setState(() {
-                                sortVal = 'All';
-                                intValue = 0;
-                              });
-                            } else if (result == 1) {
-                              setState(() {
-                                sortVal = 'This month';
-                                intValue = 1;
-                              });
-                            } else if (result == 2) {
-                              setState(() {
-                                sortVal = 'This year';
-                                intValue = 2;
-                              });
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+              _buildHeader(),
               Divider(thickness: 2, height: 30.0),
               Expanded(
-                child: FutureBuilder(
-                  future: blogNetwork.getBlog(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<BlogModel>> snapshot) {
-                    if (snapshot.hasData) {
-                      List<BlogModel> blogData = snapshot.data;
-                      return ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: blogData
-                            .map((BlogModel blogVar) => Container(
-                                height: 80,
-                                //   width: 100,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 2.0),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 100,
-                                      height: 80,
-                                      margin: EdgeInsets.only(
-                                          left: 3.0,
-                                          top: 3.0,
-                                          bottom: 3.0,
-                                          right: 10.0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                          image: DecorationImage(
-                                            image: NetworkImage(blogVar.imgUrl),
-                                            fit: BoxFit.cover,
-                                          )),
-                                    ),
-                                    Column(
+                  child: FutureBuilder(
+                future: buildText(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      _blogList != null) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _blogList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            height: 80,
+                            //   width: 100,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 2.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                        left: 3.0,
+                                        top: 3.0,
+                                        bottom: 3.0,
+                                        right: 10.0),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              "https://cdn2.momjunction.com/wp-content/uploads/2019/05/How-to-play-chess.jpg"),
+                                          //_blogList[index].featuredImage),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 5,
+                                  child: Container(
+                                    child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.end,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              blogVar.title,
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600),
+                                            Expanded(
+                                              flex: 6,
+                                              child: Text(
+                                                _blogList[index].title,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
                                             ),
                                             SizedBox(width: 5.0),
-                                            Icon(
-                                              Icons.share,
-                                              color: Pendu.color('60E99C'),
-                                              size: 20,
+                                            Expanded(
+                                              flex: 1,
+                                              child: Icon(
+                                                Icons.share,
+                                                color: Pendu.color('60E99C'),
+                                                size: 20,
+                                              ),
                                             )
                                           ],
                                         ),
                                         Container(
-                                          width: 200,
-                                          child: Text(blogVar.body,
-                                              maxLines: 2,
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(_blogList[index].body,
+                                              maxLines: 3,
                                               style: TextStyle(fontSize: 12)),
                                         ),
                                         Row(
@@ -198,17 +231,21 @@ class _BlogPageState extends State<BlogPage> {
                                           ],
                                         )
                                       ],
-                                    )
-                                  ],
-                                )))
-                            .toList(),
-                      );
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
-              )
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ));
+                      },
+                    );
+                  } else {
+                    return Center(
+                        child: CircularProgressIndicator(
+                      color: Theme.of(context).accentColor,
+                    ));
+                  }
+                },
+              ))
             ],
           ),
         ),

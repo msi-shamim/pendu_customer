@@ -8,6 +8,12 @@ class PenduConstants {
   static final sendMailUrl = "/api/v1/auth/password/email";
   static final verifyMailOtpUrl = "/api/v1/auth/password/confirm";
   static final changePasswordUrl = "/api/v1/auth/password/reset";
+  static final allBlogPostUrl = "/api/v1/posts/";
+
+  static final productCategoryUrl = "/api/v1/product-categories";
+  static final vehicalDataUrl = "/api/v1/vehicles";
+  static final couponDataUrl = "/api/v1/coupons";
+  static final serviceCategoryUrl = "/api/v1/service-categories";
 
   static final contentType = 'Content-Type';
   static final contentTypeValue = 'application/json';
