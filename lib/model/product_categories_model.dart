@@ -1,40 +1,36 @@
+
 import 'dart:convert';
 
-ProductCategoriesModel productCategoriesModelFromJson(String str) =>
-    ProductCategoriesModel.fromJson(json.decode(str));
-
-String productCategoriesModelToJson(ProductCategoriesModel data) =>
-    json.encode(data.toJson());
-
-class ProductCategoriesModel {
-  ProductCategoriesModel({
+class GetProductCategoryModel {
+  GetProductCategoryModel({
     this.status,
     this.message,
-    this.productCategoriesList,
+    this.data,
   });
 
-  int status;
-  String message;
-  List<ProductCategoriesList> productCategoriesList;
+  final int status;
+  final String message;
+  final List<Datum> data;
 
-  factory ProductCategoriesModel.fromJson(Map<String, dynamic> json) =>
-      ProductCategoriesModel(
-        status: json["status"],
-        message: json["message"],
-        productCategoriesList: List<ProductCategoriesList>.from(
-            json["data"].map((x) => ProductCategoriesList.fromJson(x))),
-      );
+  factory GetProductCategoryModel.fromJson(String str) => GetProductCategoryModel.fromMap(json.decode(str));
 
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "data":
-            List<dynamic>.from(productCategoriesList.map((x) => x.toJson())),
-      };
+  String toJson() => json.encode(toMap());
+
+  factory GetProductCategoryModel.fromMap(Map<String, dynamic> json) => GetProductCategoryModel(
+    status: json["status"] == null ? null : json["status"],
+    message: json["message"] == null ? null : json["message"],
+    data: json["data"] == null ? null : List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "status": status == null ? null : status,
+    "message": message == null ? null : message,
+    "data": data == null ? null : List<dynamic>.from(data.map((x) => x.toMap())),
+  };
 }
 
-class ProductCategoriesList {
-  ProductCategoriesList({
+class Datum {
+  Datum({
     this.id,
     this.title,
     this.slug,
@@ -43,29 +39,32 @@ class ProductCategoriesList {
     this.updatedAt,
   });
 
-  int id;
-  String title;
-  String slug;
-  int status;
-  dynamic createdAt;
-  dynamic updatedAt;
+  final int id;
+  final String title;
+  final String slug;
+  final String status;
+  final dynamic createdAt;
+  final dynamic updatedAt;
 
-  factory ProductCategoriesList.fromJson(Map<String, dynamic> json) =>
-      ProductCategoriesList(
-        id: json["id"],
-        title: json["title"],
-        slug: json["slug"],
-        status: json["status"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-      );
+  factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "slug": slug,
-        "status": status,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-      };
+  String toJson() => json.encode(toMap());
+
+  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+    id: json["id"] == null ? null : json["id"],
+    title: json["title"] == null ? null : json["title"],
+    slug: json["slug"] == null ? null : json["slug"],
+    status: json["status"] == null ? null : json["status"],
+    createdAt: json["created_at"],
+    updatedAt: json["updated_at"],
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id": id == null ? null : id,
+    "title": title == null ? null : title,
+    "slug": slug == null ? null : slug,
+    "status": status == null ? null : status,
+    "created_at": createdAt,
+    "updated_at": updatedAt,
+  };
 }

@@ -1,38 +1,35 @@
 // To parse this JSON data, do
 //
-//     final serviceCategory = serviceCategoryFromJson(jsonString);
+//     final getServiceCategoryModel = getServiceCategoryModelFromMap(jsonString);
 
 import 'dart:convert';
 
-ServiceCategory serviceCategoryFromJson(String str) =>
-    ServiceCategory.fromJson(json.decode(str));
-
-String serviceCategoryToJson(ServiceCategory data) =>
-    json.encode(data.toJson());
-
-class ServiceCategory {
-  ServiceCategory({
+class GetServiceCategoryModel {
+  GetServiceCategoryModel({
     this.status,
     this.message,
     this.data,
   });
 
-  int status;
-  String message;
-  List<Datum> data;
+  final int status;
+  final String message;
+  final List<Datum> data;
 
-  factory ServiceCategory.fromJson(Map<String, dynamic> json) =>
-      ServiceCategory(
-        status: json["status"],
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+  factory GetServiceCategoryModel.fromJson(String str) => GetServiceCategoryModel.fromMap(json.decode(str));
 
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+  String toJson() => json.encode(toMap());
+
+  factory GetServiceCategoryModel.fromMap(Map<String, dynamic> json) => GetServiceCategoryModel(
+    status: json["status"] == null ? null : json["status"],
+    message: json["message"] == null ? null : json["message"],
+    data: json["data"] == null ? null : List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "status": status == null ? null : status,
+    "message": message == null ? null : message,
+    "data": data == null ? null : List<dynamic>.from(data.map((x) => x.toMap())),
+  };
 }
 
 class Datum {
@@ -45,28 +42,32 @@ class Datum {
     this.updatedAt,
   });
 
-  int id;
-  String title;
-  String slug;
-  String icon;
-  DateTime createdAt;
-  DateTime updatedAt;
+  final int id;
+  final String title;
+  final String slug;
+  final String icon;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["id"],
-        title: json["title"],
-        slug: json["slug"],
-        icon: json["icon"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
+  factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "slug": slug,
-        "icon": icon,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
+  String toJson() => json.encode(toMap());
+
+  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+    id: json["id"] == null ? null : json["id"],
+    title: json["title"] == null ? null : json["title"],
+    slug: json["slug"] == null ? null : json["slug"],
+    icon: json["icon"] == null ? null : json["icon"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id": id == null ? null : id,
+    "title": title == null ? null : title,
+    "slug": slug == null ? null : slug,
+    "icon": icon == null ? null : icon,
+    "created_at": createdAt == null ? null : createdAt.toIso8601String(),
+    "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
+  };
 }

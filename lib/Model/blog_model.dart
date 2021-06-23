@@ -1,3 +1,4 @@
+//Ignore Dummy Model
 class BlogModel {
   final String imgUrl;
   final String title;

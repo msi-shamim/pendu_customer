@@ -109,7 +109,7 @@ class CallApi {
     }
   }
 
-  Future<RegisterModel> callProfileInfoApi({String accessTokenValue}) async {
+  Future<PostRegisterUserModel> callProfileInfoApi({String accessTokenValue}) async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
       PenduConstants.acceptType: PenduConstants.acceptTypeValue,
@@ -117,67 +117,67 @@ class CallApi {
           accessTokenValue //access_token: accessTokenValue
     };
 
-    var request = http.Request('GET',
-        Uri.parse(PenduConstants.baseUrl + PenduConstants.userProfileUrl));
-
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-      var res = await response.stream.bytesToString();
-      final registerModel = registerModelFromJson(res);
-      return registerModel;
-    }
-    return null;
+    // var request = http.Request('GET',
+    //     Uri.parse(PenduConstants.baseUrl + PenduConstants.userProfileUrl));
+    //
+    // request.headers.addAll(headers);
+    //
+    // http.StreamedResponse response = await request.send();
+    //
+    // if (response.statusCode == 200) {
+    //   print(await response.stream.bytesToString());
+    //   var res = await response.stream.bytesToString();
+    //   final registerModel = registerModelFromJson(res);
+    //   return registerModel;
+    // }
+    // return null;
   }
 
-  Future<BlogPostModel> callBlogPostApi() async {
+  Future<GetBlogPostModel> callBlogPostApi() async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
       PenduConstants.acceptType: PenduConstants.acceptTypeValue,
     };
 
-    var request = http.Request('GET',
-        Uri.parse(PenduConstants.baseUrl + PenduConstants.allBlogPostUrl));
-
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      //  print(await response.stream.bytesToString());
-      var res = await response.stream.bytesToString();
-      final blogModel = blogPostModelFromJson(res);
-      return blogModel;
-    }
-    return null;
+    // var request = http.Request('GET',
+    //     Uri.parse(PenduConstants.baseUrl + PenduConstants.allBlogPostUrl));
+    //
+    // request.headers.addAll(headers);
+    //
+    // http.StreamedResponse response = await request.send();
+    //
+    // if (response.statusCode == 200) {
+    //   //  print(await response.stream.bytesToString());
+    //   var res = await response.stream.bytesToString();
+    //   final blogModel = blogPostModelFromJson(res);
+    //   return blogModel;
+    // }
+    // return null;
   }
 
-  Future<BlogPostModel> callBlogSinglePostApi({int blogId}) async {
+  Future<GetBlogPostModel> callBlogSinglePostApi({int blogId}) async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
       PenduConstants.acceptType: PenduConstants.acceptTypeValue,
     };
 
-    var request = http.Request(
-        'GET',
-        Uri.parse(PenduConstants.baseUrl +
-            PenduConstants.allBlogPostUrl +
-            "$blogId"));
-
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      //  print(await response.stream.bytesToString());
-      var res = await response.stream.bytesToString();
-      final blogModel = blogPostModelFromJson(res);
-      return blogModel;
-    }
-    return null;
+    // var request = http.Request(
+    //     'GET',
+    //     Uri.parse(PenduConstants.baseUrl +
+    //         PenduConstants.allBlogPostUrl +
+    //         "$blogId"));
+    //
+    // request.headers.addAll(headers);
+    //
+    // http.StreamedResponse response = await request.send();
+    //
+    // if (response.statusCode == 200) {
+    //   //  print(await response.stream.bytesToString());
+    //   var res = await response.stream.bytesToString();
+    //   final blogModel = blogPostModelFromJson(res);
+    //   return blogModel;
+    // }
+    // return null;
   }
 
   Future<void> callMailApi({String mail}) async {
@@ -262,50 +262,50 @@ class CallApi {
     }
   }
 
-  Future<ProductCategoriesModel> callProductCategoryApi() async {
+  Future<GetProductCategoryModel> callProductCategoryApi() async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
       PenduConstants.acceptType: PenduConstants.acceptTypeValue,
     };
 
-    var request = http.Request('GET',
-        Uri.parse(PenduConstants.baseUrl + PenduConstants.productCategoryUrl));
-
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      print("#########");
-      print(await response.stream.bytesToString());
-      print("#########");
-      var res = await response.stream.bytesToString();
-      final productModel = productCategoriesModelFromJson(res);
-      return productModel;
-    }
-    return null;
+    // var request = http.Request('GET',
+    //     Uri.parse(PenduConstants.baseUrl + PenduConstants.productCategoryUrl));
+    //
+    // request.headers.addAll(headers);
+    //
+    // http.StreamedResponse response = await request.send();
+    //
+    // if (response.statusCode == 200) {
+    //   print("#########");
+    //   print(await response.stream.bytesToString());
+    //   print("#########");
+    //   var res = await response.stream.bytesToString();
+    //   final productModel = productCategoriesModelFromJson(res);
+    //   return productModel;
+    // }
+    // return null;
   }
 
-  Future<VehicalModel> callVehicalDataApi() async {
+  Future<GetVehiclesDataModel> callVehicalDataApi() async {
     var headers = {
       PenduConstants.contentType: PenduConstants.contentTypeValue,
       PenduConstants.acceptType: PenduConstants.acceptTypeValue,
     };
 
-    var request = http.Request('GET',
-        Uri.parse(PenduConstants.baseUrl + PenduConstants.vehicalDataUrl));
-
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-      var res = await response.stream.bytesToString();
-      final vehicalModel = vehicalModelFromJson(res);
-      return vehicalModel;
-    }
-    return null;
+    // var request = http.Request('GET',
+    //     Uri.parse(PenduConstants.baseUrl + PenduConstants.vehicalDataUrl));
+    //
+    // request.headers.addAll(headers);
+    //
+    // http.StreamedResponse response = await request.send();
+    //
+    // if (response.statusCode == 200) {
+    //   print(await response.stream.bytesToString());
+    //   var res = await response.stream.bytesToString();
+    //   final vehicalModel = vehicalModelFromJson(res);
+    //   return vehicalModel;
+    // }
+    // return null;
   }
 }
 

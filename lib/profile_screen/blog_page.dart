@@ -16,7 +16,7 @@ class _BlogPageState extends State<BlogPage> {
   String sortVal = 'All';
   int intValue = 0;
 
-  List<BlogPostList> _blogList;
+  List<Datum> _blogList;
   @override
   void initState() {
     _getBlogInfo();
@@ -33,7 +33,7 @@ class _BlogPageState extends State<BlogPage> {
 
     blogModel.then((value) {
       setState(() {
-        _blogList = value.blogPostList.toList();
+       // _blogList = value.blogPostList.toList();
         //  print(_blogList);
       });
     });

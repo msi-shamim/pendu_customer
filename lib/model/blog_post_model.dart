@@ -1,37 +1,36 @@
+
 import 'dart:convert';
 
-BlogPostModel blogPostModelFromJson(String str) =>
-    BlogPostModel.fromJson(json.decode(str));
-
-String blogPostModelToJson(BlogPostModel data) => json.encode(data.toJson());
-
-class BlogPostModel {
-  BlogPostModel({
+class GetBlogPostModel {
+  GetBlogPostModel({
     this.status,
     this.message,
-    this.blogPostList,
+    this.data,
   });
 
-  int status;
-  String message;
-  List<BlogPostList> blogPostList;
+  final int status;
+  final String message;
+  final List<Datum> data;
 
-  factory BlogPostModel.fromJson(Map<String, dynamic> json) => BlogPostModel(
-        status: json["status"],
-        message: json["message"],
-        blogPostList: List<BlogPostList>.from(
-            json["data"].map((x) => BlogPostList.fromJson(x))),
-      );
+  factory GetBlogPostModel.fromJson(String str) => GetBlogPostModel.fromMap(json.decode(str));
 
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "data": List<dynamic>.from(blogPostList.map((x) => x.toJson())),
-      };
+  String toJson() => json.encode(toMap());
+
+  factory GetBlogPostModel.fromMap(Map<String, dynamic> json) => GetBlogPostModel(
+    status: json["status"] == null ? null : json["status"],
+    message: json["message"] == null ? null : json["message"],
+    data: json["data"] == null ? null : List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "status": status == null ? null : status,
+    "message": message == null ? null : message,
+    "data": data == null ? null : List<dynamic>.from(data.map((x) => x.toMap())),
+  };
 }
 
-class BlogPostList {
-  BlogPostList({
+class Datum {
+  Datum({
     this.id,
     this.title,
     this.serviceCategoryId,
@@ -44,40 +43,44 @@ class BlogPostList {
     this.updatedAt,
   });
 
-  int id;
-  String title;
-  String serviceCategoryId;
-  String featuredImage;
-  String body;
-  dynamic like;
-  dynamic dislike;
-  String status;
-  DateTime createdAt;
-  DateTime updatedAt;
+  final int id;
+  final String title;
+  final String serviceCategoryId;
+  final String featuredImage;
+  final String body;
+  final dynamic like;
+  final dynamic dislike;
+  final String status;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  factory BlogPostList.fromJson(Map<String, dynamic> json) => BlogPostList(
-        id: json["id"],
-        title: json["title"],
-        serviceCategoryId: json["service_category_id"],
-        featuredImage: json["featured_image"],
-        body: json["body"],
-        like: json["like"],
-        dislike: json["dislike"],
-        status: json["status"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
+  factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "service_category_id": serviceCategoryId,
-        "featured_image": featuredImage,
-        "body": body,
-        "like": like,
-        "dislike": dislike,
-        "status": status,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
+  String toJson() => json.encode(toMap());
+
+  factory Datum.fromMap(Map<String, dynamic> json) => Datum(
+    id: json["id"] == null ? null : json["id"],
+    title: json["title"] == null ? null : json["title"],
+    serviceCategoryId: json["service_category_id"] == null ? null : json["service_category_id"],
+    featuredImage: json["featured_image"] == null ? null : json["featured_image"],
+    body: json["body"] == null ? null : json["body"],
+    like: json["like"],
+    dislike: json["dislike"],
+    status: json["status"] == null ? null : json["status"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id": id == null ? null : id,
+    "title": title == null ? null : title,
+    "service_category_id": serviceCategoryId == null ? null : serviceCategoryId,
+    "featured_image": featuredImage == null ? null : featuredImage,
+    "body": body == null ? null : body,
+    "like": like,
+    "dislike": dislike,
+    "status": status == null ? null : status,
+    "created_at": createdAt == null ? null : createdAt.toIso8601String(),
+    "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
+  };
 }

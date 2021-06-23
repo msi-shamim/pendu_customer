@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pendu_customer/Model/login_model.dart';
 import 'package:pendu_customer/Screen/message_screen.dart';
 
 import 'package:pendu_customer/api/api_consts.dart';
@@ -34,9 +37,13 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+
   User _user;
   dynamic userVar;
   String accessToken;
+
+  final picker = ImagePicker();
+  File _image;
   Map<String, dynamic> _fetchedUser;
   @override
   void initState() {
@@ -69,11 +76,66 @@ class _UserProfileState extends State<UserProfile> {
     userModel.then((value) {
       setState(() {
         _fetchedUser = user;
-        _user = value.user;
+      //  _user = value.user;
         print(_user);
       });
     });
   }
+  Future getCameraImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future getGallaryImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  _showPicker() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        getGallaryImage();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      getCameraImage();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+
 
   Widget _buildHeaderButton(String imgLink, String title) {
     return Column(
@@ -136,7 +198,9 @@ class _UserProfileState extends State<UserProfile> {
                               CircleAvatar(
                             //!Profile Pic error
                             backgroundImage: NetworkImage(
-                                'https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg'), //(userVar["profile_photo"])
+                                (_image != null)
+                                    ? FileImage(_image)
+                                    : 'https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg'), //(userVar["profile_photo"])
 
                             radius: 35,
                           ),
@@ -146,10 +210,11 @@ class _UserProfileState extends State<UserProfile> {
                           right: 4,
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyProfile()));
+                              _showPicker();
+                            //  Navigator.push(
+                         //         context,
+                          //        MaterialPageRoute(
+                               //       builder: (context) => MyProfile()));
                             },
                             child: CircleAvatar(
                               backgroundColor: Pendu.color(

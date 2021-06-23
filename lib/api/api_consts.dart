@@ -15,6 +15,18 @@ class PenduConstants {
   static final couponDataUrl = "/api/v1/coupons";
   static final serviceCategoryUrl = "/api/v1/service-categories";
 
+  static final taskShopDropUrl = "/api/v1/tasks";
+  static final taskCollectDropUrl = "/api/v1/tasks";
+  static final taskMoversUrl = "/api/v1/tasks";
+
+  static final taskCheckoutUrl = "/api/v1/tasks/1/offers/2/checkout";
+
+  static final taskOffersList = "/api/v1/tasks/1/offers";
+  static final acceptOfferGetDetails = "/api/v1/tasks/1/offers/1";
+
+  static final orderReviewByUser = "/api/v1/task-order/1/review";
+  static final giveTipToDropper = "api/v1/task-order/1/tips";
+
   static final contentType = 'Content-Type';
   static final contentTypeValue = 'application/json';
   static final acceptType = 'Accept';
