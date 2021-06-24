@@ -1,8 +1,8 @@
 
 import 'dart:convert';
 
-class GetVehiclesDataModel {
-  GetVehiclesDataModel({
+class ResponseVehiclesDataModel {
+  ResponseVehiclesDataModel({
     this.status,
     this.message,
     this.data,
@@ -12,11 +12,11 @@ class GetVehiclesDataModel {
   final String message;
   final List<Datum> data;
 
-  factory GetVehiclesDataModel.fromJson(String str) => GetVehiclesDataModel.fromMap(json.decode(str));
+  factory ResponseVehiclesDataModel.fromJson(String str) => ResponseVehiclesDataModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory GetVehiclesDataModel.fromMap(Map<String, dynamic> json) => GetVehiclesDataModel(
+  factory ResponseVehiclesDataModel.fromMap(Map<String, dynamic> json) => ResponseVehiclesDataModel(
     status: json["status"] == null ? null : json["status"],
     message: json["message"] == null ? null : json["message"],
     data: json["data"] == null ? null : List<Datum>.from(json["data"].map((x) => Datum.fromMap(x))),

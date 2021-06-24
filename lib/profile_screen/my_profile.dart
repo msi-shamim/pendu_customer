@@ -1,21 +1,25 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/Model/response_login_model.dart';
+import 'package:pendu_customer/Model/update_user_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 class MyProfile extends StatefulWidget {
-  final dynamic userVar;
-  MyProfile({this.userVar});
+  final User userVar;
+  final String token;
+  MyProfile({this.userVar, this.token});
   @override
-  _MyProfileState createState() => _MyProfileState(userVar);
+  _MyProfileState createState() => _MyProfileState(userVar, token);
 }
 
 class _MyProfileState extends State<MyProfile> {
-  final dynamic userVar;
-  _MyProfileState(this.userVar);
+  final User userVar;
+  final String token;
+  _MyProfileState(this.userVar, this.token);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -112,11 +116,11 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    userName = userVar["name"];
-    userEmail = userVar["email"];
-    userSuburb = userVar["suburb"];
-    userPhone = userVar["phone"];
-    userPass = userVar["password"];
+    userName = userVar.name;
+    userEmail = userVar.email;
+    userSuburb = userVar.suburb;
+    userPhone = userVar.phone;
+    userPass = userVar.password;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(150),
@@ -218,30 +222,7 @@ class _MyProfileState extends State<MyProfile> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          var sighnUpinApi = CallApi(context);
-                          // sighnUpinApi.callSignUpApi(RegisterModel(
-                          //   user: User(
-                          //     name: nameController.text,
-                          //     email: emailController.text,
-                          //     phone: contactController.text,
-                          //     suburb: suburbController.text,
-                          //     password: passController.text,
-                          //   ),
-                          // ));
-//
-                          sighnUpinApi.callUserInfoUpdateApi(
-                            name: nameController.text,
-                            email: emailController.text,
-                            phone: contactController.text,
-                            suburb: suburbController.text,
-                            password: passController.text,
-                          );
-                        }
-
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => UserProfile()));
+    _updateUser();}
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
@@ -267,5 +248,23 @@ class _MyProfileState extends State<MyProfile> {
         ),
       ),
     );
+  }
+
+  void _updateUser() async {
+    PutUpdateUserModel rrm = await CallApi(context).callUserInfoUpdateApi(
+      nameController.text.toString(),
+      suburbController.text.toString(),
+        token,
+
+    );
+    rrm.status == 200 ? _showSuccessMessage(rrm.message) : _showErrorMessage(rrm.message);
+  }
+
+  _showSuccessMessage(String msg) {
+    //dialog -> Register successfully
+  }
+
+  _showErrorMessage(String msg) {
+    //dialog -> Error
   }
 }

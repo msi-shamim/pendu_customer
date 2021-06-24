@@ -2,8 +2,8 @@
 
 import 'dart:convert';
 
-class GetListTaskOffersModel {
-  GetListTaskOffersModel({
+class ResponseListTaskOffersModel {
+  ResponseListTaskOffersModel({
     this.id,
     this.amount,
     this.taskId,
@@ -23,11 +23,11 @@ class GetListTaskOffersModel {
   final dynamic createdAt;
   final dynamic updatedAt;
 
-  factory GetListTaskOffersModel.fromJson(String str) => GetListTaskOffersModel.fromMap(json.decode(str));
+  factory ResponseListTaskOffersModel.fromJson(String str) => ResponseListTaskOffersModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory GetListTaskOffersModel.fromMap(Map<String, dynamic> json) => GetListTaskOffersModel(
+  factory ResponseListTaskOffersModel.fromMap(Map<String, dynamic> json) => ResponseListTaskOffersModel(
     id: json["id"] == null ? null : json["id"],
     amount: json["amount"] == null ? null : json["amount"],
     taskId: json["task_id"] == null ? null : json["task_id"],

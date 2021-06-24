@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pendu_customer/Model/login_model.dart';
+import 'package:pendu_customer/Model/response_login_model.dart';
 import 'package:pendu_customer/Screen/message_screen.dart';
 
 import 'package:pendu_customer/api/api_consts.dart';
@@ -58,28 +58,15 @@ class _UserProfileState extends State<UserProfile> {
 
   void _getUserInfo() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var userJson = localStorage.getString(PenduConstants.spUser);
-    Map<String, dynamic> user = jsonDecode(userJson);
+    var str = localStorage.getString(PenduConstants.spUser);
+    var token = localStorage.getString(PenduConstants.spToken);
+    accessToken =token;
+    if(token != null && str != null){
+      _user = User.fromJson(str);
+      print('from Profile: $str');
+          }
 
-    setState(() {
-      userVar = user["data"]["user"];
-      accessToken = user["data"]["access_token"];
-      print("#######User info##########\n");
-    });
-
-    // print(userVar);
-    //print(user["data"]["user"]);
-
-    var userModel =
-        CallApi(context).callProfileInfoApi(accessTokenValue: accessToken);
-
-    userModel.then((value) {
-      setState(() {
-        _fetchedUser = user;
-      //  _user = value.user;
-        print(_user);
-      });
-    });
+    //_user.phone != null ? _user.phone : 'Contact no.';
   }
   Future getCameraImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
@@ -93,7 +80,7 @@ class _UserProfileState extends State<UserProfile> {
     });
   }
 
-  Future getGallaryImage() async {
+  Future getGalaryImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
@@ -117,7 +104,7 @@ class _UserProfileState extends State<UserProfile> {
                       leading: new Icon(Icons.photo_library),
                       title: new Text('Photo Library'),
                       onTap: () {
-                        getGallaryImage();
+                        getGalaryImage();
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
@@ -234,12 +221,12 @@ class _UserProfileState extends State<UserProfile> {
                       ],
                     ),
                     Text(
-                      userVar["name"],
+                      _user.name != null ? _user.name : 'User Name',
                       style: TextStyle(
                           color: Theme.of(context).accentColor, fontSize: 18),
                     ),
                     Text(
-                      userVar["phone"],
+                      _user.phone != null ? _user.phone : 'XXX XXXX XXX',
                       style:
                           TextStyle(color: Pendu.color('90A0B2'), fontSize: 14),
                     ),
@@ -372,7 +359,7 @@ class _UserProfileState extends State<UserProfile> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyProfile(
-                                            userVar: userVar,
+                                            userVar: _user,
                                           )));
                             },
                             child: _menuItem(
@@ -426,7 +413,7 @@ class _UserProfileState extends State<UserProfile> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => BlogPage()));
+                                      builder: (context) => BlogPage(accessToken)));
                             },
                             child: _menuItem(
                                 imgLink: 'assets/blogs.svg', title: 'Blogs')),

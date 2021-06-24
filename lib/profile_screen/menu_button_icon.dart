@@ -23,7 +23,7 @@ class MenuButtonList extends StatelessWidget {
               sharedPref.then((value) {
                 value.remove(PenduConstants.spUser);
                 value.remove(PenduConstants.spToken);
-                Navigator.push(context,
+                Navigator.pushReplacement<void, void>(context,
                     MaterialPageRoute(builder: (context) => LogInPage()));
               });
             },

@@ -25,7 +25,7 @@ class _OtpScreenMailState extends State<OtpScreenMail> {
   StreamController<ErrorAnimationType> errorController;
   bool fullFill = false;
   bool hasError = false;
-  String currentText = "";
+  String currentText ;
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -106,6 +106,7 @@ class _OtpScreenMailState extends State<OtpScreenMail> {
                 onChanged: (value) {
                   print(value);
                   setState(() {
+
                     currentText = value;
                   });
                 },
@@ -156,11 +157,11 @@ class _OtpScreenMailState extends State<OtpScreenMail> {
 
                  //Calling API
                     var otpApi = CallApi(context);
-                    otpApi.callVerifyMailApi(inputMail: inputMail , otpCode: currentText);
+                    otpApi.callConfirmOTPApi( inputMail , int.parse(currentText));
 //Route to create password page
                      Navigator.push(
                         context, MaterialPageRoute(
-                             builder: (context) => CreateNewPassword(inputMail: inputMail,otp: currentText)));
+                             builder: (context) => CreateNewPassword(inputMail: inputMail, otp: currentText)));
                   },
                 );
               }

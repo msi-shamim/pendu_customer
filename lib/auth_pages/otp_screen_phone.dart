@@ -10,13 +10,16 @@ import 'package:pendu_customer/utils/snackBar_page.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpScreenPhone extends StatefulWidget {
-  const OtpScreenPhone({Key key}) : super(key: key);
+  final String token;
+  const OtpScreenPhone({Key key, this.token}) : super(key: key);
 
   @override
-  _OtpScreenPhoneState createState() => _OtpScreenPhoneState();
+  _OtpScreenPhoneState createState() => _OtpScreenPhoneState(token);
 }
 
 class _OtpScreenPhoneState extends State<OtpScreenPhone> {
+  final String token;
+  _OtpScreenPhoneState(this.token);
   TextEditingController textEditingController = TextEditingController();
 
   StreamController<ErrorAnimationType> errorController;
@@ -156,7 +159,7 @@ class _OtpScreenPhoneState extends State<OtpScreenPhone> {
                     //     MaterialPageRoute(
                     //         builder: (context) => CreateNewPassword()));
                     var otpApi = CallApi(context);
-                    otpApi.callVerifyPhoneApi(otpCode: currentText);
+                    otpApi.callVerifyPhoneApi( int.parse(currentText), token);
                   },
                 );
               }

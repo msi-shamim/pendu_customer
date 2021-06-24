@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-class PostTaskCollectModel {
-  PostTaskCollectModel({
+class PostTaskCollectDropModel {
+  PostTaskCollectDropModel({
     this.status,
     this.message,
     this.data,
@@ -15,11 +15,11 @@ class PostTaskCollectModel {
   final String message;
   final Data data;
 
-  factory PostTaskCollectModel.fromJson(String str) => PostTaskCollectModel.fromMap(json.decode(str));
+  factory PostTaskCollectDropModel.fromJson(String str) => PostTaskCollectDropModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory PostTaskCollectModel.fromMap(Map<String, dynamic> json) => PostTaskCollectModel(
+  factory PostTaskCollectDropModel.fromMap(Map<String, dynamic> json) => PostTaskCollectDropModel(
     status: json["status"] == null ? null : json["status"],
     message: json["message"] == null ? null : json["message"],
     data: json["data"] == null ? null : Data.fromMap(json["data"]),
