@@ -37,7 +37,6 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-
   User _user;
   dynamic userVar;
   String accessToken;
@@ -76,11 +75,12 @@ class _UserProfileState extends State<UserProfile> {
     userModel.then((value) {
       setState(() {
         _fetchedUser = user;
-      //  _user = value.user;
+        //  _user = value.user;
         print(_user);
       });
     });
   }
+
   Future getCameraImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
 
@@ -115,7 +115,7 @@ class _UserProfileState extends State<UserProfile> {
                 children: <Widget>[
                   new ListTile(
                       leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                      title: new Text('Gallary'),
                       onTap: () {
                         getGallaryImage();
                         Navigator.of(context).pop();
@@ -134,8 +134,6 @@ class _UserProfileState extends State<UserProfile> {
           );
         });
   }
-
-
 
   Widget _buildHeaderButton(String imgLink, String title) {
     return Column(
@@ -197,10 +195,10 @@ class _UserProfileState extends State<UserProfile> {
                               //circle 4
                               CircleAvatar(
                             //!Profile Pic error
-                            backgroundImage: NetworkImage(
-                                (_image != null)
-                                    ? FileImage(_image)
-                                    : 'https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg'), //(userVar["profile_photo"])
+                            backgroundImage: (_image != null)
+                                ? FileImage(_image)
+                                : NetworkImage(
+                                    'https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg'), //(userVar["profile_photo"])
 
                             radius: 35,
                           ),
@@ -211,10 +209,10 @@ class _UserProfileState extends State<UserProfile> {
                           child: InkWell(
                             onTap: () {
                               _showPicker();
-                            //  Navigator.push(
-                         //         context,
-                          //        MaterialPageRoute(
-                               //       builder: (context) => MyProfile()));
+                              //  Navigator.push(
+                              //         context,
+                              //        MaterialPageRoute(
+                              //       builder: (context) => MyProfile()));
                             },
                             child: CircleAvatar(
                               backgroundColor: Pendu.color(
