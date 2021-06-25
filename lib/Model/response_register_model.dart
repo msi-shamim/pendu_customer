@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-class GetRefreshUserTokenModel {
-  GetRefreshUserTokenModel({
+class ResponseRegisterModel {
+  ResponseRegisterModel({
     this.status,
     this.message,
     this.data,
@@ -15,11 +15,11 @@ class GetRefreshUserTokenModel {
   final String message;
   final Data data;
 
-  factory GetRefreshUserTokenModel.fromJson(String str) => GetRefreshUserTokenModel.fromMap(json.decode(str));
+  factory ResponseRegisterModel.fromJson(String str) => ResponseRegisterModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory GetRefreshUserTokenModel.fromMap(Map<String, dynamic> json) => GetRefreshUserTokenModel(
+  factory ResponseRegisterModel.fromMap(Map<String, dynamic> json) => ResponseRegisterModel(
     status: json["status"] == null ? null : json["status"],
     message: json["message"] == null ? null : json["message"],
     data: json["data"] == null ? null : Data.fromMap(json["data"]),

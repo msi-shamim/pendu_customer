@@ -1,8 +1,8 @@
 
 import 'dart:convert';
 
-class PostLogInModel {
-  PostLogInModel({
+class ResponseLogInModel {
+  ResponseLogInModel({
     this.status,
     this.message,
     this.data,
@@ -12,11 +12,11 @@ class PostLogInModel {
   final String message;
   final Data data;
 
-  factory PostLogInModel.fromJson(String str) => PostLogInModel.fromMap(json.decode(str));
+  factory ResponseLogInModel.fromJson(String str) => ResponseLogInModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory PostLogInModel.fromMap(Map<String, dynamic> json) => PostLogInModel(
+  factory ResponseLogInModel.fromMap(Map<String, dynamic> json) => ResponseLogInModel(
     status: json["status"] == null ? null : json["status"],
     message: json["message"] == null ? null : json["message"],
     data: json["data"] == null ? null : Data.fromMap(json["data"]),
@@ -57,6 +57,7 @@ class User {
   User({
     this.id,
     this.name,
+    this.password,
     this.balance,
     this.suburb,
     this.phone,
@@ -73,6 +74,7 @@ class User {
 
   final int id;
   final String name;
+  final String password;
   final String balance;
   final String suburb;
   final String phone;
@@ -93,6 +95,7 @@ class User {
   factory User.fromMap(Map<String, dynamic> json) => User(
     id: json["id"] == null ? null : json["id"],
     name: json["name"] == null ? null : json["name"],
+    password: json["password"] == null ? null : json["password"],
     balance: json["balance"] == null ? null : json["balance"],
     suburb: json["suburb"] == null ? null : json["suburb"],
     phone: json["phone"] == null ? null : json["phone"],
@@ -110,6 +113,7 @@ class User {
   Map<String, dynamic> toMap() => {
     "id": id == null ? null : id,
     "name": name == null ? null : name,
+    "password": password == null ? null : password,
     "balance": balance == null ? null : balance,
     "suburb": suburb == null ? null : suburb,
     "phone": phone == null ? null : phone,

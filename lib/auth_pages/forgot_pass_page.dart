@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Model/response_mail.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
@@ -50,12 +51,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             btnText: 'Reset',
             onPressed: () {
               if (_formKey.currentState.validate()) {
-                var mailApi = CallApi(context);
-                mailApi.callMailApi(mail: emailController.text);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OtpScreenMail()));
-                SnackBarClass.snackBarMethod(
-                    message: "OTP send to your Email", context: context);
+                _onPressed();
               }
             },
           ),
@@ -90,5 +86,23 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
       ),
     );
+  }
+  void _onPressed() async {
+
+    ResponseMailModel csm = await CallApi(context).callSendMailApi(emailController.text);
+    csm.status == 200 ? _moveToNext() : _showErrorMessage(csm.message);
+
+
+  }
+  _moveToNext(){
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => OtpScreenMail(inputMail: emailController.text)));
+    SnackBarClass.snackBarMethod(
+        message: "OTP send to your Email", context: context);
+  }
+  _showErrorMessage(String msg) {
+
+    SnackBarClass.snackBarMethod(
+        message: msg , context: context);
   }
 }

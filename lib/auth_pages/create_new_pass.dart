@@ -69,7 +69,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
               if (_formKey.currentState.validate()) {
                 //Call reset pass api
                 var resetPassApi = CallApi(context);
-                resetPassApi.callResetPasswordApi(inputMail: inputMail, otpCode: otp, password: passController.text);
+                resetPassApi.callResetPasswordApi( inputMail, passController.text, int.parse(otp) );
                 //Navigate to nest page
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => LogInPage()));

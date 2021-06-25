@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-class GetUserProfileModel {
-  GetUserProfileModel({
+class ResponseUserProfileModel {
+  ResponseUserProfileModel({
     this.status,
     this.message,
     this.data,
@@ -15,11 +15,11 @@ class GetUserProfileModel {
   final String message;
   final Data data;
 
-  factory GetUserProfileModel.fromJson(String str) => GetUserProfileModel.fromMap(json.decode(str));
+  factory ResponseUserProfileModel.fromJson(String str) => ResponseUserProfileModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory GetUserProfileModel.fromMap(Map<String, dynamic> json) => GetUserProfileModel(
+  factory ResponseUserProfileModel.fromMap(Map<String, dynamic> json) => ResponseUserProfileModel(
     status: json["status"] == null ? null : json["status"],
     message: json["message"] == null ? null : json["message"],
     data: json["data"] == null ? null : Data.fromMap(json["data"]),

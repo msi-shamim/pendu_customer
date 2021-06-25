@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/Model/blog_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
-import 'package:pendu_customer/model/blog_post_model.dart';
+import 'package:pendu_customer/model/response_post_model.dart';
 import 'package:pendu_customer/network_data/blog_network.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
 class BlogPage extends StatefulWidget {
+  final String token;
+  BlogPage(this.token);
   @override
-  _BlogPageState createState() => _BlogPageState();
+  _BlogPageState createState() => _BlogPageState(token);
 }
 
 class _BlogPageState extends State<BlogPage> {
-  // final BlogNetwork blogNetwork = BlogNetwork();
+  final String token;
+  _BlogPageState(this.token);
+
   String sortVal = 'All';
   int intValue = 0;
 
@@ -29,7 +33,7 @@ class _BlogPageState extends State<BlogPage> {
   }
 
   void _getBlogInfo() async {
-    var blogModel = CallApi(context).callBlogPostApi();
+    var blogModel = CallApi(context).callBlogPostApi(token);
 
     blogModel.then((value) {
       setState(() {
