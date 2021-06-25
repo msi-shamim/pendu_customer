@@ -1,14 +1,13 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Model/response_register_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/login_page.dart';
-import 'package:pendu_customer/home_directories/page_home.dart';
-import 'package:pendu_customer/model/register_model.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/normal_textform_field.dart';
 import 'package:pendu_customer/utils/password_textform_field.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/utils/snackBar_page.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -137,24 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
               btnText: 'Register',
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  var sighnUpinApi = CallApi(context);
-                  // sighnUpinApi.callSignUpApi(RegisterModel(
-                  //   user: User(
-                  //     name: nameController.text,
-                  //     email: emailController.text,
-                  //     phone: contactController.text,
-                  //     suburb: suburbController.text,
-                  //     password: passController.text,
-                  //   ),
-                  // ));
-//
-                  sighnUpinApi.callSignUpApi(
-                    name: nameController.text,
-                    email: emailController.text,
-                    phone: contactController.text,
-                    suburb: suburbController.text,
-                    password: passController.text,
-                  );
+                  _signup();
                 }
               },
             ),
@@ -222,6 +204,27 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  void _signup() async {
+    ResponseRegisterModel rrm = await CallApi(context).callSignupApi(
+      nameController.text.toString(),
+      emailController.text.toString(),
+      contactController.text.toString(),
+      suburbController.text.toString(),
+      passController.text.toString(),
+    );
+    rrm.status == 200
+        ? _showSuccessMessage(rrm.message)
+        : _showErrorMessage(rrm.message);
+  }
+
+  _showSuccessMessage(String msg) {
+    SnackBarClass.snackBarMethod(message: msg, context: context);
+  }
+
+  _showErrorMessage(String msg) {
+    SnackBarClass.snackBarMethod(message: msg, context: context);
   }
 }
 

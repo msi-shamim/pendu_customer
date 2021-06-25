@@ -9,7 +9,6 @@ import 'package:pendu_customer/Screen/message_screen.dart';
 
 import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/api/call_api.dart';
-import 'package:pendu_customer/model/register_model.dart';
 import 'package:pendu_customer/profile_screen/app_version_popup.dart';
 import 'package:pendu_customer/profile_screen/blog_page.dart';
 import 'package:pendu_customer/profile_screen/chat_support.dart';
@@ -37,13 +36,13 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  User _user;
+  dynamic _user;
   dynamic userVar;
   String accessToken;
 
   final picker = ImagePicker();
   File _image;
-  Map<String, dynamic> _fetchedUser;
+
   @override
   void initState() {
     _getUserInfo();
@@ -59,13 +58,162 @@ class _UserProfileState extends State<UserProfile> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var str = localStorage.getString(PenduConstants.spUser);
     var token = localStorage.getString(PenduConstants.spToken);
-    accessToken =token;
-    if(token != null && str != null){
+    accessToken = token;
+    if (token != null && str != null) {
       _user = User.fromJson(str);
       print('from Profile: $str');
-          }
+    }
 
+    //_user.phone != null ? _user.phone : 'Contact no.';
+  }
+
+  Future getCameraImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  Future getGalaryImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  _showPicker() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        getGalaryImage();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      getCameraImage();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Widget _buildHeaderButton(String imgLink, String title) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SvgPicture.asset(
+          imgLink,
+          height: 40,
+          width: 40,
+          color: Colors.white,
+        ),
+        Text(title),
+      ],
+    );
+  }
+
+  Widget _buildAppbar() {
+    return PreferredSize(
+        preferredSize: Size.fromHeight(200),
+        //Full Container
+        child: Container(
+          padding: EdgeInsets.only(top: 20, right: 10.0, left: 10.0),
+          height: 200,
+          //  color: Pendu.color('1B3149'), //Theme.of(context).accentColor,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage('assets/profile_back.png'),
+            fit: BoxFit.cover,
+          )),
+          //Circle 1
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+              ),
+              CircleAvatar(
+                radius: 90,
+                backgroundColor: Pendu.color('1B3149'),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    //circle 3
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 45,
+                          backgroundColor: Pendu.color('283848'),
+                          child:
+                              //circle 4
+                              CircleAvatar(
+                            //!Profile Pic error
+                            backgroundImage: NetworkImage((_image != null)
+                                ? FileImage(_image)
+                                : 'https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Madeline-Mann.jpeg'), //(userVar["profile_photo"])
+
+                            radius: 35,
+                          ),
+                        ),
+                        Positioned(
+                          top: 40,
+                          right: 4,
+                          child: InkWell(
+                            onTap: () {
+                              _showPicker();
+                            },
+                            child: CircleAvatar(
+                              backgroundColor: Pendu.color(
+                                '60E99C',
+                              ),
+                              radius: 8,
+                              child: Icon(
+                                Icons.edit_outlined,
+                                size: 15,
+                                color: Pendu.color(
+                                  'ffffff',
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                     Text(
+                      _user.name != null ? _user.name : 'User Name',
                       style: TextStyle(
                           color: Theme.of(context).accentColor, fontSize: 18),
                     ),
@@ -257,7 +405,8 @@ class _UserProfileState extends State<UserProfile> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => BlogPage(accessToken)));
+                                      builder: (context) =>
+                                          BlogPage(accessToken)));
                             },
                             child: _menuItem(
                                 imgLink: 'assets/blogs.svg', title: 'Blogs')),

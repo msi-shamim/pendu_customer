@@ -222,7 +222,8 @@ class _MyProfileState extends State<MyProfile> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-    _updateUser();}
+                          _updateUser();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
@@ -254,10 +255,11 @@ class _MyProfileState extends State<MyProfile> {
     PutUpdateUserModel rrm = await CallApi(context).callUserInfoUpdateApi(
       nameController.text.toString(),
       suburbController.text.toString(),
-        token,
-
+      token,
     );
-    rrm.status == 200 ? _showSuccessMessage(rrm.message) : _showErrorMessage(rrm.message);
+    rrm.status == 200
+        ? _showSuccessMessage(rrm.message)
+        : _showErrorMessage(rrm.message);
   }
 
   _showSuccessMessage(String msg) {

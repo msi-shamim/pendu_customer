@@ -87,22 +87,24 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
     );
   }
+
   void _onPressed() async {
-
-    ResponseMailModel csm = await CallApi(context).callSendMailApi(emailController.text);
+    ResponseMailModel csm =
+        await CallApi(context).callSendMailApi(emailController.text);
     csm.status == 200 ? _moveToNext() : _showErrorMessage(csm.message);
-
-
   }
-  _moveToNext(){
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => OtpScreenMail(inputMail: emailController.text)));
+
+  _moveToNext() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                OtpScreenMail(inputMail: emailController.text)));
     SnackBarClass.snackBarMethod(
         message: "OTP send to your Email", context: context);
   }
-  _showErrorMessage(String msg) {
 
-    SnackBarClass.snackBarMethod(
-        message: msg , context: context);
+  _showErrorMessage(String msg) {
+    SnackBarClass.snackBarMethod(message: msg, context: context);
   }
 }
