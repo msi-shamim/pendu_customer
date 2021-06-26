@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pendu_customer/Model/blog_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/model/response_post_model.dart';
-import 'package:pendu_customer/network_data/blog_network.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
