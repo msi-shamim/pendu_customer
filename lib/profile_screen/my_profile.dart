@@ -1,26 +1,24 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/model/response_login_model.dart';
-import 'package:pendu_customer/model/update_user_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
-
+import 'package:pendu_customer/model/update_user_model.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/snackBar_page.dart';
 
 class MyProfile extends StatefulWidget {
-  final User userVar;
+  final User user;
   final String token;
-  MyProfile({this.userVar, this.token});
+  MyProfile({this.user, this.token});
   @override
-  _MyProfileState createState() => _MyProfileState(userVar, token);
+  _MyProfileState createState() => _MyProfileState(user, token);
 }
 
 class _MyProfileState extends State<MyProfile> {
-  final User userVar;
+  final User user;
   final String token;
-  _MyProfileState(this.userVar, this.token);
+  _MyProfileState(this.user, this.token);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -117,11 +115,11 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    userName = userVar.name;
-    userEmail = userVar.email;
-    userSuburb = userVar.suburb;
-    userPhone = userVar.phone;
-    userPass = userVar.password;
+    userName = user.name;
+    userEmail = user.email;
+    userSuburb = user.suburb;
+    userPhone = user.phone;
+    userPass = user.password;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(150),

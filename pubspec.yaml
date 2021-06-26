@@ -35,7 +35,6 @@ dependencies:
   motion_tab_bar: ^0.1.5
   email_validator: ^2.0.1
   http: ^0.13.3
-  uuid: ^3.0.4
   shared_preferences: ^2.0.6
   intl:
   pin_code_fields: ^7.2.0

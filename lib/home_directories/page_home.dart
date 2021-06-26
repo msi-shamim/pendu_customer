@@ -9,6 +9,7 @@ import 'package:pendu_customer/home_directories/first_card.dart';
 import 'package:pendu_customer/home_directories/image_carousel.dart';
 import 'package:pendu_customer/home_directories/recent_drops.dart';
 import 'package:pendu_customer/home_directories/PenduAppBar.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/profile_screen/pro_driver.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
 import 'package:pendu_customer/utils/nav_bar.dart';
@@ -19,6 +20,9 @@ import 'box_section.dart';
 import 'our_blog.dart';
 
 class HomePage extends StatefulWidget {
+  final User user;
+  HomePage({this.user});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState

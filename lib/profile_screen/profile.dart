@@ -1,12 +1,13 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/auth_pages/login_page.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/Screen/message_screen.dart';
 import 'package:pendu_customer/api/api_consts.dart';
-import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/profile_screen/app_version_popup.dart';
 import 'package:pendu_customer/profile_screen/blog_page.dart';
 import 'package:pendu_customer/profile_screen/chat_support.dart';
@@ -19,7 +20,6 @@ import 'package:pendu_customer/profile_screen/recent_deliveries.dart';
 import 'package:pendu_customer/profile_screen/refer_earn_page.dart';
 import 'package:pendu_customer/profile_screen/task_view.dart';
 import 'package:pendu_customer/utils/nav_bar.dart';
-
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,8 +34,7 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  dynamic _user;
-  dynamic userVar;
+  User user;
   String accessToken;
 
   final picker = ImagePicker();
@@ -56,9 +55,9 @@ class _UserProfileState extends State<UserProfile> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var str = localStorage.getString(PenduConstants.spUser);
     var token = localStorage.getString(PenduConstants.spToken);
-    accessToken = token;
     if (token != null && str != null) {
-      _user = User.fromJson(str);
+      accessToken = token;
+      user = User.fromJson(str);
       print('from Profile: $str');
     }
 
@@ -211,12 +210,12 @@ class _UserProfileState extends State<UserProfile> {
                       ],
                     ),
                     Text(
-                      _user.name != null ? _user.name : 'User Name',
+                      user.name != null ? user.name : 'User Name',
                       style: TextStyle(
                           color: Theme.of(context).accentColor, fontSize: 18),
                     ),
                     Text(
-                      _user.phone != null ? _user.phone : 'XXX XXXX XXX',
+                      user.phone != null ? user.phone : 'XXX XXXX XXX',
                       style:
                           TextStyle(color: Pendu.color('90A0B2'), fontSize: 14),
                     ),
@@ -348,9 +347,7 @@ class _UserProfileState extends State<UserProfile> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MyProfile(
-                                            userVar: _user,
-                                          )));
+                                      builder: (context) => MyProfile(user: user)));
                             },
                             child: _menuItem(
                                 imgLink: 'assets/profile.svg',
@@ -392,7 +389,7 @@ class _UserProfileState extends State<UserProfile> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ReferNEarn(
-                                            userVar: userVar,
+                                            userVar: user,
                                           )));
                             },
                             child: _menuItem(

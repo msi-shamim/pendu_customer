@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,7 +22,6 @@ import 'package:pendu_customer/model/task_shop_drop_model.dart';
 import 'package:pendu_customer/model/update_user_model.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uuid/uuid.dart';
 import 'api_consts.dart';
 
 class CallApi {
@@ -678,11 +678,20 @@ class CallApi {
       return null;
     }
   }
+
+  //logout
+  Future<bool> logOut() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var key = sharedPreferences.getString(PenduConstants.spToken);
+    bool wipeUser, wipeToken;
+      wipeUser = await sharedPreferences.setString(PenduConstants.spUser, null);
+      wipeToken = await sharedPreferences.setString(PenduConstants.spToken, null);
+    return wipeUser && wipeToken;
+  }
 }
 
 //Profile Info Method
-void _allocateInSharedPref(
-    BuildContext context, UStringuser, String token) async {
+void _allocateInSharedPref(BuildContext context, UStringuser, String token) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   //Todo
   // await sharedPreferences.setString(PenduConstants.spUser, user);
