@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_01.dart';
+import 'package:pendu_customer/utils/utils_fetch_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'api/api_consts.dart';
@@ -23,65 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
   User userVar;
   @override
   void initState() {
-    /*
-    1. isLoggedIn
-    1.1 loggedIn -> home page
-    1.2 !loggedIn -> login page
-    * */
-
-    _isLoggedIn().then((loggedIn) {
-
-      if (loggedIn) {
-        print("step1");
-        _fetchUser().then((value) {
-          print("step2");
-          userVar = value;
-          if (userVar != null) {
-            Timer(Duration(seconds: 3), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => HomePage(
-                      user:  userVar,
-                    )),
-              );
-            });
-
-          } else {
-            Timer(Duration(seconds: 3), () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => OnBoarding01()));
-            });
-          }
-        });
-
-      } else {
-        print("value3");
-        Timer(Duration(seconds: 3), () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => OnBoarding01()));
-        });
-      }
-    });
+    FetchDataUtils(context).validateUser();
     super.initState();
-  }
-
-  Future<bool> _isLoggedIn() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var key = sharedPreferences.getString(PenduConstants.spToken);
-    if (key != null) {
-      return true;
-    }
-    return false;
-  }
-
-  Future<User> _fetchUser() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var str = sharedPreferences.getString(PenduConstants.spUser);
-    if (str != null) {
-      return User.fromJson(str);
-    }
-    return null;
   }
 
   @override
