@@ -33,14 +33,17 @@ class _BlogPageState extends State<BlogPage> {
   }
 
   void _getBlogInfo() async {
-    var blogModel = CallApi(context).callBlogPostApi(token);
-
-    blogModel.then((value) {
-      setState(() {
-       // _blogList = value.blogPostList.toList();
-        //  print(_blogList);
-      });
-    });
+    ResponseBlogPostModel blogModel =
+        await CallApi(context).callBlogPostApi(token);
+    print(token);
+    print('Status ${blogModel.status}');
+    print('BlogModel : $blogModel');
+    // blogModel.then((value) {
+    //   setState(() {
+    //     _blogList = value.data.toList();
+    //  print(_blogList);
+    //   });
+    // });
   }
 
   Future buildText() {

@@ -1,26 +1,26 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:pendu_customer/Model/response_coupon_model.dart';
-import 'package:pendu_customer/Model/response_driver_profile_model.dart';
-import 'package:pendu_customer/Model/response_driver_profile_with_level_model.dart';
-import 'package:pendu_customer/Model/response_list_task_offers_model.dart';
-import 'package:pendu_customer/Model/response_login_model.dart';
-import 'package:pendu_customer/Model/response_mail.dart';
-import 'package:pendu_customer/Model/response_post_model.dart';
-import 'package:pendu_customer/Model/response_product_categories_model.dart';
-import 'package:pendu_customer/Model/response_register_model.dart';
-import 'package:pendu_customer/Model/response_service_category_model.dart';
-import 'package:pendu_customer/Model/response_user_profile_model.dart';
-import 'package:pendu_customer/Model/response_vehical_model.dart';
+import 'package:pendu_customer/model/response_coupon_model.dart';
+import 'package:pendu_customer/model/response_driver_profile_model.dart';
+import 'package:pendu_customer/model/response_driver_profile_with_level_model.dart';
+import 'package:pendu_customer/model/response_list_task_offers_model.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/model/response_mail.dart';
+import 'package:pendu_customer/model/response_post_model.dart';
+import 'package:pendu_customer/model/response_product_categories_model.dart';
+import 'package:pendu_customer/model/response_register_model.dart';
+import 'package:pendu_customer/model/response_service_category_model.dart';
+import 'package:pendu_customer/model/response_user_profile_model.dart';
+import 'package:pendu_customer/model/response_vehical_model.dart';
 import 'package:pendu_customer/Model/task_collect_drop_model.dart';
-import 'package:pendu_customer/Model/task_mover_model.dart';
-import 'package:pendu_customer/Model/task_shop_drop_model.dart';
-import 'package:pendu_customer/Model/update_user_model.dart';
+import 'package:pendu_customer/model/task_mover_model.dart';
+import 'package:pendu_customer/model/task_shop_drop_model.dart';
+import 'package:pendu_customer/model/update_user_model.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import 'api_consts.dart';
 
 class CallApi {
@@ -40,7 +40,7 @@ class CallApi {
     if (response.statusCode == 200) {
       var str = await response.stream.bytesToString();
       ResponseLogInModel rlm = ResponseLogInModel.fromJson(str);
-      print('from API: token: ${rlm.data.accessToken}');
+      print('from Login API: token: ${rlm.data.accessToken}');
       _allocateInSharedPref(
           _context, rlm.data.user.toString(), rlm.data.accessToken);
     } else {
@@ -122,6 +122,29 @@ class CallApi {
     } else {
       print(response.reasonPhrase);
       return null;
+    }
+  }
+
+  Future<void> callPutUserProfileImgApi(
+      String accessTokenValue, String imgPath) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessTokenValue',
+    };
+    var request = http.MultipartRequest(
+        'PUT',
+        Uri.parse(
+            'https://www.pendu.increments.info/api/v1/auth/profile-image'));
+    request.files.add(await http.MultipartFile.fromPath('', imgPath));
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var str = await response.stream.bytesToString();
+      print('from Image API: $str');
+    } else {
+      print(response.reasonPhrase);
     }
   }
 
@@ -657,10 +680,13 @@ class CallApi {
 }
 
 //Profile Info Method
-_allocateInSharedPref(BuildContext context, String user, String token) async {
+void _allocateInSharedPref(
+    BuildContext context, UStringuser, String token) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  await sharedPreferences.setString(PenduConstants.spUser, user);
+  //Todo
+  // await sharedPreferences.setString(PenduConstants.spUser, user);
   await sharedPreferences.setString(PenduConstants.spToken, token);
+  // print('from shared pref: $user');
 
   if (sharedPreferences.getString(PenduConstants.spToken) != null) {
     Navigator.push(

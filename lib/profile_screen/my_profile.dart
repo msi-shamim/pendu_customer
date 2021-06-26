@@ -1,12 +1,13 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/Model/response_login_model.dart';
-import 'package:pendu_customer/Model/update_user_model.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/model/update_user_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
-import 'package:pendu_customer/profile_screen/profile.dart';
+
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/utils/snackBar_page.dart';
 
 class MyProfile extends StatefulWidget {
   final User userVar;
@@ -23,7 +24,7 @@ class _MyProfileState extends State<MyProfile> {
 
   final _formKey = GlobalKey<FormState>();
 
-  bool _isLoading = false;
+  // bool _isLoading = false;
   String userName, userEmail, userSuburb, userPhone, userPass;
 
   final nameController = TextEditingController();
@@ -156,20 +157,22 @@ class _MyProfileState extends State<MyProfile> {
                       title: 'Name',
                       svgUrl: 'assets/profile.svg',
                       hinText: userName),
-                  _builtTextField(
-                      validator: (eMail) {
-                        if (eMail == null || eMail.isEmpty) {
-                          //return 'Email Name is required';
-                          emailController.text = userEmail;
-                        } else if (!EmailValidator.validate(eMail)) {
-                          return 'Invalid Email';
-                        }
-                        return null;
-                      },
-                      controller: emailController,
-                      title: 'Email (Optional)',
-                      svgUrl: 'assets/mail.svg',
-                      hinText: userEmail),
+                  IgnorePointer(
+                    child: _builtTextField(
+                        validator: (eMail) {
+                          // if (eMail == null || eMail.isEmpty) {
+                          //   //return 'Email Name is required';
+                          //   emailController.text = userEmail;
+                          // } else if (!EmailValidator.validate(eMail)) {
+                          //   return 'Invalid Email';
+                          // }
+                          // return null;
+                        },
+                        controller: emailController,
+                        title: 'Email (Optional)',
+                        svgUrl: 'assets/mail.svg',
+                        hinText: userEmail),
+                  ),
                   _builtTextField(
                       validator: (suburb) {
                         if (suburb == null || suburb.isEmpty) {
@@ -183,37 +186,41 @@ class _MyProfileState extends State<MyProfile> {
                       svgUrl: 'assets/location.svg',
                       hinText: userSuburb,
                       maxline: 5),
-                  _builtTextField(
-                      validator: (cnt) {
-                        if (cnt == null || cnt.isEmpty) {
-                          // return 'Phone number is required';
-                          contactController.text = userPhone;
-                        }
-                        if (cnt.length < 9) {
-                          return "Please enter valid phone";
-                        }
-                        return null;
-                      },
-                      controller: contactController,
-                      title: 'Phone No',
-                      svgUrl: 'assets/telephone.svg',
-                      hinText: userPhone),
+                  IgnorePointer(
+                    child: _builtTextField(
+                        validator: (cnt) {
+                          // if (cnt == null || cnt.isEmpty) {
+                          //   // return 'Phone number is required';
+                          //   contactController.text = userPhone;
+                          // }
+                          // if (cnt.length < 9) {
+                          //   return "Please enter valid phone";
+                          // }
+                          // return null;
+                        },
+                        controller: contactController,
+                        title: 'Phone No',
+                        svgUrl: 'assets/telephone.svg',
+                        hinText: userPhone),
+                  ),
 
-                  _builtTextField(
-                      validator: (pass) {
-                        if (pass == null || pass.isEmpty) {
-                          // return 'Password is required';
-                          passController.text = userPass;
-                        }
-                        if (pass.length < 8) {
-                          return "Password at least 8 character";
-                        }
-                        return null;
-                      },
-                      controller: passController,
-                      title: 'Password',
-                      svgUrl: 'assets/unlock.svg',
-                      hinText: '*** *** *** ***'),
+                  IgnorePointer(
+                    child: _builtTextField(
+                        validator: (pass) {
+                          // if (pass == null || pass.isEmpty) {
+                          //   // return 'Password is required';
+                          //   passController.text = userPass;
+                          // }
+                          // if (pass.length < 8) {
+                          //   return "Password at least 8 character";
+                          // }
+                          // return null;
+                        },
+                        controller: passController,
+                        title: 'Password',
+                        svgUrl: 'assets/unlock.svg',
+                        hinText: '*** *** *** ***'),
+                  ),
                   SizedBox(height: 50),
 
                   SizedBox(
@@ -257,6 +264,9 @@ class _MyProfileState extends State<MyProfile> {
       suburbController.text.toString(),
       token,
     );
+    print('Name: ${nameController.text.toString()}');
+    print('Suburb: ${suburbController.text.toString()}');
+    print('Token: $token');
     rrm.status == 200
         ? _showSuccessMessage(rrm.message)
         : _showErrorMessage(rrm.message);
@@ -264,9 +274,11 @@ class _MyProfileState extends State<MyProfile> {
 
   _showSuccessMessage(String msg) {
     //dialog -> Register successfully
+    SnackBarClass.snackBarMethod(message: msg, context: context);
   }
 
   _showErrorMessage(String msg) {
     //dialog -> Error
+    SnackBarClass.snackBarMethod(message: msg, context: context);
   }
 }
