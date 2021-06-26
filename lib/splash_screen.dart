@@ -14,13 +14,13 @@ import 'model/response_login_model.dart';
 class SplashScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-
     // TODO: implement createState
     return _SplashScreenState();
   }
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  User userVar;
   @override
   void initState() {
     /*
@@ -30,27 +30,36 @@ class _SplashScreenState extends State<SplashScreen> {
     * */
 
     _isLoggedIn().then((loggedIn) {
+
       if (loggedIn) {
-        if (_fetchUser() != null) {
-          Timer(Duration(seconds: 3), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomePage(
-                        user: _fetchUser(),
-                      )),
-            );
-          });
-        } else {
-          Timer(Duration(seconds: 3), () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => OnBoarding01()));
-          });
-        }
-      }else{
+        print("step1");
+        _fetchUser().then((value) {
+          print("step2");
+          userVar = value;
+          if (userVar != null) {
+            Timer(Duration(seconds: 3), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomePage(
+                      user:  userVar,
+                    )),
+              );
+            });
+
+          } else {
+            Timer(Duration(seconds: 3), () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => OnBoarding01()));
+            });
+          }
+        });
+
+      } else {
+        print("value3");
         Timer(Duration(seconds: 3), () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => OnBoarding01()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => OnBoarding01()));
         });
       }
     });
@@ -66,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return false;
   }
 
-  _fetchUser() async {
+  Future<User> _fetchUser() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var str = sharedPreferences.getString(PenduConstants.spUser);
     if (str != null) {
