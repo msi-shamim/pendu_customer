@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:flutter/services.dart';
@@ -7,17 +8,17 @@ import 'package:pendu_customer/utils/snackBar_page.dart';
 import 'package:social_share/social_share.dart';
 
 class ReferNEarn extends StatefulWidget {
-  final dynamic userVar;
+  final User user;
 
-  const ReferNEarn({Key key, this.userVar}) : super(key: key);
+  const ReferNEarn({Key key, this.user}) : super(key: key);
 
   @override
-  _ReferNEarnState createState() => _ReferNEarnState(userVar);
+  _ReferNEarnState createState() => _ReferNEarnState(user);
 }
 
 class _ReferNEarnState extends State<ReferNEarn> {
-  final dynamic userVar;
-  _ReferNEarnState(this.userVar);
+  final User user;
+  _ReferNEarnState(this.user);
   Widget _buildTextField() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10.0),
@@ -67,7 +68,7 @@ class _ReferNEarnState extends State<ReferNEarn> {
       height: 50,
       child: ElevatedButton(
         onPressed: () {
-          Clipboard.setData(ClipboardData(text: userVar["referral_link"]));
+          Clipboard.setData(ClipboardData(text: user.referralLink));
           SnackBarClass.snackBarMethod(
               message: "Link Copied to Clipboard", context: context);
         },
@@ -101,7 +102,7 @@ class _ReferNEarnState extends State<ReferNEarn> {
               onTap: () {
                 SocialShare.shareTwitter(
                   "Use pendu with this refeler link " +
-                      userVar["referral_link"],
+                   user.referralLink,
                   hashtags: ["share", "pendu", "customer", "australia"],
                   url: "",
                   trailingText: "\nhello",
@@ -178,7 +179,7 @@ class _ReferNEarnState extends State<ReferNEarn> {
                       color: Pendu.color('F1F1F1')),
                   alignment: Alignment.center,
                   child: Text(
-                    userVar["referral_link"],
+                   user.referralLink,
                     style: TextStyle(color: Colors.black54),
                   ),
                 ),

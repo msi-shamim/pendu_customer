@@ -7,6 +7,7 @@ import 'package:pendu_customer/screen_coleect_and_deliver/collect_drop_page_1.da
 import 'package:pendu_customer/splash_screen.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
+import 'model/response_login_model.dart';
 import 'network_data/api_data_collect.dart';
 
 void main() {
@@ -14,13 +15,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
+User user;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Pendu',
       theme: Pendu.lightTheme,
-      home: SplashScreen(),
+   home: SplashScreen(),
+   //   home: UserProfile(user: user,),
     );
   }
 }

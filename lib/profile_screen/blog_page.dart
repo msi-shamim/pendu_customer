@@ -4,6 +4,8 @@ import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/model/response_post_model.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_fetch_data.dart';
 
 class BlogPage extends StatefulWidget {
   final String token;
@@ -20,9 +22,19 @@ class _BlogPageState extends State<BlogPage> {
   int intValue = 0;
 
   List<Datum> _blogList;
+  var blogPost;
   @override
   void initState() {
-    _getBlogInfo();
+    if(token != null){
+    FetchDataUtils(context).getBlogInfo(token).then((value){
+      setState(() {
+        _blogList = value;
+      });
+
+  });}
+    else{
+      SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
+    }
     super.initState();
   }
 
@@ -31,19 +43,7 @@ class _BlogPageState extends State<BlogPage> {
     super.dispose();
   }
 
-  void _getBlogInfo() async {
-    ResponseBlogPostModel blogModel =
-        await CallApi(context).callBlogPostApi(token);
-    print(token);
-    print('Status ${blogModel.status}');
-    print('BlogModel : $blogModel');
-    // blogModel.then((value) {
-    //   setState(() {
-    //     _blogList = value.data.toList();
-    //  print(_blogList);
-    //   });
-    // });
-  }
+
 
   Future buildText() {
     return Future.delayed(Duration(seconds: 3), () => print('waiting...'));

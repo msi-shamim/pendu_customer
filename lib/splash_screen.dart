@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_01.dart';
 import 'package:pendu_customer/utils/utils_fetch_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,10 +22,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  User userVar;
+
   @override
   void initState() {
     FetchDataUtils(context).validateUser();
+   // CallApi(context).logOut();
     super.initState();
   }
 

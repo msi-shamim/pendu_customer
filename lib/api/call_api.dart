@@ -11,6 +11,7 @@ import 'package:pendu_customer/model/response_list_task_offers_model.dart';
 import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/model/response_mail.dart';
 import 'package:pendu_customer/model/response_post_model.dart';
+import 'package:pendu_customer/model/response_pro_driver_model.dart';
 import 'package:pendu_customer/model/response_product_categories_model.dart';
 import 'package:pendu_customer/model/response_register_model.dart';
 import 'package:pendu_customer/model/response_service_category_model.dart';
@@ -42,8 +43,12 @@ class CallApi {
       var str = await response.stream.bytesToString();
       ResponseLogInModel rlm = ResponseLogInModel.fromJson(str);
       print('from Login API: token: ${rlm.data.accessToken}');
+
+      String userStr = json.encode(rlm.data.user);
+
+     // print('UserStr: $userStr');
       _allocateInSharedPref(
-          _context, rlm.data.user.toString(), rlm.data.accessToken);
+          _context, userStr, rlm.data.accessToken);
     } else {
       print(response.reasonPhrase);
       return null;
@@ -679,6 +684,27 @@ class CallApi {
     }
   }
 
+  Future<ResponseProDriverModel> callProDriverApi(String accessTokenValue) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessTokenValue',
+    };
+    var request = http.Request('GET', Uri.parse('https://www.pendu.increments.info/api/v1/pro-drivers'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var str = await response.stream.bytesToString();
+      print('from Pro Driver API: $str');
+      return ResponseProDriverModel.fromJson(str);
+    } else {
+      print(response.reasonPhrase);
+      return null;
+    }
+
+  }
   //logout
   Future<bool> logOut() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -691,16 +717,17 @@ class CallApi {
 }
 
 //Profile Info Method
-void _allocateInSharedPref(BuildContext context, UStringuser, String token) async {
+void _allocateInSharedPref(BuildContext context, String user, String token) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //Todo
-  // await sharedPreferences.setString(PenduConstants.spUser, user);
+
+  await sharedPreferences.setString(PenduConstants.spUser, user);
   await sharedPreferences.setString(PenduConstants.spToken, token);
-  // print('from shared pref: $user');
+  print('from shared pref: $user');
 
   if (sharedPreferences.getString(PenduConstants.spToken) != null) {
+    User uUser = User.fromJson(json.decode(user));
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+        context, MaterialPageRoute(builder: (context) => HomePage(token: token, user: uUser,)));
   } else {
     print('from API: Token null');
   }

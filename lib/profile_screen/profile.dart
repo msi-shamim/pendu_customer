@@ -27,20 +27,25 @@ import 'history.dart';
 import 'menu_button_icon.dart';
 
 class UserProfile extends StatefulWidget {
+ final  User user;
+ final String token;
+ UserProfile({@required this.user, @required this.token});
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _UserProfileState createState() => _UserProfileState(user, token);
 }
 
 class _UserProfileState extends State<UserProfile> {
-  User user;
-  String accessToken;
+  final User user;
+  final String token;
+  _UserProfileState(this.user, this.token);
+
 
   final picker = ImagePicker();
   File _image;
 
   @override
   void initState() {
-    _getUserInfo();
+    print('UserP Profile : $user');
     super.initState();
   }
 
@@ -49,18 +54,7 @@ class _UserProfileState extends State<UserProfile> {
     super.dispose();
   }
 
-  void _getUserInfo() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var str = localStorage.getString(PenduConstants.spUser);
-    var token = localStorage.getString(PenduConstants.spToken);
-    if (token != null && str != null) {
-      accessToken = token;
-      user = User.fromJson(str);
-      print('from Profile: $str');
-    }
 
-    //_user.phone != null ? _user.phone : 'Contact no.';
-  }
 
   Future getCameraImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
@@ -208,7 +202,7 @@ class _UserProfileState extends State<UserProfile> {
                       ],
                     ),
                     Text(
-                      user.name != null ? user.name : 'User Name',
+                     user.name != null ? user.name : 'User Name',
                       style: TextStyle(
                           color: Theme.of(context).accentColor, fontSize: 18),
                     ),
@@ -345,7 +339,7 @@ class _UserProfileState extends State<UserProfile> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MyProfile(user: user)));
+                                      builder: (context) => MyProfile(user: user, token: token,)));
                             },
                             child: _menuItem(
                                 imgLink: 'assets/profile.svg',
@@ -387,7 +381,7 @@ class _UserProfileState extends State<UserProfile> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ReferNEarn(
-                                            userVar: user,
+                                            user: user,
                                           )));
                             },
                             child: _menuItem(
@@ -399,7 +393,7 @@ class _UserProfileState extends State<UserProfile> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          BlogPage(accessToken)));
+                                          BlogPage(token)));
                             },
                             child: _menuItem(
                                 imgLink: 'assets/blogs.svg', title: 'Blogs')),
