@@ -253,7 +253,7 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: BottomNavigation(initValue: 3),
+        bottomNavigationBar: BottomNavigation(initValue: 3, user: user, token: token,),
         appBar: _buildAppbar(),
         body: Container(
           color: Pendu.color('1B3149'),
@@ -284,7 +284,7 @@ class _UserProfileState extends State<UserProfile> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => TaskView()),
+                        MaterialPageRoute(builder: (context) => TaskView(user: user, token: token)),
                       );
                     },
                     child: _buildHeaderButton(

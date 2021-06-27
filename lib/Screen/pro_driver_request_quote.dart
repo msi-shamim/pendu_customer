@@ -41,7 +41,7 @@ class _RequestQuoteState extends State<RequestQuote> {
             ),
             items: <String>[
               'Drop & Down',
-              'Collct & Deliver',
+              'Collect & Deliver',
               'Mover',
             ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
@@ -143,7 +143,7 @@ class _RequestQuoteState extends State<RequestQuote> {
           _buildTextField(
               maxLine: 5, hintText: 'Use a Comma between Multiple Products.'),
           _buildTextField(maxLine: 1, hintText: 'Product Cost'),
-          Text('Enter shops/ Picup address', style: headerTextStyle),
+          Text('Enter shops/ Pickup address', style: headerTextStyle),
           _buildTextField(maxLine: 1, hintText: 'Enter shops/ Pickup address'),
           Text('Enter delivery address', style: headerTextStyle),
           _buildTextField(maxLine: 1, hintText: 'Delivery address'),

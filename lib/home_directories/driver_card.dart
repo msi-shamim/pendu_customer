@@ -1,21 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/Screen/request_quote.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/Screen/pro_driver_request_quote.dart';
+import 'package:pendu_customer/api/api_consts.dart';
+import 'package:pendu_customer/model/response_pro_driver_model.dart';
 
 class DriverCard extends StatefulWidget {
-  String _image;
 
-  DriverCard(this._image);
+ final ProDriverList proDriverList;
+  DriverCard(this.proDriverList);
 
   @override
-  State<StatefulWidget> createState() => _DriverCardState(_image);
+  State<StatefulWidget> createState() => _DriverCardState(proDriverList);
 }
 
 class _DriverCardState extends State<DriverCard> {
-  String _image;
+  final ProDriverList proDriverList;
+  _DriverCardState(this.proDriverList);
 
-  _DriverCardState(this._image);
-  _buildMultiselect() {
+  _buildProDriverForm() {
     return showModalBottomSheet(
         backgroundColor: Colors.transparent,
         isScrollControlled: true,
@@ -34,19 +37,20 @@ class _DriverCardState extends State<DriverCard> {
               elevation: 3.0,
               child: Column(
                 children: [
-                  Image.asset(
-                    _image,
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width,
+                 Container(
+                  width: double.infinity,
+                height: 120,
+                   decoration: BoxDecoration( image: DecorationImage(image: NetworkImage((proDriverList.profileImage != null) ? PenduConstants.baseUrl + proDriverList.profileImage : 'https://kwdev.nl/legenda-demo/wp-content/uploads/2013/12/delivery.png',),),),
+
                   ),
                   Container(
                     margin:
-                        EdgeInsets.only(left: 8, right: 8, top: 32, bottom: 4),
+                        EdgeInsets.only(left: 8, right: 8, top: 45, bottom: 4),
                     child: Row(
                       children: [
                         Expanded(child: Text('Success Rate')),
                         Text(
-                          '5.00',
+                          (proDriverList.successRate != null) ? proDriverList.successRate : '**',
                           style:
                               TextStyle(color: Theme.of(context).accentColor),
                         )
@@ -59,7 +63,7 @@ class _DriverCardState extends State<DriverCard> {
                     child: Row(
                       children: [
                         Expanded(child: Text('Accuracy Score')),
-                        Text('96',
+                        Text( (proDriverList.averageAccuracy != null) ? proDriverList.averageAccuracy : '**',
                             style:
                                 TextStyle(color: Theme.of(context).accentColor))
                       ],
@@ -70,7 +74,7 @@ class _DriverCardState extends State<DriverCard> {
                         EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 8),
                     child: ElevatedButton(
                       onPressed: () {
-                        _buildMultiselect();
+                        _buildProDriverForm();
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
@@ -88,34 +92,27 @@ class _DriverCardState extends State<DriverCard> {
             ),
           ),
           Positioned(
-            left: 18,
+            left: 0,
             top: 100,
+            right: 0,
             child: Card(
+              margin: EdgeInsets.symmetric(horizontal: 30.0),
               elevation: 3,
               child: Container(
+padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                        icon: Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        onPressed: () {}),
+                    SvgPicture.asset('assets/pro_star.svg'),
+                   SizedBox(width: 10),
                     Text(
-                      '4.80',
+                      (proDriverList.rating != null) ? proDriverList.rating  : '*.**',
                       style: TextStyle(fontSize: 18),
                     ),
-                    IconButton(
-                        icon: Icon(
-                          Icons.directions_car_outlined,
-                        ),
-                        onPressed: () {}),
-                    IconButton(
-                        icon: Icon(
-                          Icons.card_giftcard_outlined,
-                        ),
-                        onPressed: () {}),
+                    Spacer(),
+                    SvgPicture.asset('assets/pro_move.svg'),
+                    SizedBox(width: 10),
+                    SvgPicture.asset('assets/pro_gift.svg'),
                   ],
                 ),
               ),

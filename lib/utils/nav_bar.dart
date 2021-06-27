@@ -4,6 +4,7 @@ import 'package:motion_tab_bar/MotionTabController.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:pendu_customer/Screen/received_offers.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/task_view.dart';
 import 'package:pendu_customer/utils/pendu_icon.dart';
@@ -12,7 +13,9 @@ import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 
 class BottomNavigation extends StatefulWidget {
   final int initValue;
-  BottomNavigation({this.initValue});
+  final User user;
+  final String token;
+  BottomNavigation({this.initValue, this.user, this.token});
 
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
@@ -37,6 +40,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     int selectedIndex = widget.initValue;
+  User user = widget.user;
+     String token = widget.token;
     return FFNavigationBar(
       theme: FFNavigationBarTheme(
         barBackgroundColor: Colors.white,
@@ -54,16 +59,16 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
           if (selectedIndex == 0) {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+                context, MaterialPageRoute(builder: (context) => HomePage(user: user, token: token,)));
           } else if (selectedIndex == 1) {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => TaskView()));
+                context, MaterialPageRoute(builder: (context) => TaskView(user: user, token: token,)));
           } else if (selectedIndex == 2) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ReceivedOffers()));
+                MaterialPageRoute(builder: (context) => ReceivedOffers(user: user, token: token,)));
           } else if (selectedIndex == 3) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => UserProfile()));
+                MaterialPageRoute(builder: (context) => UserProfile(user: user, token: token,)));
           }
         });
       },

@@ -1,22 +1,25 @@
 import 'dart:ffi';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/Screen/progress_page_1.dart';
 import 'package:pendu_customer/home_directories/breadcramp.dart';
 import 'package:pendu_customer/home_directories/driver_card.dart';
-import 'package:pendu_customer/home_directories/first_card.dart';
 import 'package:pendu_customer/home_directories/image_carousel.dart';
 import 'package:pendu_customer/home_directories/recent_drops.dart';
-import 'package:pendu_customer/home_directories/PenduAppBar.dart';
 import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/model/response_pro_driver_model.dart';
 import 'package:pendu_customer/profile_screen/pro_driver.dart';
 import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/profile_notification.dart';
+import 'package:pendu_customer/screen_coleect_and_deliver/collect_drop_page_1.dart';
+import 'package:pendu_customer/screen_movers/movers_1.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
 import 'package:pendu_customer/utils/nav_bar.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_fetch_data.dart';
 import 'announcement_container.dart';
 import 'box_section.dart';
 import 'our_blog.dart';
@@ -37,25 +40,83 @@ final List<String> _imageItems = [
   'assets/banner_02.png',
 ];
 
-final List<String> _drivers = [
-  'assets/driver_image.png',
-  'assets/driver_image.png',
-  'assets/driver_image.png',
-  'assets/driver_image.png',
-];
 
 class _HomeState extends State<HomePage> {
   final User user;
   final String token;
   _HomeState(this.user, this.token);
-
+List<ProDriverList> _proDriverList;
   @override
   void initState() {
-//print('Token: $token');
-//print('user $user');
+    if(token != null){
+      FetchDataUtils(context).getProDriverInfo(token).then((value){
+        setState(() {
+          _proDriverList = value;
+        });
+      });}
+    else{
+      SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
+    }
     super.initState();
   }
-
+  Widget _buildFirstCard(){
+    return Card(
+      elevation: 4,
+      child: Column(
+        children: [
+          Container(
+              margin: EdgeInsets.all(16),
+              child: Text(
+                'What you’d like to get delivered?',
+                style: TextStyle(fontSize: 18),
+              )),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProgressPage1(user: user, token: token,)),
+                      );
+                    },
+                    child: HomePageIcon(
+                        iconpath: 'assets/shop_drop.svg',
+                        title: 'Shop & Drop')),
+                InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CollectDropPage1()),
+                      );
+                    },
+                    child: HomePageIcon(
+                        iconpath: 'assets/collect _ drop.svg',
+                        title: 'Collect & Deliver')),
+                InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MoversPage1()),
+                      );
+                    },
+                    child: HomePageIcon(
+                        iconpath: 'assets/movers.svg', title: 'Movers')),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+  Future buildText() {
+    return Future.delayed(Duration(seconds: 1), () => print('waiting...'));
+  }
   Widget _buildAppBar(){
     return PreferredSize(
       preferredSize: Size.fromHeight(72),
@@ -132,19 +193,21 @@ class _HomeState extends State<HomePage> {
       ),
     );
   }
+
+
   @override
   Widget build(BuildContext context) {
 
     double _widthHight = MediaQuery.of(context).size.width / 2 - 50;
     return Scaffold(
-      bottomNavigationBar: BottomNavigation(initValue: 0),
+      bottomNavigationBar: BottomNavigation(initValue: 0, user: user, token: token ),
       appBar:  _buildAppBar(),
       body: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.all(16),
         children: [
           //section 01
-          FirstCard(),
+          _buildFirstCard(),
           //section 02
           ImageCarousel(_imageItems),
           //section 03
@@ -153,13 +216,26 @@ class _HomeState extends State<HomePage> {
               Breadcamp('Pro Drivers in Your Area', ProDriver()),
               Container(
                 height: 280,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _drivers.length,
-                  itemBuilder: (BuildContext context, int i) =>
-                      DriverCard(_drivers[i]),
-                  separatorBuilder: (BuildContext context, int i2) => Divider(),
-                ),
+                child: FutureBuilder(
+                  future: buildText(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot){
+                    if(snapshot.connectionState == ConnectionState.done && _proDriverList != null){
+                      return  ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _proDriverList.length,
+                        itemBuilder: (BuildContext context, int i) =>
+                            DriverCard(_proDriverList[i]),
+                        separatorBuilder: (BuildContext context, int i2) => Divider(),
+                      );
+                    }
+                    else {
+                      return Center(
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context).accentColor,
+                          ));
+                    }
+                  },
+                )
               )
             ],
           ),
@@ -174,7 +250,7 @@ class _HomeState extends State<HomePage> {
             ),
           ),
           SizedBox(height: 10),
-          //Todo Rexent drops card slide
+
           ProgressPageHeader(text: 'Recent Drops Around You'),
           RecentDrops(),
           //todo Announcement
@@ -187,7 +263,7 @@ class _HomeState extends State<HomePage> {
           ),
           //Todo Blog post
           ProgressPageHeader(text: 'Our Blog'),
-          OurBlog(),
+          OurBlog(token),
         ],
       ),
     );

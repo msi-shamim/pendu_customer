@@ -1,39 +1,89 @@
-// To parse this JSON data, do
-//
-//     final responseProDriverModel = responseProDriverModelFromMap(jsonString);
+
 
 import 'dart:convert';
 
-class ResponseProDriverModel {
-  ResponseProDriverModel({
+class ResponseOffersFromDriver {
+  ResponseOffersFromDriver({
     this.status,
     this.message,
-    this.proDriverList,
+    this.offersFromDriverList,
   });
 
   final int status;
   final String message;
-  final List<ProDriverList> proDriverList;
+  final List<OffersFromDriverList> offersFromDriverList;
 
-  factory ResponseProDriverModel.fromJson(String str) => ResponseProDriverModel.fromMap(json.decode(str));
+  factory ResponseOffersFromDriver.fromJson(String str) => ResponseOffersFromDriver.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory ResponseProDriverModel.fromMap(Map<String, dynamic> json) => ResponseProDriverModel(
+  factory ResponseOffersFromDriver.fromMap(Map<String, dynamic> json) => ResponseOffersFromDriver(
     status: json["status"] == null ? null : json["status"],
     message: json["message"] == null ? null : json["message"],
-    proDriverList: json["data"] == null ? null : List<ProDriverList>.from(json["data"].map((x) => ProDriverList.fromMap(x))),
+    offersFromDriverList: json["data"] == null ? null : List<OffersFromDriverList>.from(json["data"].map((x) => OffersFromDriverList.fromMap(x))),
   );
 
   Map<String, dynamic> toMap() => {
     "status": status == null ? null : status,
     "message": message == null ? null : message,
-    "data": proDriverList == null ? null : List<dynamic>.from(proDriverList.map((x) => x.toMap())),
+    "data": offersFromDriverList == null ? null : List<dynamic>.from(offersFromDriverList.map((x) => x.toMap())),
   };
 }
 
-class ProDriverList {
-  ProDriverList({
+class OffersFromDriverList {
+  OffersFromDriverList({
+    this.id,
+    this.amount,
+    this.taskId,
+    this.dropperId,
+    this.status,
+    this.acceptedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.dropper,
+  });
+
+  final int id;
+  final String amount;
+  final String taskId;
+  final String dropperId;
+  final String status;
+  final dynamic acceptedAt;
+  final dynamic createdAt;
+  final dynamic updatedAt;
+  final Dropper dropper;
+
+  factory OffersFromDriverList.fromJson(String str) => OffersFromDriverList.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory OffersFromDriverList.fromMap(Map<String, dynamic> json) => OffersFromDriverList(
+    id: json["id"] == null ? null : json["id"],
+    amount: json["amount"] == null ? null : json["amount"],
+    taskId: json["task_id"] == null ? null : json["task_id"],
+    dropperId: json["dropper_id"] == null ? null : json["dropper_id"],
+    status: json["status"] == null ? null : json["status"],
+    acceptedAt: json["accepted_at"],
+    createdAt: json["created_at"],
+    updatedAt: json["updated_at"],
+    dropper: json["dropper"] == null ? null : Dropper.fromMap(json["dropper"]),
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id": id == null ? null : id,
+    "amount": amount == null ? null : amount,
+    "task_id": taskId == null ? null : taskId,
+    "dropper_id": dropperId == null ? null : dropperId,
+    "status": status == null ? null : status,
+    "accepted_at": acceptedAt,
+    "created_at": createdAt,
+    "updated_at": updatedAt,
+    "dropper": dropper == null ? null : dropper.toMap(),
+  };
+}
+
+class Dropper {
+  Dropper({
     this.id,
     this.firstName,
     this.lastName,
@@ -52,7 +102,7 @@ class ProDriverList {
     this.createdAt,
     this.updatedAt,
     this.fullName,
-    this.services,
+    this.vehicle,
   });
 
   final int id;
@@ -73,13 +123,13 @@ class ProDriverList {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String fullName;
-  final List<Service> services;
+  final Vehicle vehicle;
 
-  factory ProDriverList.fromJson(String str) => ProDriverList.fromMap(json.decode(str));
+  factory Dropper.fromJson(String str) => Dropper.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory ProDriverList.fromMap(Map<String, dynamic> json) => ProDriverList(
+  factory Dropper.fromMap(Map<String, dynamic> json) => Dropper(
     id: json["id"] == null ? null : json["id"],
     firstName: json["first_name"] == null ? null : json["first_name"],
     lastName: json["last_name"] == null ? null : json["last_name"],
@@ -98,7 +148,7 @@ class ProDriverList {
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     fullName: json["full_name"] == null ? null : json["full_name"],
-    services: json["services"] == null ? null : List<Service>.from(json["services"].map((x) => Service.fromMap(x))),
+    vehicle: json["vehicle"] == null ? null : Vehicle.fromMap(json["vehicle"]),
   );
 
   Map<String, dynamic> toMap() => {
@@ -120,112 +170,46 @@ class ProDriverList {
     "created_at": createdAt == null ? null : createdAt.toIso8601String(),
     "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
     "full_name": fullName == null ? null : fullName,
-    "services": services == null ? null : List<dynamic>.from(services.map((x) => x.toMap())),
+    "vehicle": vehicle == null ? null : vehicle.toMap(),
   };
 }
 
-class Service {
-  Service({
+class Vehicle {
+  Vehicle({
     this.id,
     this.title,
-    this.slug,
-    this.serviceIcon,
+    this.icon,
+    this.status,
     this.createdAt,
     this.updatedAt,
-    this.pivot,
   });
 
   final int id;
-  final Title title;
-  final Slug slug;
-  final Icon serviceIcon;
+  final String title;
+  final String icon;
+  final String status;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final Pivot pivot;
 
-  factory Service.fromJson(String str) => Service.fromMap(json.decode(str));
+  factory Vehicle.fromJson(String str) => Vehicle.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Service.fromMap(Map<String, dynamic> json) => Service(
+  factory Vehicle.fromMap(Map<String, dynamic> json) => Vehicle(
     id: json["id"] == null ? null : json["id"],
-    title: json["title"] == null ? null : titleValues.map[json["title"]],
-    slug: json["slug"] == null ? null : slugValues.map[json["slug"]],
-    serviceIcon: json["icon"] == null ? null : iconValues.map[json["icon"]],
+    title: json["title"] == null ? null : json["title"],
+    icon: json["icon"] == null ? null : json["icon"],
+    status: json["status"] == null ? null : json["status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    pivot: json["pivot"] == null ? null : Pivot.fromMap(json["pivot"]),
   );
 
   Map<String, dynamic> toMap() => {
     "id": id == null ? null : id,
-    "title": title == null ? null : titleValues.reverse[title],
-    "slug": slug == null ? null : slugValues.reverse[slug],
-    "icon": serviceIcon == null ? null : iconValues.reverse[serviceIcon],
+    "title": title == null ? null : title,
+    "icon": icon == null ? null : icon,
+    "status": status == null ? null : status,
     "created_at": createdAt == null ? null : createdAt.toIso8601String(),
     "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-    "pivot": pivot == null ? null : pivot.toMap(),
   };
-}
-
-enum Icon { PUBLIC_FRONTEND_IMAGES_SERVICE_COLLECT_PNG, PUBLIC_FRONTEND_IMAGES_SERVICE_MOVER_PNG, PUBLIC_FRONTEND_IMAGES_SERVICE_SHOP_PNG }
-
-final iconValues = EnumValues({
-  "/public/frontend/images/service/collect.png": Icon.PUBLIC_FRONTEND_IMAGES_SERVICE_COLLECT_PNG,
-  "/public/frontend/images/service/mover.png": Icon.PUBLIC_FRONTEND_IMAGES_SERVICE_MOVER_PNG,
-  "/public/frontend/images/service/shop.png": Icon.PUBLIC_FRONTEND_IMAGES_SERVICE_SHOP_PNG
-});
-
-class Pivot {
-  Pivot({
-    this.dropperId,
-    this.serviceCategoryId,
-  });
-
-  final String dropperId;
-  final String serviceCategoryId;
-
-  factory Pivot.fromJson(String str) => Pivot.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Pivot.fromMap(Map<String, dynamic> json) => Pivot(
-    dropperId: json["dropper_id"] == null ? null : json["dropper_id"],
-    serviceCategoryId: json["service_category_id"] == null ? null : json["service_category_id"],
-  );
-
-  Map<String, dynamic> toMap() => {
-    "dropper_id": dropperId == null ? null : dropperId,
-    "service_category_id": serviceCategoryId == null ? null : serviceCategoryId,
-  };
-}
-
-enum Slug { COLLECT_AND_DROP, MOVER, SHOP_AND_DROP }
-
-final slugValues = EnumValues({
-  "collect-and-drop": Slug.COLLECT_AND_DROP,
-  "mover": Slug.MOVER,
-  "shop-and-drop": Slug.SHOP_AND_DROP
-});
-
-enum Title { COLLECT_AND_DROP, MOVER, SHOP_AND_DROP }
-
-final titleValues = EnumValues({
-  "Collect and drop": Title.COLLECT_AND_DROP,
-  "Mover": Title.MOVER,
-  "Shop and drop": Title.SHOP_AND_DROP
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
 }

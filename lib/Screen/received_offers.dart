@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/Screen/checkout.dart';
+import 'package:pendu_customer/api/api_consts.dart';
+import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/model/response_recieve_offer_from_driver.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/nav_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
+import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_fetch_data.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class DriverDetails {
@@ -71,19 +77,56 @@ List<DriverDetails> driverList = [
 ];
 
 class ReceivedOffers extends StatefulWidget {
+  final User user;
+  final String token;
+  ReceivedOffers({@required this.user, @required this.token});
   @override
-  _ReceivedOffersState createState() => _ReceivedOffersState();
+  _ReceivedOffersState createState() => _ReceivedOffersState(user, token);
 }
 
 class _ReceivedOffersState extends State<ReceivedOffers> {
+  final User user;
+  final String token;
+  int taskId = 1;
+  _ReceivedOffersState(this.user,this.token);
+
+  List<OffersFromDriverList> _offersList;
+  @override
+  void initState() {
+    if(token != null){
+      //TaskId=2 send
+      FetchDataUtils(context).getOffersFromDriverInfo(token, taskId).then((value){
+        setState(() {
+          _offersList = value;
+        });
+
+      });}
+    else{
+      SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+  Future buildText() {
+    return Future.delayed(Duration(seconds: 1), () => print('waiting...'));
+  }
   Widget _driverList() {
     return Container(
-      child: ListView.builder(
-        itemCount: driverList.length,
+child: FutureBuilder(
+  future: buildText(),
+  builder: (BuildContext context, AsyncSnapshot snapshot) {
+    if (snapshot.connectionState == ConnectionState.done &&
+        _offersList != null) {
+      return  ListView.builder(
+        itemCount: _offersList.length,
         itemBuilder: (BuildContext context, int index) {
           return SingleChildScrollView(
             child: Container(
-                // padding: EdgeInsets.only(left: 10),
+              // padding: EdgeInsets.only(left: 10),
                 height: 160,
                 width: double.infinity,
                 child: Card(
@@ -106,12 +149,12 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: NetworkImage(
-                                          '${driverList[index].picUrl}'),
+                                          PenduConstants.baseUrl +  _offersList[index].dropper.profileImage),
                                       fit: BoxFit.cover),
                                 ),
                               ),
 
-                              Text(driverList[index].name),
+                              Text(_offersList[index].dropper.fullName),
                               //Ratings Row
                               Row(
                                 children: [
@@ -120,7 +163,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                                     color: Colors.yellow,
                                     size: 14,
                                   ),
-                                  Text(driverList[index].ratings),
+                                  Text(_offersList[index].dropper.rating),
                                 ],
                               )
                             ],
@@ -132,12 +175,9 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                               CircularPercentIndicator(
                                 radius: 40.0,
                                 lineWidth: 5.0,
-                                percent: driverList[index]
-                                        .averageAccuracy
-                                        .toDouble() /
-                                    100,
+                                percent:  double.parse(_offersList[index].dropper.averageAccuracy) / 100,
                                 center: new Text(
-                                  '${driverList[index].averageAccuracy}' + '%',
+                                  _offersList[index].dropper.averageAccuracy + '%',
                                   style: new TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 13.0),
@@ -160,10 +200,9 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                                 radius: 40.0,
                                 lineWidth: 5.0,
                                 percent:
-                                    driverList[index].successRate.toDouble() /
-                                        100,
+                                double.parse(_offersList[index].dropper.successRate) / 100,
                                 center: new Text(
-                                  '${driverList[index].successRate}' + '%',
+                                  _offersList[index].dropper.successRate + '%',
                                   style: new TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 13.0),
@@ -182,13 +221,12 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Image.asset(
-                                (driverList[index].vehicletype != null)
-                                    ? driverList[index].vehicletype
-                                    : 'assets/car.png',
-                                //color: Theme.of(context).accentColor,
+                              Container(
                                 height: 35,
                                 width: 35,
+                                child: SvgPicture.network(
+                                 PenduConstants.baseUrl +  _offersList[index].dropper.vehicle.icon,
+                                ),
                               ),
                               SizedBox(height: 10),
                               Text(
@@ -235,7 +273,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                                           left: Radius.circular(20))),
                                   child: Center(
                                     child: Text(
-                                      '\$' + driverList[index].offerPrice,
+                                      '\$' +  _offersList[index].amount,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 22,
@@ -252,11 +290,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                           width: double.infinity,
                           child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CheckOut()),
-                                );
+                              _acceptOffer( _offersList[index].id);
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Theme.of(context).accentColor,
@@ -267,14 +301,24 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
                 )),
           );
         },
-      ),
+      );
+    }
+    else {
+      return Center(
+          child: CircularProgressIndicator(
+            color: Theme.of(context).accentColor,
+          ));
+    } }, ),
+
+
     );
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      bottomNavigationBar: BottomNavigation(initValue: 2),
+      bottomNavigationBar: BottomNavigation(initValue: 2, user: user, token: token,),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
         child: CommonAppBar('Received Offers'),
@@ -293,5 +337,15 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
         ),
       ),
     );
+  }
+
+  void _acceptOffer(int acceptOfferId) {
+
+    var acceptOffer = CallApi(context);
+    acceptOffer.callAcceptOfferApi(token, taskId, acceptOfferId );
+
+    Navigator.push(
+        context, MaterialPageRoute(
+        builder: (context) => CheckOut()));
   }
 }

@@ -6,8 +6,13 @@ import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
+import 'package:pendu_customer/model/response_delivery_time.dart';
 import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/model/response_post_model.dart';
+import 'package:pendu_customer/model/response_pro_driver_model.dart';
+import 'package:pendu_customer/model/response_product_categories_model.dart';
+import 'package:pendu_customer/model/response_recieve_offer_from_driver.dart';
+import 'package:pendu_customer/model/response_service_category_model.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_01.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -49,12 +54,41 @@ class FetchDataUtils{
     });
   }
 
-  getBlogInfo(String blogToken) async {
+  getBlogInfo (String blogToken) async {
     ResponseBlogPostModel blogModel =
     await CallApi(context).callBlogPostApi(blogToken);
-    print('Status ${blogModel.status}');
-    print('BlogModel : ${blogModel.data}');
     return blogModel.data;
+  }
+
+  getProDriverInfo(String userToken) async {
+    ResponseProDriverModel driverModel =
+    await CallApi(context).callProDriverApi(userToken);
+    return driverModel.proDriverList;
+  }
+
+  getProductCategoryInfo(String userToken) async {
+    ResponseProductCategoryModel productCategory =
+    await CallApi(context).callProductCategoryApi(userToken);
+    return productCategory.productCategoryList;
+  }
+
+  getServiceCategoryInfo(String userToken) async {
+    ResponseServiceCategoryModel serviceCategory =
+    await CallApi(context).callServiceCategoryApi(userToken);
+    return serviceCategory.serviceCategoryList;
+  }
+  getDeliveryTimeInfo(String userToken) async {
+    ResponseDeliveryTime deliveryTime =
+    await CallApi(context).callDeliveryTimeApi(userToken);
+    return deliveryTime.deliveryTimeList;
+  }
+
+  getOffersFromDriverInfo(String userToken, int taskId) async {
+    ResponseOffersFromDriver offersFromDriver =
+    await CallApi(context).callOffersFromDriverApi(userToken, taskId);
+    print('Status ${offersFromDriver.status}');
+    print('OffersModel : ${offersFromDriver.offersFromDriverList}');
+    return offersFromDriver.offersFromDriverList;
   }
 
   Future<bool> _isLoggedIn() async {

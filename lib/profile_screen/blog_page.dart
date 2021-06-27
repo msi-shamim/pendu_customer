@@ -22,7 +22,7 @@ class _BlogPageState extends State<BlogPage> {
   int intValue = 0;
 
   List<Datum> _blogList;
-  var blogPost;
+
   @override
   void initState() {
     if(token != null){

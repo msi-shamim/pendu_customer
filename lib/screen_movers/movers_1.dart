@@ -306,7 +306,7 @@ class _MoversPage1State extends State<MoversPage1> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SelectPicupPoint()),
+                            builder: (context) => SelectPickupPoint()),
                       );
                     },
                   )

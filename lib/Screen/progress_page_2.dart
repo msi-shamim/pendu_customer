@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/Screen/progress_page_3.dart';
+import 'package:pendu_customer/api/api_consts.dart';
+import 'package:pendu_customer/model/response_delivery_time.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/Screen/screen_progress.dart';
 import 'package:pendu_customer/utils/close_button.dart';
@@ -8,79 +11,117 @@ import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_button.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
+import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_fetch_data.dart';
 
-class IconMenu {
-  final String svgPath;
-  final String titleIcon;
-  IconMenu({this.svgPath, this.titleIcon});
-}
-
-List<IconMenu> iconList = [
-  IconMenu(svgPath: 'assets/asap.svg', titleIcon: 'ASAP'),
-  IconMenu(svgPath: 'assets/4 hours.svg', titleIcon: '4Hrs'),
-  IconMenu(svgPath: 'assets/6 hours.svg', titleIcon: '6Hrs'),
-  IconMenu(svgPath: 'assets/sameday.svg', titleIcon: 'Same day'),
-  IconMenu(svgPath: 'assets/next day.svg', titleIcon: 'Next day'),
-  IconMenu(svgPath: 'assets/set later.svg', titleIcon: 'Set later'),
-];
 
 class ProgressPage2 extends StatefulWidget {
+  final  User user;
+  final String token;
+  final String adNotes;
+  final String totalCost;
+  final String pickUpLocation ;
+  final String dropUpLocation;
+  ProgressPage2({@required this.user, @required this.token, @required this.adNotes, @required this.totalCost, @required this.dropUpLocation, @required this.pickUpLocation});
   @override
-  _ProgressPage2State createState() => _ProgressPage2State();
+  _ProgressPage2State createState() => _ProgressPage2State(user, token, adNotes, totalCost, pickUpLocation, dropUpLocation );
 }
 
 class _ProgressPage2State extends State<ProgressPage2> {
+  final  User user;
+  final String token;
+  final String adNotes;
+  final String totalCost;
+  final String pickUpLocation ;
+  final String dropUpLocation;
+  _ProgressPage2State(this.user, this.token,  this.adNotes,this.totalCost, this.pickUpLocation, this.dropUpLocation);
   int selectedIndex = -1;
+
+  List<DeliveryTimeList> _deliveryTimeList;
+
+  @override
+  void initState() {
+    if(token != null){
+      FetchDataUtils(context).getDeliveryTimeInfo(token).then((value){
+        setState(() {
+          _deliveryTimeList = value;
+        });
+      });}
+    else{
+      SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+  Future buildText() {
+    return Future.delayed(Duration(microseconds: 0), () => print('waiting...'));
+  }
   Widget _deliveryContainer() {
     return Container(
       height: 340,
       // color: Colors.blue,
-      child: GridView.builder(
-        itemCount: iconList.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1.5,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2),
-        itemBuilder: (context, position) {
-          return InkWell(
-            onTap: () => setState(() => selectedIndex = position),
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Theme.of(context).accentColor,
-                ),
-                borderRadius: BorderRadius.circular(5.0),
-                color:
-                    (selectedIndex == position) ? Pendu.color('EEFEF5') : null,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SvgPicture.asset(
-                    iconList[position].svgPath,
-                    color: Pendu.color('90A0B2'),
-                    width: 50,
-                    height: 50,
-                  ),
-                  Container(
-                    width: 65,
-                    child: Text(
-                      iconList[position].titleIcon,
-                      style: TextStyle(
-                        fontSize: 24,
+      child:  FutureBuilder(
+        future: buildText(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              _deliveryTimeList != null) {
+            return GridView.builder(
+              itemCount: _deliveryTimeList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.5,
+                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 2),
+              itemBuilder: (context, position) {
+                return InkWell(
+                  onTap: () => setState(() => selectedIndex = position),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(
                         color: Theme.of(context).accentColor,
                       ),
-                      textAlign: TextAlign.center,
+                      borderRadius: BorderRadius.circular(5.0),
+                      color:
+                      (selectedIndex == position) ? Pendu.color('EEFEF5') : null,
                     ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SvgPicture.network( PenduConstants.baseUrl +
+                          _deliveryTimeList[position].icon,
+                          color: Pendu.color('90A0B2'),
+                          width: 50,
+                          height: 50,
+                        ),
+                        Container(
+                          width: 65,
+                          child: Text(
+                            _deliveryTimeList[position].title,
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Theme.of(context).accentColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+          else {
+            return Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).accentColor,
+                ));
+          } }, ),
     );
   }
 
@@ -118,11 +159,8 @@ class _ProgressPage2State extends State<ProgressPage2> {
                   ProgressButton(
                     btnText: 'Review',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProgressPage3()),
-                      );
+                     _gotoReviewPage();
+
                     },
                   ),
                 ],
@@ -132,5 +170,18 @@ class _ProgressPage2State extends State<ProgressPage2> {
         ),
       ),
     );
+  }
+
+  void _gotoReviewPage() {
+    if(selectedIndex >= 0){
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+          builder: (context) => ProgressPage3(user: user, token: token, adNotes: adNotes, totalCost: totalCost, pickUpLocation: pickUpLocation,dropUpLocation: dropUpLocation, selectedIndex: selectedIndex, deliveryTimeList: _deliveryTimeList,)),);
+    }
+    else
+{
+  SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
+}
   }
 }

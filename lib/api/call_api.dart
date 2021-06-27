@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/model/response_coupon_model.dart';
+import 'package:pendu_customer/model/response_delivery_time.dart';
 import 'package:pendu_customer/model/response_driver_profile_model.dart';
 import 'package:pendu_customer/model/response_driver_profile_with_level_model.dart';
 import 'package:pendu_customer/model/response_list_task_offers_model.dart';
@@ -13,6 +14,7 @@ import 'package:pendu_customer/model/response_mail.dart';
 import 'package:pendu_customer/model/response_post_model.dart';
 import 'package:pendu_customer/model/response_pro_driver_model.dart';
 import 'package:pendu_customer/model/response_product_categories_model.dart';
+import 'package:pendu_customer/model/response_recieve_offer_from_driver.dart';
 import 'package:pendu_customer/model/response_register_model.dart';
 import 'package:pendu_customer/model/response_service_category_model.dart';
 import 'package:pendu_customer/model/response_user_profile_model.dart';
@@ -316,6 +318,28 @@ class CallApi {
     }
   }
 
+  Future<ResponseDeliveryTime> callDeliveryTimeApi(
+      String accessTokenValue) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessTokenValue'
+    };
+    var request = http.Request('GET', Uri.parse('https://www.pendu.increments.info/api/v1/delivery-times'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var str = await response.stream.bytesToString();
+      print('from Delivery Time API: $str');
+      return ResponseDeliveryTime.fromJson(str);
+    } else {
+      print(response.reasonPhrase);
+      return null;
+    }
+  }
+
   Future<ResponseVehiclesDataModel> callVehicleDataApi(
       String accessTokenValue) async {
     var headers = {
@@ -333,6 +357,26 @@ class CallApi {
       var str = await response.stream.bytesToString();
       print('from Vehicle Data API: $str');
       return ResponseVehiclesDataModel.fromJson(str);
+    } else {
+      print(response.reasonPhrase);
+      return null;
+    }
+  }
+
+  Future<ResponseOffersFromDriver> callOffersFromDriverApi(String accessTokenValue, int taskId) async {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessTokenValue'
+    };
+    var request = http.Request('GET', Uri.parse('https://www.pendu.increments.info/api/v1/tasks/$taskId/offers'));
+    request.body = '''''';
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var str = await response.stream.bytesToString();
+      print('from Driver Response API: $str');
+      return ResponseOffersFromDriver.fromJson(str);
     } else {
       print(response.reasonPhrase);
       return null;
@@ -387,7 +431,7 @@ class CallApi {
   }
 
   Future<PostTaskShopDropModel> callTaskShopDropApi(String accessTokenValue,
-      title, from, to, notes, int deliveryTimeId, double totalCost) async {
+      String   title, String from, String to,String notes, int deliveryTimeId, double totalCost) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -425,14 +469,7 @@ class CallApi {
   }
 
   Future<PostTaskCollectDropModel> callTaskCollectDropApi(
-      String accessTokenValue,
-      title,
-      from,
-      to,
-      notes,
-      int deliveryTimeId,
-      vehicleId,
-      double totalCost) async {
+      String accessTokenValue, String title,String from,String to,String notes, int deliveryTimeId, int vehicleId, double totalCost) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -470,8 +507,8 @@ class CallApi {
     }
   }
 
-  Future<PostTaskMoverModel> callTaskMoverApi(String accessTokenValue, title,
-      from, to, notes, int deliveryTimeId, vehicleId, double totalCost) async {
+  Future<PostTaskMoverModel> callTaskMoverApi(String accessTokenValue, String title,
+      String from, String to,String notes, int deliveryTimeId, int vehicleId, double totalCost) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -507,8 +544,7 @@ class CallApi {
     }
   }
 
-  Future<void> callCheckOutTaskApi(String accessTokenValue, stripeToken,
-      double grandTotal, serviceFee, promoDiscount, int couponId) async {
+  Future<void> callCheckOutTaskApi(String accessTokenValue, stripeToken, double grandTotal, serviceFee, promoDiscount, int couponId) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -538,15 +574,14 @@ class CallApi {
     }
   }
 
-  Future<ResponseListTaskOffersModel> callTaskOfferListApi(
-      String accessTokenValue) async {
+  //Duplicated
+  Future<ResponseListTaskOffersModel> callTaskOfferListApi( String accessTokenValue) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
     };
 //todo task number here Ex: 1
-    var request = http.Request('GET',
-        Uri.parse('https://www.pendu.increments.info/api/v1/tasks/1/offers'));
+    var request = http.Request('GET', Uri.parse('https://www.pendu.increments.info/api/v1/tasks/1/offers'));
     request.body = '''''';
     request.headers.addAll(headers);
 
@@ -562,7 +597,7 @@ class CallApi {
     }
   }
 
-  Future<void> callAcceptOfferApi(String accessTokenValue) async {
+  Future<void> callAcceptOfferApi(String accessTokenValue, int taskId, acceptOfferId) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'

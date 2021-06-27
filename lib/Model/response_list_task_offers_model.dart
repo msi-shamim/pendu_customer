@@ -1,5 +1,5 @@
 
-
+//! May be duplicate
 import 'dart:convert';
 
 class ResponseListTaskOffersModel {

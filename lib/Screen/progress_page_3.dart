@@ -1,8 +1,11 @@
-import 'package:dotted_line/dotted_line.dart';
+
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/Screen/received_offers.dart';
-import 'package:pendu_customer/screen_common/request_status.dart';
 import 'package:pendu_customer/Screen/screen_progress.dart';
+import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/model/response_delivery_time.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/screen_common/request_status.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/delivery_address_table.dart';
@@ -18,44 +21,60 @@ List<String> titleList = [
 ];
 
 class ProgressPage3 extends StatefulWidget {
+  final  User user;
+  final String token;
+  final String adNotes;
+  final String totalCost;
+  final String pickUpLocation ;
+  final String dropUpLocation;
+  final int selectedIndex;
+  final  List<DeliveryTimeList> deliveryTimeList;
+  ProgressPage3({@required this.user, @required this.token, @required this.adNotes, @required this.totalCost, @required this.dropUpLocation, @required this.pickUpLocation, @required this.selectedIndex, @required this.deliveryTimeList});
   @override
-  _ProgressPage3State createState() => _ProgressPage3State();
+  _ProgressPage3State createState() => _ProgressPage3State(user, token, adNotes, totalCost, pickUpLocation, dropUpLocation, selectedIndex, deliveryTimeList );
 }
 
 class _ProgressPage3State extends State<ProgressPage3> {
-  int selectedIndex = -1;
+  final  User user;
+  final String token;
+  final String adNotes;
+  final String totalCost;
+  final String pickUpLocation ;
+  final String dropUpLocation;
+  final int selectedIndex;
+  final  List<DeliveryTimeList> deliveryTimeList;
+  _ProgressPage3State(this.user, this.token,  this.adNotes,this.totalCost, this.pickUpLocation, this.dropUpLocation, this.selectedIndex, this.deliveryTimeList);
+//Can not find this variable at UI
+  String title;
   Widget _deliveryContainer() {
     return Container(
       height: 120,
       // color: Colors.blue,
       child: GridView.builder(
-        itemCount: titleList.length,
+        itemCount: deliveryTimeList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             childAspectRatio: 2,
             crossAxisSpacing: 4,
             mainAxisSpacing: 4),
         itemBuilder: (context, position) {
-          return InkWell(
-            onTap: () => setState(() => selectedIndex = position),
-            child: Card(
-                color: (selectedIndex == position) ? Colors.green : null,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                  ),
-                  child: Center(
-                    child: Text(
-                      titleList[position],
-                      style: TextStyle(
-                        color: (selectedIndex == position)
-                            ? Colors.white
-                            : Colors.green,
-                      ),
+          return Card(
+              color: (selectedIndex == position) ? Colors.green : null,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                ),
+                child: Center(
+                  child: Text(
+                    deliveryTimeList[position].title,
+                    style: TextStyle(
+                      color: (selectedIndex == position)
+                          ? Colors.white
+                          : Colors.green,
                     ),
                   ),
-                )),
-          );
+                ),
+              ));
         },
       ),
     );
@@ -81,6 +100,8 @@ class _ProgressPage3State extends State<ProgressPage3> {
               SizedBox(height: 10),
               DeliverAddressTable(
                 colorCode: Colors.grey[200],
+                pickUpLocation: pickUpLocation,
+                dropUpLocation: dropUpLocation,
               ),
               SizedBox(height: 10),
               ProgressPageHeader(
@@ -100,7 +121,7 @@ class _ProgressPage3State extends State<ProgressPage3> {
                     ),
                     child: Center(
                       child: Text(
-                        '\$ 251',
+                        '\$ $totalCost',
                         style: TextStyle(fontSize: 24, color: Colors.green),
                       ),
                     ),
@@ -113,16 +134,22 @@ class _ProgressPage3State extends State<ProgressPage3> {
               AuthButton(
                 btnText: 'Post Delivery Request',
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ReceivedOffers()),
-                  );
+                  _postDeliveryRequest();
                 },
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+  void _postDeliveryRequest () {
+
+    var acceptOffer = CallApi(context);
+    acceptOffer.callTaskShopDropApi(token,title ,pickUpLocation, dropUpLocation, adNotes, selectedIndex, double.parse(totalCost));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RequestStatus(user: user, token: token,)),
     );
   }
 }

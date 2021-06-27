@@ -1,43 +1,44 @@
 // To parse this JSON data, do
 //
-//     final getServiceCategoryModel = getServiceCategoryModelFromMap(jsonString);
+//     final responseDeliveryTime = responseDeliveryTimeFromMap(jsonString);
 
 import 'dart:convert';
 
-class ResponseServiceCategoryModel {
-  ResponseServiceCategoryModel({
+class ResponseDeliveryTime {
+  ResponseDeliveryTime({
     this.status,
     this.message,
-    this.serviceCategoryList,
+    this.deliveryTimeList,
   });
 
   final int status;
   final String message;
-  final List<ServiceCategoryList> serviceCategoryList;
+  final List<DeliveryTimeList> deliveryTimeList;
 
-  factory ResponseServiceCategoryModel.fromJson(String str) => ResponseServiceCategoryModel.fromMap(json.decode(str));
+  factory ResponseDeliveryTime.fromJson(String str) => ResponseDeliveryTime.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory ResponseServiceCategoryModel.fromMap(Map<String, dynamic> json) => ResponseServiceCategoryModel(
+  factory ResponseDeliveryTime.fromMap(Map<String, dynamic> json) => ResponseDeliveryTime(
     status: json["status"] == null ? null : json["status"],
     message: json["message"] == null ? null : json["message"],
-    serviceCategoryList: json["data"] == null ? null : List<ServiceCategoryList>.from(json["data"].map((x) => ServiceCategoryList.fromMap(x))),
+    deliveryTimeList: json["data"] == null ? null : List<DeliveryTimeList>.from(json["data"].map((x) => DeliveryTimeList.fromMap(x))),
   );
 
   Map<String, dynamic> toMap() => {
     "status": status == null ? null : status,
     "message": message == null ? null : message,
-    "data": serviceCategoryList == null ? null : List<dynamic>.from(serviceCategoryList.map((x) => x.toMap())),
+    "data": deliveryTimeList == null ? null : List<dynamic>.from(deliveryTimeList.map((x) => x.toMap())),
   };
 }
 
-class ServiceCategoryList {
-  ServiceCategoryList({
+class DeliveryTimeList {
+  DeliveryTimeList({
     this.id,
     this.title,
     this.slug,
     this.icon,
+    this.time,
     this.createdAt,
     this.updatedAt,
   });
@@ -46,18 +47,20 @@ class ServiceCategoryList {
   final String title;
   final String slug;
   final String icon;
+  final DateTime time;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  factory ServiceCategoryList.fromJson(String str) => ServiceCategoryList.fromMap(json.decode(str));
+  factory DeliveryTimeList.fromJson(String str) => DeliveryTimeList.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory ServiceCategoryList.fromMap(Map<String, dynamic> json) => ServiceCategoryList(
+  factory DeliveryTimeList.fromMap(Map<String, dynamic> json) => DeliveryTimeList(
     id: json["id"] == null ? null : json["id"],
     title: json["title"] == null ? null : json["title"],
     slug: json["slug"] == null ? null : json["slug"],
     icon: json["icon"] == null ? null : json["icon"],
+    time: json["time"] == null ? null : DateTime.parse(json["time"]),
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
@@ -67,6 +70,7 @@ class ServiceCategoryList {
     "title": title == null ? null : title,
     "slug": slug == null ? null : slug,
     "icon": icon == null ? null : icon,
+    "time": time == null ? null : time.toIso8601String(),
     "created_at": createdAt == null ? null : createdAt.toIso8601String(),
     "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
   };

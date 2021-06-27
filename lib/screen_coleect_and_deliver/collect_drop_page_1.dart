@@ -323,7 +323,7 @@ class _CollectDropPage1State extends State<CollectDropPage1> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SelectPicupPoint()),
+                            builder: (context) => SelectPickupPoint()),
                       );
                     },
                   )

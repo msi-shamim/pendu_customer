@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/profile_screen/task_in_progress_.dart';
 import 'package:pendu_customer/profile_screen/task_pending.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
@@ -9,14 +10,19 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 TextStyle myStyle = TextStyle(fontSize: 17, color: Colors.black);
 
 class TaskView extends StatefulWidget {
+  final User user;
+  final String token;
+  TaskView({@required this.user, @required this.token});
   @override
-  _TaskViewState createState() => _TaskViewState();
+  _TaskViewState createState() => _TaskViewState(user, token);
 }
 
 class _TaskViewState extends State<TaskView>
     with SingleTickerProviderStateMixin {
   TabController tabController;
-
+  final User user;
+  final String token;
+  _TaskViewState(this.user,this.token);
   buildTab(String name) {
     return Container(
       width: MediaQuery.of(context).size.width / 2 - 20,
@@ -40,8 +46,9 @@ class _TaskViewState extends State<TaskView>
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-        bottomNavigationBar: BottomNavigation(initValue: 1),
+        bottomNavigationBar: BottomNavigation(initValue: 1, user: user, token: token,),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(72),
           child: CommonAppBar('Task'),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pendu_customer/Screen/progress_page_1.dart';
 import 'package:pendu_customer/Screen/progress_page_3.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/close_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
@@ -9,11 +11,17 @@ import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_button.dart';
 
 class RequestStatusError extends StatefulWidget {
+  final User user;
+  final String token;
+  RequestStatusError({@required this.user, @required this.token});
   @override
-  _RequestStatusErrorState createState() => _RequestStatusErrorState();
+  _RequestStatusErrorState createState() => _RequestStatusErrorState(user, token);
 }
 
 class _RequestStatusErrorState extends State<RequestStatusError> {
+  final User user;
+  final String token;
+  _RequestStatusErrorState(this.user, this.token);
   int _var = 1;
   @override
   Widget build(BuildContext context) {
@@ -161,7 +169,7 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProgressPage3()),
+                              builder: (context) => ProgressPage1(user: user, token: token,)),
                         );
                       },
                       child: Text(
@@ -183,7 +191,7 @@ class _RequestStatusErrorState extends State<RequestStatusError> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
+                          MaterialPageRoute(builder: (context) => HomePage(user: user, token: token,)),
                         );
                       },
                       child: Text(

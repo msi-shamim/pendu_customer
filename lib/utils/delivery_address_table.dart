@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class DeliverAddressTable extends StatelessWidget {
   final Color colorCode;
-  DeliverAddressTable({this.colorCode});
+  final String pickUpLocation ;
+  final String dropUpLocation;
+  DeliverAddressTable({this.colorCode, this.dropUpLocation, this.pickUpLocation});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,9 +51,11 @@ class DeliverAddressTable extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                    '3/A Jadobpur, Abdul Goli, MD Pur, Dhaka, \n Abdul Goli MD Pur, Dhaka'),
-                Text('2103 N Main St, Highlands, TX 77562'),
+                Container(width: MediaQuery.of(context).size.width * 0.75,
+                    child: Text(pickUpLocation, maxLines: 1, overflow: TextOverflow.ellipsis,)),
+                Container(width: MediaQuery.of(context).size.width * 0.75,
+                    child: Text(dropUpLocation, maxLines: 1, overflow: TextOverflow.ellipsis,)),
+
               ],
             ),
           )

@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pendu_customer/Screen/received_offers.dart';
+import 'package:pendu_customer/model/response_login_model.dart';
 import 'package:pendu_customer/screen_common/request_status_error.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
-import 'package:pendu_customer/utils/close_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
-import 'package:pendu_customer/utils/progress_button.dart';
 import 'package:pendu_customer/utils/tip_sent_popup.dart';
 
 class RequestStatus extends StatefulWidget {
+  final User user;
+  final String token;
+  RequestStatus({@required this.user, @required this.token});
   @override
-  _RequestStatusState createState() => _RequestStatusState();
+  _RequestStatusState createState() => _RequestStatusState(user, token);
 }
 
 class _RequestStatusState extends State<RequestStatus> {
+  final User user;
+  final String token;
+  _RequestStatusState( this.user,  this.token);
   int _var = 1;
   @override
   Widget build(BuildContext context) {
@@ -133,7 +139,7 @@ class _RequestStatusState extends State<RequestStatus> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RequestStatusError()),
+                              builder: (context) => RequestStatusError(user: user,token: token,)),
                         );
                       },
                       child: Text(
@@ -155,12 +161,9 @@ class _RequestStatusState extends State<RequestStatus> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
+                          MaterialPageRoute(builder: (context) => ReceivedOffers(user: user,token: token,)),
                         );
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => TipSentPopUp(),
-                        );
+
                       },
                       child: Text(
                         'Home',
