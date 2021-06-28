@@ -1,7 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/Screen/progress_page_1.dart';
 import 'package:pendu_customer/home_directories/breadcramp.dart';
 import 'package:pendu_customer/home_directories/driver_card.dart';
@@ -17,9 +16,9 @@ import 'package:pendu_customer/screen_movers/movers_1.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
 import 'package:pendu_customer/utils/nav_bar.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/utils/snackBar_page.dart';
 import 'package:pendu_customer/utils/utils_fetch_data.dart';
+
 import 'announcement_container.dart';
 import 'box_section.dart';
 import 'our_blog.dart';
@@ -27,6 +26,7 @@ import 'our_blog.dart';
 class HomePage extends StatefulWidget {
   final User user;
   final String token;
+
   HomePage({this.user, this.token});
 
   @override
@@ -40,26 +40,26 @@ final List<String> _imageItems = [
   'assets/banner_02.png',
 ];
 
-
 class _HomeState extends State<HomePage> {
   final User user;
   final String token;
+
   _HomeState(this.user, this.token);
-List<ProDriverList> _proDriverList;
+
+  List<ProDriverList> _proDriverList = [];
+
   @override
   void initState() {
-    if(token != null){
-      FetchDataUtils(context).getProDriverInfo(token).then((value){
-        setState(() {
-          _proDriverList = value;
-        });
-      });}
-    else{
-      SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
+    if (token != null) {
+      _proDriverList = FetchDataUtils(context).getProDrivers(token);
+    } else {
+      SnackBarClass.snackBarMethod(
+          message: "Something went wrong", context: context);
     }
     super.initState();
   }
-  Widget _buildFirstCard(){
+
+  Widget _buildFirstCard() {
     return Card(
       elevation: 4,
       child: Column(
@@ -80,7 +80,10 @@ List<ProDriverList> _proDriverList;
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProgressPage1(user: user, token: token,)),
+                            builder: (context) => ProgressPage1(
+                                  user: user,
+                                  token: token,
+                                )),
                       );
                     },
                     child: HomePageIcon(
@@ -101,8 +104,7 @@ List<ProDriverList> _proDriverList;
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => MoversPage1()),
+                        MaterialPageRoute(builder: (context) => MoversPage1()),
                       );
                     },
                     child: HomePageIcon(
@@ -114,10 +116,12 @@ List<ProDriverList> _proDriverList;
       ),
     );
   }
+
   Future buildText() {
     return Future.delayed(Duration(seconds: 1), () => print('waiting...'));
   }
-  Widget _buildAppBar(){
+
+  Widget _buildAppBar() {
     return PreferredSize(
       preferredSize: Size.fromHeight(72),
       child: Container(
@@ -176,8 +180,13 @@ List<ProDriverList> _proDriverList;
               SizedBox(width: 10.0),
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserProfile(user: user,token: token,)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserProfile(
+                                user: user,
+                                token: token,
+                              )));
                 },
                 child: SvgPicture.asset(
                   'assets/profile app.svg',
@@ -194,14 +203,13 @@ List<ProDriverList> _proDriverList;
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     double _widthHight = MediaQuery.of(context).size.width / 2 - 50;
     return Scaffold(
-      bottomNavigationBar: BottomNavigation(initValue: 0, user: user, token: token ),
-      appBar:  _buildAppBar(),
+      bottomNavigationBar:
+          BottomNavigation(initValue: 0, user: user, token: token),
+      appBar: _buildAppBar(),
       body: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.all(16),
@@ -215,28 +223,28 @@ List<ProDriverList> _proDriverList;
             children: [
               Breadcamp('Pro Drivers in Your Area', ProDriver()),
               Container(
-                height: 280,
-                child: FutureBuilder(
-                  future: buildText(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot){
-                    if(snapshot.connectionState == ConnectionState.done && _proDriverList != null){
-                      return  ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _proDriverList.length,
-                        itemBuilder: (BuildContext context, int i) =>
-                            DriverCard(_proDriverList[i]),
-                        separatorBuilder: (BuildContext context, int i2) => Divider(),
-                      );
-                    }
-                    else {
-                      return Center(
-                          child: CircularProgressIndicator(
-                            color: Theme.of(context).accentColor,
-                          ));
-                    }
-                  },
-                )
-              )
+                  height: 280,
+                  child: FutureBuilder(
+                    future: buildText(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          _proDriverList != null) {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: _proDriverList.length,
+                          itemBuilder: (BuildContext context, int i) =>
+                              DriverCard(_proDriverList[i]),
+                          separatorBuilder: (BuildContext context, int i2) =>
+                              Divider(),
+                        );
+                      } else {
+                        return Center(
+                            child: CircularProgressIndicator(
+                          color: Theme.of(context).accentColor,
+                        ));
+                      }
+                    },
+                  ))
             ],
           ),
           //section 04

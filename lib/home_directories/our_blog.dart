@@ -23,14 +23,9 @@ class _OurBlogState extends State<OurBlog> {
 
   @override
   void initState() {
-    if(widget.token != null){
-      FetchDataUtils(context).getBlogInfo(widget.token).then((value){
-        setState(() {
-          _blogList = value;
-        });
-
-      });}
-    else{
+    if(token != null){
+      _blogList = FetchDataUtils(context).getBlogs(widget.token);
+    } else{
       SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
     }
     super.initState();

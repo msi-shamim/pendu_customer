@@ -93,7 +93,7 @@ class _ProgressPage1State extends State<ProgressPage1> {
     totalCostController.text = totalCost;
 
     if (token != null) {
-      FetchDataUtils(context).getProductCategoryInfo(token).then((value) {
+      FetchDataUtils(context).getProductCategories(token).then((value) {
         setState(() {
           _pCategoryList = value;
         });

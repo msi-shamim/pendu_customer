@@ -48,9 +48,8 @@ class CallApi {
 
       String userStr = json.encode(rlm.data.user);
 
-     // print('UserStr: $userStr');
-      _allocateInSharedPref(
-          _context, userStr, rlm.data.accessToken);
+      // print('UserStr: $userStr');
+      _allocateInSharedPref(_context, userStr, rlm.data.accessToken);
     } else {
       print(response.reasonPhrase);
       return null;
@@ -324,7 +323,8 @@ class CallApi {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
     };
-    var request = http.Request('GET', Uri.parse('https://www.pendu.increments.info/api/v1/delivery-times'));
+    var request = http.Request('GET',
+        Uri.parse('https://www.pendu.increments.info/api/v1/delivery-times'));
 
     request.headers.addAll(headers);
 
@@ -363,12 +363,16 @@ class CallApi {
     }
   }
 
-  Future<ResponseOffersFromDriver> callOffersFromDriverApi(String accessTokenValue, int taskId) async {
+  Future<ResponseOffersFromDriver> callOffersFromDriverApi(
+      String accessTokenValue, int taskId) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
     };
-    var request = http.Request('GET', Uri.parse('https://www.pendu.increments.info/api/v1/tasks/$taskId/offers'));
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            'https://www.pendu.increments.info/api/v1/tasks/$taskId/offers'));
     request.body = '''''';
     request.headers.addAll(headers);
 
@@ -430,8 +434,14 @@ class CallApi {
     }
   }
 
-  Future<PostTaskShopDropModel> callTaskShopDropApi(String accessTokenValue,
-      String   title, String from, String to,String notes, int deliveryTimeId, double totalCost) async {
+  Future<PostTaskShopDropModel> callTaskShopDropApi(
+      String accessTokenValue,
+      String title,
+      String from,
+      String to,
+      String notes,
+      int deliveryTimeId,
+      double totalCost) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -469,7 +479,14 @@ class CallApi {
   }
 
   Future<PostTaskCollectDropModel> callTaskCollectDropApi(
-      String accessTokenValue, String title,String from,String to,String notes, int deliveryTimeId, int vehicleId, double totalCost) async {
+      String accessTokenValue,
+      String title,
+      String from,
+      String to,
+      String notes,
+      int deliveryTimeId,
+      int vehicleId,
+      double totalCost) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -507,8 +524,15 @@ class CallApi {
     }
   }
 
-  Future<PostTaskMoverModel> callTaskMoverApi(String accessTokenValue, String title,
-      String from, String to,String notes, int deliveryTimeId, int vehicleId, double totalCost) async {
+  Future<PostTaskMoverModel> callTaskMoverApi(
+      String accessTokenValue,
+      String title,
+      String from,
+      String to,
+      String notes,
+      int deliveryTimeId,
+      int vehicleId,
+      double totalCost) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -544,7 +568,8 @@ class CallApi {
     }
   }
 
-  Future<void> callCheckOutTaskApi(String accessTokenValue, stripeToken, double grandTotal, serviceFee, promoDiscount, int couponId) async {
+  Future<void> callCheckOutTaskApi(String accessTokenValue, stripeToken,
+      double grandTotal, serviceFee, promoDiscount, int couponId) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -575,13 +600,15 @@ class CallApi {
   }
 
   //Duplicated
-  Future<ResponseListTaskOffersModel> callTaskOfferListApi( String accessTokenValue) async {
+  Future<ResponseListTaskOffersModel> callTaskOfferListApi(
+      String accessTokenValue) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
     };
 //todo task number here Ex: 1
-    var request = http.Request('GET', Uri.parse('https://www.pendu.increments.info/api/v1/tasks/1/offers'));
+    var request = http.Request('GET',
+        Uri.parse('https://www.pendu.increments.info/api/v1/tasks/1/offers'));
     request.body = '''''';
     request.headers.addAll(headers);
 
@@ -597,7 +624,8 @@ class CallApi {
     }
   }
 
-  Future<void> callAcceptOfferApi(String accessTokenValue, int taskId, acceptOfferId) async {
+  Future<void> callAcceptOfferApi(
+      String accessTokenValue, int taskId, acceptOfferId) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -719,12 +747,14 @@ class CallApi {
     }
   }
 
-  Future<ResponseProDriverModel> callProDriverApi(String accessTokenValue) async {
+  Future<ResponseProDriverModel> callProDriverApi(
+      String accessTokenValue) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue',
     };
-    var request = http.Request('GET', Uri.parse('https://www.pendu.increments.info/api/v1/pro-drivers'));
+    var request = http.Request('GET',
+        Uri.parse('https://www.pendu.increments.info/api/v1/pro-drivers'));
 
     request.headers.addAll(headers);
 
@@ -738,21 +768,21 @@ class CallApi {
       print(response.reasonPhrase);
       return null;
     }
-
   }
+
   //logout
   Future<bool> logOut() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var key = sharedPreferences.getString(PenduConstants.spToken);
     bool wipeUser, wipeToken;
-      wipeUser = await sharedPreferences.setString(PenduConstants.spUser, null);
-      wipeToken = await sharedPreferences.setString(PenduConstants.spToken, null);
+    wipeUser = await sharedPreferences.setString(PenduConstants.spUser, null);
+    wipeToken = await sharedPreferences.setString(PenduConstants.spToken, null);
     return wipeUser && wipeToken;
   }
 }
 
 //Profile Info Method
-void _allocateInSharedPref(BuildContext context, String user, String token) async {
+void _allocateInSharedPref(
+    BuildContext context, String user, String token) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
   await sharedPreferences.setString(PenduConstants.spUser, user);
@@ -762,7 +792,12 @@ void _allocateInSharedPref(BuildContext context, String user, String token) asyn
   if (sharedPreferences.getString(PenduConstants.spToken) != null) {
     User uUser = User.fromJson(json.decode(user));
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomePage(token: token, user: uUser,)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(
+                  token: token,
+                  user: uUser,
+                )));
   } else {
     print('from API: Token null');
   }

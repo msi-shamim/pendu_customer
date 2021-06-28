@@ -25,15 +25,11 @@ class FetchDataUtils{
     1.1 loggedIn -> home page
     1.2 !loggedIn -> login page
     * */
-  validateUser() async {
+  validateUser(){
     _isLoggedIn().then((loggedIn){
-      print('step 1');
       if(loggedIn){
-        print('step 2');
         _fetchUser().then((user){
-          print('User: $user');
           if(user != null){
-            print('step 3');
             Timer(Duration(seconds: 3), () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => HomePage(user: user, token: token,)));
@@ -54,19 +50,27 @@ class FetchDataUtils{
     });
   }
 
-  getBlogInfo (String blogToken) async {
-    ResponseBlogPostModel blogModel =
-    await CallApi(context).callBlogPostApi(blogToken);
-    return blogModel.data;
+  List<Datum> getBlogs (String blogToken){
+    List<Datum> blogs = [];
+    CallApi(context).callBlogPostApi(blogToken).then((value) {
+      if(value != null){
+        blogs = value.data;
+      }
+    });
+    return blogs;
   }
 
-  getProDriverInfo(String userToken) async {
-    ResponseProDriverModel driverModel =
-    await CallApi(context).callProDriverApi(userToken);
-    return driverModel.proDriverList;
+  List<ProDriverList> getProDrivers(String userToken){
+    List<ProDriverList> proDrivers = [];
+    CallApi(context).callProDriverApi(userToken).then((value){
+      if(value!= null){
+        proDrivers = value.proDriverList;
+      }
+    });
+    return proDrivers;
   }
 
-  getProductCategoryInfo(String userToken) async {
+  Future<List<ProductCategoryList>> getProductCategories(String userToken) async {
     ResponseProductCategoryModel productCategory =
     await CallApi(context).callProductCategoryApi(userToken);
     return productCategory.productCategoryList;

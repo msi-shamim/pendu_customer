@@ -26,13 +26,8 @@ class _BlogPageState extends State<BlogPage> {
   @override
   void initState() {
     if(token != null){
-    FetchDataUtils(context).getBlogInfo(token).then((value){
-      setState(() {
-        _blogList = value;
-      });
-
-  });}
-    else{
+    _blogList = FetchDataUtils(context).getBlogs(token);
+  } else{
       SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
     }
     super.initState();
