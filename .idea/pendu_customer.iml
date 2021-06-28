@@ -41,6 +41,12 @@
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/social_share/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/social_share/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/social_share/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/google_maps_flutter/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/google_maps_flutter/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/google_maps_flutter/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/google_maps_flutter/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/google_maps_flutter/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/google_maps_flutter/example/.pub" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
