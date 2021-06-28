@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:pendu_customer/Screen/select_picup_point.dart';
+import 'package:pendu_customer/screens/select_picup_point.dart';
 
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/close_button.dart';
@@ -9,7 +9,7 @@ import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_button.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 
-import '../Screen/screen_progress.dart';
+import '../screens/screen_progress.dart';
 
 class ItemModel {
   final String itemName;

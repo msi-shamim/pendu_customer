@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/Screen/progress_page_1.dart';
+import 'package:pendu_customer/screens/progress_page_1.dart';
 import 'package:pendu_customer/home_directories/breadcramp.dart';
 import 'package:pendu_customer/home_directories/driver_card.dart';
 import 'package:pendu_customer/home_directories/image_carousel.dart';

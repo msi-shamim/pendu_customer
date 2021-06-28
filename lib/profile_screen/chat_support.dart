@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/Screen/message_screen.dart';
+import 'package:pendu_customer/screens/message_screen.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'profile_common_appbar.dart';

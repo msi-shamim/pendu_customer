@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/Screen/select_dropup_point.dart';
+import 'package:pendu_customer/screens/select_dropup_point.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/current_location_popup.dart';

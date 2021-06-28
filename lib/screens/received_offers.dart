@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/Screen/checkout.dart';
+import 'package:pendu_customer/screens/checkout.dart';
 import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/models/response_login_model.dart';

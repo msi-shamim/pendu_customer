@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
-import 'package:pendu_customer/Screen/message_screen.dart';
+import 'package:pendu_customer/screens/message_screen.dart';
 import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/profile_screen/app_version_popup.dart';
 import 'package:pendu_customer/profile_screen/blog_page.dart';

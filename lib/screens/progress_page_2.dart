@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/Screen/progress_page_3.dart';
+import 'package:pendu_customer/screens/progress_page_3.dart';
 import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/models/response_delivery_time.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
-import 'package:pendu_customer/Screen/screen_progress.dart';
+import 'package:pendu_customer/screens/screen_progress.dart';
 import 'package:pendu_customer/utils/close_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';

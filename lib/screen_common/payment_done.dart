@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/Screen/message_screen.dart';
+import 'package:pendu_customer/screens/message_screen.dart';
 import 'package:pendu_customer/screen_common/order_status.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';

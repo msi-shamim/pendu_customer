@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/Screen/pro_driver_request_quote.dart';
+import 'package:pendu_customer/screens/pro_driver_request_quote.dart';
 import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/models/response_pro_driver_model.dart';
 

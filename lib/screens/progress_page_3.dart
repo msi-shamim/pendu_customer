@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/Screen/received_offers.dart';
-import 'package:pendu_customer/Screen/screen_progress.dart';
+import 'package:pendu_customer/screens/received_offers.dart';
+import 'package:pendu_customer/screens/screen_progress.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/models/response_delivery_time.dart';
 import 'package:pendu_customer/models/response_login_model.dart';

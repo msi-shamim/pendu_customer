@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/Screen/progress_page_2.dart';
-import 'package:pendu_customer/Screen/select_dropup_point.dart';
-import 'package:pendu_customer/Screen/select_picup_point.dart';
+import 'package:pendu_customer/screens/progress_page_2.dart';
+import 'package:pendu_customer/screens/select_dropup_point.dart';
+import 'package:pendu_customer/screens/select_picup_point.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/models/response_product_categories_model.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
