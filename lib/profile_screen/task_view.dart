@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/profile_screen/task_in_progress_.dart';
 import 'package:pendu_customer/profile_screen/task_pending.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';

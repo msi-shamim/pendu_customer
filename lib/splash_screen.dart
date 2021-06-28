@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'api/api_consts.dart';
 import 'auth_pages/login_page.dart';
 import 'home_directories/page_home.dart';
-import 'model/response_login_model.dart';
+import 'models/response_login_model.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

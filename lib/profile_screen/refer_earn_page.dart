@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:flutter/services.dart';

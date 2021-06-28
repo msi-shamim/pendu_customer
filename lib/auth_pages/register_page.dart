@@ -1,6 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/model/response_register_model.dart';
+import 'package:pendu_customer/models/response_register_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/login_page.dart';
 import 'package:pendu_customer/utils/auth_button.dart';

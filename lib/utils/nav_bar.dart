@@ -4,7 +4,7 @@ import 'package:motion_tab_bar/MotionTabController.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:pendu_customer/Screen/received_offers.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
-import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/profile_screen/profile.dart';
 import 'package:pendu_customer/profile_screen/task_view.dart';
 import 'package:pendu_customer/utils/pendu_icon.dart';

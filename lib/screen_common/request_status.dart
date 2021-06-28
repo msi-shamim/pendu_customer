@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pendu_customer/Screen/received_offers.dart';
-import 'package:pendu_customer/model/response_login_model.dart';
+import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/screen_common/request_status_error.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';

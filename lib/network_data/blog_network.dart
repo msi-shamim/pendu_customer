@@ -1,4 +1,4 @@
-import 'package:pendu_customer/Model/blog_model.dart';
+import 'package:pendu_customer/models/blog_model.dart';
 
 class BlogNetwork {
   Future<List<BlogModel>> getBlog() async {

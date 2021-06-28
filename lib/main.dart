@@ -7,7 +7,7 @@ import 'package:pendu_customer/screen_coleect_and_deliver/collect_drop_page_1.da
 import 'package:pendu_customer/splash_screen.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 
-import 'model/response_login_model.dart';
+import 'models/response_login_model.dart';
 import 'network_data/api_data_collect.dart';
 
 void main() {

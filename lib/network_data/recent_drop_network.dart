@@ -1,4 +1,4 @@
-import 'package:pendu_customer/Model/recent_drop_model.dart';
+import 'package:pendu_customer/models/recent_drop_model.dart';
 
 class RecentDropNetwork {
   Future<List<RecentDrop>> getRecentDrop() async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/Model/recent_drop_model.dart';
+import 'package:pendu_customer/models/recent_drop_model.dart';
 import 'package:pendu_customer/network_data/recent_drop_network.dart';
 import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
