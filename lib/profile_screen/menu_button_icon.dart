@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pendu_customer/api/api_consts.dart';
-import 'package:pendu_customer/auth_pages/login_page.dart';
+import 'package:pendu_customer/auth_pages/page_login.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

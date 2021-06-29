@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/api/call_api.dart';
-import 'package:pendu_customer/auth_pages/login_page.dart';
+import 'package:pendu_customer/auth_pages/page_login.dart';
+import 'package:pendu_customer/auth_pages/page_phone_otp.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/models/response_delivery_time.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
@@ -28,12 +29,19 @@ class FetchDataUtils{
   validateUser(){
     _isLoggedIn().then((loggedIn){
       if(loggedIn){
-        _fetchUser().then((user){
+        fetchUser().then((user){
           if(user != null){
-            Timer(Duration(seconds: 3), () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomePage(user: user, token: token,)));
-            });
+            if(user.phoneVerifiedAt != null){
+              Timer(Duration(seconds: 3), () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePage(user: user, token: token,)));
+              });
+            }else{
+              Timer(Duration(seconds: 3), () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => VerifyPhoneNumberPage(token: token,)));
+              });
+            }
           }else{
             Timer(Duration(seconds: 3), () {
               Navigator.push(context,
@@ -104,14 +112,17 @@ class FetchDataUtils{
     return false;
   }
 
-  Future<User> _fetchUser() async {
+  Future<User> fetchUser() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var str = sharedPreferences.getString(PenduConstants.spUser);
     print('STR: $str');
     if(str != null){
-
       return User.fromJson(json.decode(str));
     }
     return null;
+  }
+
+  refreshUser(String email, String password) async{
+    CallApi(context).callLoginApi(email, password);
   }
 }

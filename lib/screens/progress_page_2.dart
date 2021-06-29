@@ -118,9 +118,7 @@ class _ProgressPage2State extends State<ProgressPage2> {
           }
           else {
             return Center(
-                child: CircularProgressIndicator(
-                  color: Theme.of(context).accentColor,
-                ));
+                child: CircularProgressIndicator());
           } }, ),
     );
   }

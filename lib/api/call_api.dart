@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:pendu_customer/home_directories/page_home.dart';
+import 'package:pendu_customer/models/response_common.dart';
 import 'package:pendu_customer/models/response_coupon_model.dart';
 import 'package:pendu_customer/models/response_delivery_time.dart';
 import 'package:pendu_customer/models/response_driver_profile_model.dart';
@@ -23,8 +24,10 @@ import 'package:pendu_customer/models/task_collect_drop_model.dart';
 import 'package:pendu_customer/models/task_mover_model.dart';
 import 'package:pendu_customer/models/task_shop_drop_model.dart';
 import 'package:pendu_customer/models/update_user_model.dart';
+import 'package:pendu_customer/utils/utils_fetch_data.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'api_consts.dart';
 
 class CallApi {
@@ -56,7 +59,7 @@ class CallApi {
     }
   }
 
-  Future<ResponseRegisterModel> callSignupApi(String name, String email,
+  callSignupApi(String name, String email,
       String phone, String suburb, String password) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST',
@@ -76,10 +79,9 @@ class CallApi {
       var str = await response.stream.bytesToString();
       ResponseRegisterModel rrm = ResponseRegisterModel.fromJson(str);
       callLoginApi(rrm.data.email, password);
-      return rrm;
+      FetchDataUtils(_context).validateUser();
     } else {
       print(response.reasonPhrase);
-      return null;
     }
   }
 
@@ -220,7 +222,7 @@ class CallApi {
     }
   }
 
-  Future<void> callVerifyPhoneApi(int otpCode, String accessTokenValue) async {
+  Future<CommonResponse> callVerifyPhoneApi(int otpCode, String accessTokenValue) async {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessTokenValue'
@@ -229,7 +231,7 @@ class CallApi {
         'POST',
         Uri.parse(
             'https://www.pendu.increments.info/api/v1/auth/verify-phone'));
-    request.body = json.encode({"otp": 1234});
+    request.body = json.encode({"otp": 123456});
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -237,7 +239,7 @@ class CallApi {
     if (response.statusCode == 200) {
       var str = await response.stream.bytesToString();
       print('from API: $str');
-      // return ResponseUserProfileModel.fromJson(str);
+      return CommonResponse.fromJson(str);
     } else {
       print(response.reasonPhrase);
       return null;
@@ -773,32 +775,23 @@ class CallApi {
   //logout
   Future<bool> logOut() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    bool wipeUser, wipeToken;
-    wipeUser = await sharedPreferences.setString(PenduConstants.spUser, null);
-    wipeToken = await sharedPreferences.setString(PenduConstants.spToken, null);
-    return wipeUser && wipeToken;
+    bool wipe = await sharedPreferences.clear();
+    return wipe;
   }
-}
+  //Profile Info Method
+  void _allocateInSharedPref(
+      BuildContext context, String user, String token) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-//Profile Info Method
-void _allocateInSharedPref(
-    BuildContext context, String user, String token) async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(PenduConstants.spUser, user);
+    await sharedPreferences.setString(PenduConstants.spToken, token);
+    print('from shared pref: $user');
 
-  await sharedPreferences.setString(PenduConstants.spUser, user);
-  await sharedPreferences.setString(PenduConstants.spToken, token);
-  print('from shared pref: $user');
-
-  if (sharedPreferences.getString(PenduConstants.spToken) != null) {
-    User uUser = User.fromJson(json.decode(user));
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HomePage(
-                  token: token,
-                  user: uUser,
-                )));
-  } else {
-    print('from API: Token null');
+    if (sharedPreferences.getString(PenduConstants.spToken) != null) {
+      User uUser = User.fromJson(json.decode(user));
+      FetchDataUtils(_context).validateUser();
+    } else {
+      print('from API: Token null');
+    }
   }
 }

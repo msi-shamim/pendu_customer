@@ -6,8 +6,8 @@ import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/models/response_pro_driver_model.dart';
 
 class DriverCard extends StatefulWidget {
+  final ProDriverList proDriverList;
 
- final ProDriverList proDriverList;
   DriverCard(this.proDriverList);
 
   @override
@@ -16,6 +16,7 @@ class DriverCard extends StatefulWidget {
 
 class _DriverCardState extends State<DriverCard> {
   final ProDriverList proDriverList;
+
   _DriverCardState(this.proDriverList);
 
   _buildProDriverForm() {
@@ -37,11 +38,19 @@ class _DriverCardState extends State<DriverCard> {
               elevation: 3.0,
               child: Column(
                 children: [
-                 Container(
-                  width: double.infinity,
-                height: 120,
-                   decoration: BoxDecoration( image: DecorationImage(image: NetworkImage((proDriverList.profileImage != null) ? PenduConstants.baseUrl + proDriverList.profileImage : 'https://kwdev.nl/legenda-demo/wp-content/uploads/2013/12/delivery.png',),),),
-
+                  Container(
+                    width: double.infinity,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          (proDriverList.profileImage != null)
+                              ? PenduConstants.baseUrl +
+                                  proDriverList.profileImage
+                              : 'https://kwdev.nl/legenda-demo/wp-content/uploads/2013/12/delivery.png',
+                        ),
+                      ),
+                    ),
                   ),
                   Container(
                     margin:
@@ -50,7 +59,9 @@ class _DriverCardState extends State<DriverCard> {
                       children: [
                         Expanded(child: Text('Success Rate')),
                         Text(
-                          (proDriverList.successRate != null) ? proDriverList.successRate : '**',
+                          (proDriverList.successRate != null)
+                              ? proDriverList.successRate
+                              : '**',
                           style:
                               TextStyle(color: Theme.of(context).accentColor),
                         )
@@ -63,7 +74,10 @@ class _DriverCardState extends State<DriverCard> {
                     child: Row(
                       children: [
                         Expanded(child: Text('Accuracy Score')),
-                        Text( (proDriverList.averageAccuracy != null) ? proDriverList.averageAccuracy : '**',
+                        Text(
+                            (proDriverList.averageAccuracy != null)
+                                ? proDriverList.averageAccuracy
+                                : '**',
                             style:
                                 TextStyle(color: Theme.of(context).accentColor))
                       ],
@@ -99,14 +113,16 @@ class _DriverCardState extends State<DriverCard> {
               margin: EdgeInsets.symmetric(horizontal: 30.0),
               elevation: 3,
               child: Container(
-padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SvgPicture.asset('assets/pro_star.svg'),
-                   SizedBox(width: 10),
+                    SizedBox(width: 10),
                     Text(
-                      (proDriverList.rating != null) ? proDriverList.rating  : '*.**',
+                      (proDriverList.rating != null)
+                          ? proDriverList.rating
+                          : '*.**',
                       style: TextStyle(fontSize: 18),
                     ),
                     Spacer(),

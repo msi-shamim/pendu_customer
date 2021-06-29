@@ -2,35 +2,52 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/api/call_api.dart';
-import 'package:pendu_customer/auth_pages/create_new_pass.dart';
+import 'package:pendu_customer/auth_pages/page_new_pass.dart';
+import 'package:pendu_customer/home_directories/page_home.dart';
+import 'package:pendu_customer/models/response_common.dart';
+import 'package:pendu_customer/models/response_login_model.dart';
+import 'package:pendu_customer/models/response_user_profile_model.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/snack_bar.dart';
+import 'package:pendu_customer/utils/utils_fetch_data.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OtpScreenPhone extends StatefulWidget {
+class VerifyPhoneNumberPage extends StatefulWidget {
   final String token;
-  const OtpScreenPhone({Key key, this.token}) : super(key: key);
+
+  const VerifyPhoneNumberPage({Key key, this.token}) : super(key: key);
 
   @override
-  _OtpScreenPhoneState createState() => _OtpScreenPhoneState(token);
+  _VerifyPhoneNumberPageState createState() => _VerifyPhoneNumberPageState(token);
 }
 
-class _OtpScreenPhoneState extends State<OtpScreenPhone> {
+class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
   final String token;
-  _OtpScreenPhoneState(this.token);
+
+  _VerifyPhoneNumberPageState(this.token);
+
   TextEditingController textEditingController = TextEditingController();
 
   StreamController<ErrorAnimationType> errorController;
-  bool fullFill = false;
-  bool hasError = false;
-  String currentText = "";
+  bool _fullFill = false;
+  bool _hasError = false;
+  String _currentText = "";
+  User _user = User();
   final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
+    FetchDataUtils(context).fetchUser().then((value){
+      if(value != null){
+        setState(() {
+          _user = value;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -63,11 +80,11 @@ class _OtpScreenPhoneState extends State<OtpScreenPhone> {
                 animationType: AnimationType.fade,
                 validator: (v) {
                   if (v.length < 6) {
-                    fullFill = false;
+                    _fullFill = false;
 
                     return null;
                   } else {
-                    fullFill = true;
+                    _fullFill = true;
 
                     return null;
                   }
@@ -82,7 +99,7 @@ class _OtpScreenPhoneState extends State<OtpScreenPhone> {
                   disabledColor: Colors.grey,
                   inactiveColor: Colors.black,
                   activeFillColor:
-                      hasError ? Colors.amber.shade100 : Colors.red,
+                      _hasError ? Colors.amber.shade100 : Colors.red,
                 ),
                 cursorColor: Theme.of(context).primaryColor,
                 animationDuration: Duration(milliseconds: 300),
@@ -106,7 +123,7 @@ class _OtpScreenPhoneState extends State<OtpScreenPhone> {
                 onChanged: (value) {
                   print(value);
                   setState(() {
-                    currentText = value;
+                    _currentText = value;
                   });
                 },
                 beforeTextPaste: (text) {
@@ -140,26 +157,25 @@ class _OtpScreenPhoneState extends State<OtpScreenPhone> {
         AuthButton(
           btnText: 'Confirm',
           onPressed: () {
-            if (fullFill) {
+            if (_fullFill) {
               formKey.currentState.validate();
               // conditions for validating
-              if (currentText.length != 6) {
+              if (_currentText.length != 6) {
                 errorController.add(ErrorAnimationType
                     .shake); // Triggering error shake animation
                 setState(() {
-                  hasError = true;
+                  _hasError = true;
                 });
               } else {
                 setState(
                   () {
-                    hasError = false;
+                    _hasError = false;
                     // snackBar("OTP Verified!!");
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
                     //         builder: (context) => CreateNewPassword()));
-                    var otpApi = CallApi(context);
-                    otpApi.callVerifyPhoneApi( int.parse(currentText), token);
+                    _checkOtp(int.parse(_currentText), token);
                   },
                 );
               }
@@ -178,7 +194,7 @@ class _OtpScreenPhoneState extends State<OtpScreenPhone> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('OTP'),
+        child: CommonAppBar('Verify Phone Number'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -199,5 +215,19 @@ class _OtpScreenPhoneState extends State<OtpScreenPhone> {
         ),
       ),
     );
+  }
+
+  void _checkOtp(int parse, String token) async {
+    var otpApi = CallApi(context);
+    CommonResponse response =
+        await otpApi.callVerifyPhoneApi(parse, token);
+    if (response.status == 200) {
+      bool logout = await CallApi(context).logOut();
+      if(logout){
+        FetchDataUtils(context).validateUser();
+      }
+    }else{
+      ShowSnackBar(context, 'Something went wrong!').show();
+    }
   }
 }

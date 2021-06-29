@@ -7,7 +7,6 @@ import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/models/response_recieve_offer_from_driver.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/nav_bar.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:pendu_customer/utils/progress_page_headertext.dart';
 import 'package:pendu_customer/utils/snackBar_page.dart';
 import 'package:pendu_customer/utils/utils_fetch_data.dart';
@@ -305,9 +304,7 @@ child: FutureBuilder(
     }
     else {
       return Center(
-          child: CircularProgressIndicator(
-            color: Theme.of(context).accentColor,
-          ));
+          child: CircularProgressIndicator());
     } }, ),
 
 

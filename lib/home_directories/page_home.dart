@@ -239,9 +239,7 @@ class _HomeState extends State<HomePage> {
                         );
                       } else {
                         return Center(
-                            child: CircularProgressIndicator(
-                          color: Theme.of(context).accentColor,
-                        ));
+                            child: CircularProgressIndicator());
                       }
                     },
                   ))

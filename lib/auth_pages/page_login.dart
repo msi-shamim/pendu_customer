@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/api/call_api.dart';
-import 'package:pendu_customer/auth_pages/register_page.dart';
+import 'package:pendu_customer/auth_pages/page_register.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/circular_login_logo.dart';
@@ -14,7 +14,7 @@ import 'package:pendu_customer/utils/password_textform_field.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'forgot_pass_page.dart';
+import 'page_forgot_pass.dart';
 
 class LogInPage extends StatefulWidget {
   @override
@@ -206,7 +206,7 @@ class _LogInPageState extends State<LogInPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Shop & Drop'),
+        child: CommonAppBar('Login'),
       ),
       body: SingleChildScrollView(
         child: Container(

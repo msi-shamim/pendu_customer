@@ -7,7 +7,7 @@ import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/normal_textform_field.dart';
 import 'package:pendu_customer/utils/snackBar_page.dart';
 
-import 'otp_screen_mail.dart';
+import 'page_mail_otp.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key key}) : super(key: key);

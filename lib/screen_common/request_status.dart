@@ -3,11 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pendu_customer/screens/received_offers.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/screen_common/request_status_error.dart';
-import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/bottom_warning_text.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
-import 'package:pendu_customer/utils/tip_sent_popup.dart';
 
 class RequestStatus extends StatefulWidget {
   final User user;

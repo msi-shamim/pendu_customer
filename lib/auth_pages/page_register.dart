@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/models/response_register_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
-import 'package:pendu_customer/auth_pages/login_page.dart';
+import 'package:pendu_customer/auth_pages/page_login.dart';
 import 'package:pendu_customer/utils/auth_button.dart';
 import 'package:pendu_customer/utils/common_app_bar.dart';
 import 'package:pendu_customer/utils/normal_textform_field.dart';
@@ -129,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 }
                 return null;
               },
-              textLabel: "Password",
+              textLabel: "Confirm Password",
               controller: confirmPassController,
             ),
             AuthButton(
@@ -181,7 +181,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Shop & Drop'),
+        child: CommonAppBar('Register'),
       ),
       body: SingleChildScrollView(
         child: Container(

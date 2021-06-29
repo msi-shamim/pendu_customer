@@ -7,13 +7,16 @@ import 'package:pendu_customer/utils/utils_fetch_data.dart';
 
 class BlogPage extends StatefulWidget {
   final String token;
+
   BlogPage(this.token);
+
   @override
   _BlogPageState createState() => _BlogPageState(token);
 }
 
 class _BlogPageState extends State<BlogPage> {
   final String token;
+
   _BlogPageState(this.token);
 
   String sortVal = 'All';
@@ -23,10 +26,11 @@ class _BlogPageState extends State<BlogPage> {
 
   @override
   void initState() {
-    if(token != null){
-    _blogList = FetchDataUtils(context).getBlogs(token);
-  } else{
-      SnackBarClass.snackBarMethod(message: "Something went wrong", context: context);
+    if (token != null) {
+      _blogList = FetchDataUtils(context).getBlogs(token);
+    } else {
+      SnackBarClass.snackBarMethod(
+          message: "Something went wrong", context: context);
     }
     super.initState();
   }
@@ -35,8 +39,6 @@ class _BlogPageState extends State<BlogPage> {
   void dispose() {
     super.dispose();
   }
-
-
 
   Future buildText() {
     return Future.delayed(Duration(seconds: 3), () => print('waiting...'));
@@ -238,10 +240,7 @@ class _BlogPageState extends State<BlogPage> {
                       },
                     );
                   } else {
-                    return Center(
-                        child: CircularProgressIndicator(
-                      color: Theme.of(context).accentColor,
-                    ));
+                    return Center(child: CircularProgressIndicator());
                   }
                 },
               ))

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/auth_pages/login_page.dart';
+import 'package:pendu_customer/auth_pages/page_login.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_03.dart';
 import 'package:pendu_customer/utils/page_indicator.dart';
 import 'package:pendu_customer/utils/pendu_theme.dart';
