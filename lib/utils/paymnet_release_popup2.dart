@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/screen_common/request_status.dart';
+import 'package:pendu_customer/screen_common/page_request_status.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/utils/utils_pendu_theme.dart';
 
 List<String> _moneyList = ['5', '10', '15', '20'];
 
@@ -79,7 +79,7 @@ class _PaymentRelesedPopUp2State extends State<PaymentRelesedPopUp2> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RequestStatus()),
+                            builder: (context) => RequestStatusPage()),
                       );
                     },
                     style: ElevatedButton.styleFrom(

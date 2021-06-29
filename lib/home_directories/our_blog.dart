@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/models/response_post_model.dart';
 import 'package:pendu_customer/network_data/blog_network.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
-import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_pendu_theme.dart';
+import 'package:pendu_customer/utils/utils_snackBar_message.dart';
 import 'package:pendu_customer/utils/utils_fetch_data.dart';
 
 class OurBlog extends StatefulWidget {

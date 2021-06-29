@@ -7,11 +7,11 @@ import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/models/response_common.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/models/response_user_profile_model.dart';
-import 'package:pendu_customer/utils/auth_button.dart';
-import 'package:pendu_customer/utils/common_app_bar.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
-import 'package:pendu_customer/utils/snackBar_page.dart';
-import 'package:pendu_customer/utils/snack_bar.dart';
+import 'package:pendu_customer/utils/utils_button_auth.dart';
+import 'package:pendu_customer/utils/utils_app_bar_common.dart';
+import 'package:pendu_customer/utils/utils_pendu_theme.dart';
+import 'package:pendu_customer/utils/utils_snackBar_message.dart';
+import 'package:pendu_customer/utils/utils_snack_bar.dart';
 import 'package:pendu_customer/utils/utils_fetch_data.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -154,7 +154,7 @@ class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
                 ))
           ],
         ),
-        AuthButton(
+        AuthButtonUtils(
           btnText: 'Confirm',
           onPressed: () {
             if (_fullFill) {
@@ -194,7 +194,7 @@ class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Verify Phone Number'),
+        child: AppBarCommonUtils('Verify Phone Number'),
       ),
       body: SingleChildScrollView(
         child: Container(

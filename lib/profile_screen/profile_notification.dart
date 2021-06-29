@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/profile_screen/profile_common_appbar.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/profile_screen/appbar_profile.dart';
+import 'package:pendu_customer/utils/utils_pendu_theme.dart';
 
 enum NotificationType { requestAccepted, referralCompleted, paymentMethodAdded }
 

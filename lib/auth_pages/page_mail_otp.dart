@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/page_new_pass.dart';
-import 'package:pendu_customer/utils/auth_button.dart';
-import 'package:pendu_customer/utils/common_app_bar.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
-import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_button_auth.dart';
+import 'package:pendu_customer/utils/utils_app_bar_common.dart';
+import 'package:pendu_customer/utils/utils_pendu_theme.dart';
+import 'package:pendu_customer/utils/utils_snackBar_message.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpScreenMail extends StatefulWidget {
@@ -137,7 +137,7 @@ class _OtpScreenMailState extends State<OtpScreenMail> {
                 ))
           ],
         ),
-        AuthButton(
+        AuthButtonUtils(
           btnText: 'Confirm',
           onPressed: () {
             if (fullFill) {
@@ -180,7 +180,7 @@ class _OtpScreenMailState extends State<OtpScreenMail> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('OTP'),
+        child: AppBarCommonUtils('OTP'),
       ),
       body: SingleChildScrollView(
         child: Container(

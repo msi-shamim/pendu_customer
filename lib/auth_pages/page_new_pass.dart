@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/page_login.dart';
-import 'package:pendu_customer/utils/auth_button.dart';
-import 'package:pendu_customer/utils/common_app_bar.dart';
-import 'package:pendu_customer/utils/password_textform_field.dart';
+import 'package:pendu_customer/utils/utils_button_auth.dart';
+import 'package:pendu_customer/utils/utils_app_bar_common.dart';
+import 'package:pendu_customer/utils/utils_textform_field_password.dart';
 
 class CreateNewPassword extends StatefulWidget {
   final String  inputMail, otp;
@@ -40,7 +40,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
       child: Wrap(
         runSpacing: 20,
         children: [
-          PasswordTextFormField(
+          TextFormFieldPasswordUtils(
             validator: (pass) {
               if (pass == null || pass.isEmpty) {
                 return 'Password is required';
@@ -50,7 +50,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
             textLabel: "New Password",
             controller: passController,
           ),
-          PasswordTextFormField(
+          TextFormFieldPasswordUtils(
             validator: (passCon) {
               if (passCon == null || passCon.isEmpty) {
                 return 'Confirm Password is required';
@@ -63,7 +63,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
             textLabel: "Confirm New Password",
             controller: confirmPassController,
           ),
-          AuthButton(
+          AuthButtonUtils(
             btnText: 'Set Password',
             onPressed: () {
               if (_formKey.currentState.validate()) {
@@ -86,7 +86,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('New Password'),
+        child: AppBarCommonUtils('New Password'),
       ),
       body: SingleChildScrollView(
         child: Container(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/auth_pages/page_login.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_03.dart';
-import 'package:pendu_customer/utils/page_indicator.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/utils/utils_page_indicator.dart';
+import 'package:pendu_customer/utils/utils_pendu_theme.dart';
 
 import '../home_directories/page_home.dart';
 
@@ -45,7 +45,7 @@ class _OnBoardState extends State<OnBoarding02> {
               SizedBox(
                 height: 48.0,
               ),
-              PageIndicator(2),
+              PageIndicatorUtils(2),
               Container(
                   margin:
                       EdgeInsets.only(left: 48, top: 16, right: 48, bottom: 0),

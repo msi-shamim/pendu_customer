@@ -1,13 +1,14 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/models/response_register_model.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/page_login.dart';
-import 'package:pendu_customer/utils/auth_button.dart';
-import 'package:pendu_customer/utils/common_app_bar.dart';
-import 'package:pendu_customer/utils/normal_textform_field.dart';
-import 'package:pendu_customer/utils/password_textform_field.dart';
-import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_button_auth.dart';
+import 'package:pendu_customer/utils/utils_app_bar_common.dart';
+import 'package:pendu_customer/utils/utils_textform_field_normal.dart';
+import 'package:pendu_customer/utils/utils_textform_field_password.dart';
+import 'package:pendu_customer/utils/utils_snackBar_message.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-
+  String phoneNumber = "";
   bool _isLoading = false;
 
   final nameController = TextEditingController();
@@ -48,7 +49,10 @@ class _RegisterPageState extends State<RegisterPage> {
     RegExp regExp = new RegExp(pattern);
     return regExp.hasMatch(pass);
   }
-
+  void _onCountryChange(CountryCode countryCode) {
+    phoneNumber =  countryCode.toString() +  contactController.text.toString();
+    print("New Country selected: " + countryCode.toString());
+  }
   @override
   Widget build(BuildContext context) {
     Widget _buildForm() {
@@ -57,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Wrap(
           runSpacing: 20,
           children: [
-            NormalTextFormField(
+            TextFormFieldNormalUtils(
               validator: (fName) {
                 if (fName == null || fName.isEmpty) {
                   return 'Name is required';
@@ -68,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: nameController,
               isPhonekey: false,
             ),
-            NormalTextFormField(
+            TextFormFieldNormalUtils(
               validator: (eMail) {
                 if (eMail == null || eMail.isEmpty) {
                   return 'Email Name is required';
@@ -81,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: emailController,
               isPhonekey: false,
             ),
-            NormalTextFormField(
+            TextFormFieldNormalUtils(
               validator: (suburb) {
                 if (suburb == null || suburb.isEmpty) {
                   return 'Suburb is required';
@@ -92,21 +96,45 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: suburbController,
               isPhonekey: false,
             ),
-            NormalTextFormField(
-              validator: (cnt) {
-                if (cnt == null || cnt.isEmpty) {
-                  return 'Phone number is required';
-                }
-                if (cnt.length < 9) {
-                  return "Please enter valid phone";
-                }
-                return null;
-              },
-              textLabel: "Phone",
-              controller: contactController,
-              isPhonekey: true,
+
+
+            Row(
+              children: [
+                Container(
+                  height: 45,
+                  decoration: BoxDecoration(border: Border.all(color: Colors.black54), borderRadius: BorderRadius.circular(8.0)),
+                  child: CountryCodePicker(
+                    padding: EdgeInsets.all(0.0),
+                    onChanged: _onCountryChange,
+                    initialSelection: '+61',
+                    favorite: ['+61','Aus'],
+                    showCountryOnly: false,
+                    showFlag: false,
+                    showOnlyCountryWhenClosed: false,
+
+                    alignLeft: false,
+                  ),
+                ),
+                SizedBox(width: 5.0),
+                Expanded(
+                  child: TextFormFieldNormalUtils(
+                    validator: (cnt) {
+                      if (cnt == null || cnt.isEmpty) {
+                        return 'Phone number is required';
+                      }
+                      if (cnt.length < 9) {
+                        return "Please enter valid phone";
+                      }
+                      return null;
+                    },
+                    textLabel: "Phone",
+                    controller: contactController,
+                    isPhonekey: true,
+                  ),
+                ),
+              ],
             ),
-            PasswordTextFormField(
+            TextFormFieldPasswordUtils(
               validator: (pass) {
                 if (pass == null || pass.isEmpty) {
                   return 'Password is required';
@@ -119,7 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
               textLabel: "Password",
               controller: passController,
             ),
-            PasswordTextFormField(
+            TextFormFieldPasswordUtils(
               validator: (passCon) {
                 if (passCon == null || passCon.isEmpty) {
                   return 'Confirm Password is required';
@@ -132,7 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
               textLabel: "Confirm Password",
               controller: confirmPassController,
             ),
-            AuthButton(
+            AuthButtonUtils(
               btnText: 'Register',
               onPressed: () {
                 if (_formKey.currentState.validate()) {
@@ -181,7 +209,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Register'),
+        child: AppBarCommonUtils('Register'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -210,7 +238,7 @@ class _RegisterPageState extends State<RegisterPage> {
     ResponseRegisterModel rrm = await CallApi(context).callSignupApi(
       nameController.text.toString(),
       emailController.text.toString(),
-      contactController.text.toString(),
+        phoneNumber,
       suburbController.text.toString(),
       passController.text.toString(),
     );

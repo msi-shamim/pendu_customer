@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/screens/progress_page_1.dart';
+import 'package:pendu_customer/screens/page_shop_drop_1.dart';
 import 'package:pendu_customer/home_directories/breadcramp.dart';
 import 'package:pendu_customer/home_directories/driver_card.dart';
 import 'package:pendu_customer/home_directories/image_carousel.dart';
 import 'package:pendu_customer/home_directories/recent_drops.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/models/response_pro_driver_model.dart';
-import 'package:pendu_customer/profile_screen/pro_driver.dart';
-import 'package:pendu_customer/profile_screen/profile.dart';
+import 'package:pendu_customer/profile_screen/page_pro_driver_list.dart';
+import 'package:pendu_customer/profile_screen/page_user_profile_menu.dart';
 import 'package:pendu_customer/profile_screen/profile_notification.dart';
-import 'package:pendu_customer/screen_coleect_and_deliver/collect_drop_page_1.dart';
-import 'package:pendu_customer/screen_movers/movers_1.dart';
+import 'package:pendu_customer/screen_collect_and_deliver/page_collect_drop_1.dart';
+import 'package:pendu_customer/screen_movers/page_movers_1.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
-import 'package:pendu_customer/utils/nav_bar.dart';
-import 'package:pendu_customer/utils/progress_page_headertext.dart';
-import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_bottom_nav_bar.dart';
+import 'package:pendu_customer/utils/utils_text_progress_page.dart';
+import 'package:pendu_customer/utils/utils_snackBar_message.dart';
 import 'package:pendu_customer/utils/utils_fetch_data.dart';
 
 import 'announcement_container.dart';
@@ -80,7 +80,7 @@ class _HomeState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProgressPage1(
+                            builder: (context) => ShopDropPage1(
                                   user: user,
                                   token: token,
                                 )),
@@ -183,7 +183,7 @@ class _HomeState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => UserProfile(
+                          builder: (context) => UserProfileMenuPage(
                                 user: user,
                                 token: token,
                               )));
@@ -208,7 +208,7 @@ class _HomeState extends State<HomePage> {
     double _widthHight = MediaQuery.of(context).size.width / 2 - 50;
     return Scaffold(
       bottomNavigationBar:
-          BottomNavigation(initValue: 0, user: user, token: token),
+          BottomNavigationUtils(initValue: 0, user: user, token: token),
       appBar: _buildAppBar(),
       body: ListView(
         shrinkWrap: true,
@@ -221,7 +221,7 @@ class _HomeState extends State<HomePage> {
           //section 03
           Column(
             children: [
-              Breadcamp('Pro Drivers in Your Area', ProDriver()),
+              Breadcamp('Pro Drivers in Your Area', ProDriverListPage()),
               Container(
                   height: 280,
                   child: FutureBuilder(
@@ -257,10 +257,10 @@ class _HomeState extends State<HomePage> {
           ),
           SizedBox(height: 10),
 
-          ProgressPageHeader(text: 'Recent Drops Around You'),
+          ProgressPageHeaderTextUtils(text: 'Recent Drops Around You'),
           RecentDrops(),
           //todo Announcement
-          ProgressPageHeader(text: 'Announcement'),
+          ProgressPageHeaderTextUtils(text: 'Announcement'),
           Announcement(),
 
           //Todo four card
@@ -268,7 +268,7 @@ class _HomeState extends State<HomePage> {
             widthData: _widthHight,
           ),
           //Todo Blog post
-          ProgressPageHeader(text: 'Our Blog'),
+          ProgressPageHeaderTextUtils(text: 'Our Blog'),
           OurBlog(token),
         ],
       ),

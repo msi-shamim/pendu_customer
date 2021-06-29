@@ -5,13 +5,13 @@ import 'package:pendu_customer/api/api_consts.dart';
 import 'package:pendu_customer/api/call_api.dart';
 import 'package:pendu_customer/auth_pages/page_register.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
-import 'package:pendu_customer/utils/auth_button.dart';
-import 'package:pendu_customer/utils/circular_login_logo.dart';
-import 'package:pendu_customer/utils/common_app_bar.dart';
+import 'package:pendu_customer/utils/utils_button_auth.dart';
+import 'package:pendu_customer/utils/utils_logo_circular_login.dart';
+import 'package:pendu_customer/utils/utils_app_bar_common.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/utils/normal_textform_field.dart';
-import 'package:pendu_customer/utils/password_textform_field.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/utils/utils_textform_field_normal.dart';
+import 'package:pendu_customer/utils/utils_textform_field_password.dart';
+import 'package:pendu_customer/utils/utils_pendu_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'page_forgot_pass.dart';
@@ -60,7 +60,7 @@ class _LogInPageState extends State<LogInPage> {
       child: Wrap(
         runSpacing: 20,
         children: [
-          NormalTextFormField(
+          TextFormFieldNormalUtils(
             validator: (eMail) {
               if (eMail == null || eMail.isEmpty) {
                 return 'Email is required';
@@ -73,7 +73,7 @@ class _LogInPageState extends State<LogInPage> {
             controller: emailController,
             isPhonekey: false,
           ),
-          PasswordTextFormField(
+          TextFormFieldPasswordUtils(
             validator: (pass) {
               if (pass == null || pass.isEmpty) {
                 return 'Password is required';
@@ -83,7 +83,7 @@ class _LogInPageState extends State<LogInPage> {
             textLabel: "Password",
             controller: passController,
           ),
-          AuthButton(
+          AuthButtonUtils(
             btnText: 'Login',
             onPressed: () {
               if (_formKey.currentState.validate()) {
@@ -149,13 +149,13 @@ class _LogInPageState extends State<LogInPage> {
           width: 20,
         ),
 
-        CircularLoginLogo(
+        CircularLoginLogoUtils(
           imgPath: 'assets/facebook.png',
         ),
         SizedBox(
           width: 10,
         ),
-        CircularLoginLogo(
+        CircularLoginLogoUtils(
           imgPath: 'assets/google.jpg',
         ),
         SizedBox(
@@ -206,7 +206,7 @@ class _LogInPageState extends State<LogInPage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Login'),
+        child: AppBarCommonUtils('Login'),
       ),
       body: SingleChildScrollView(
         child: Container(

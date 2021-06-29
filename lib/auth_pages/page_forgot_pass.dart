@@ -2,10 +2,10 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/models/response_mail.dart';
 import 'package:pendu_customer/api/call_api.dart';
-import 'package:pendu_customer/utils/auth_button.dart';
-import 'package:pendu_customer/utils/common_app_bar.dart';
-import 'package:pendu_customer/utils/normal_textform_field.dart';
-import 'package:pendu_customer/utils/snackBar_page.dart';
+import 'package:pendu_customer/utils/utils_button_auth.dart';
+import 'package:pendu_customer/utils/utils_app_bar_common.dart';
+import 'package:pendu_customer/utils/utils_textform_field_normal.dart';
+import 'package:pendu_customer/utils/utils_snackBar_message.dart';
 
 import 'page_mail_otp.dart';
 
@@ -34,7 +34,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       child: Wrap(
         runSpacing: 20,
         children: [
-          NormalTextFormField(
+          TextFormFieldNormalUtils(
             validator: (eMail) {
               if (eMail == null || eMail.isEmpty) {
                 return 'Email  is required';
@@ -47,7 +47,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             controller: emailController,
             isPhonekey: false,
           ),
-          AuthButton(
+          AuthButtonUtils(
             btnText: 'Reset',
             onPressed: () {
               if (_formKey.currentState.validate()) {
@@ -65,7 +65,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(72),
-        child: CommonAppBar('Reset Password'),
+        child: AppBarCommonUtils('Reset Password'),
       ),
       body: SingleChildScrollView(
         child: Container(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/auth_pages/page_login.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
-import 'package:pendu_customer/utils/page_indicator.dart';
-import 'package:pendu_customer/utils/pendu_theme.dart';
+import 'package:pendu_customer/utils/utils_page_indicator.dart';
+import 'package:pendu_customer/utils/utils_pendu_theme.dart';
 
 class OnBoarding03 extends StatefulWidget {
   @override
@@ -42,7 +42,7 @@ class _OnBoardState extends State<OnBoarding03> {
               SizedBox(
                 height: 48.0,
               ),
-              PageIndicator(3),
+              PageIndicatorUtils(3),
               Container(
                   margin:
                       EdgeInsets.only(left: 48, top: 16, right: 48, bottom: 0),
