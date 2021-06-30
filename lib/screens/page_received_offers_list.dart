@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendu_customer/screens/page_checkout.dart';
 import 'package:pendu_customer/api/api_consts.dart';
-import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/api/api_call.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/models/response_recieve_offer_from_driver.dart';
 import 'package:pendu_customer/utils/utils_app_bar_common.dart';
 import 'package:pendu_customer/utils/utils_bottom_nav_bar.dart';
 import 'package:pendu_customer/utils/utils_text_progress_page.dart';
 import 'package:pendu_customer/utils/utils_snackBar_message.dart';
-import 'package:pendu_customer/utils/utils_fetch_data.dart';
+import 'package:pendu_customer/api/api_manipulation.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 
@@ -33,7 +33,7 @@ class _ReceivedOffersState extends State<ReceivedOffers> {
   void initState() {
     if(token != null){
       //TaskId=2 send
-      FetchDataUtils(context).getOffersFromDriverInfo(token, taskId).then((value){
+      ApiManipulation(context).getOffersFromDriverInfo(token, taskId).then((value){
         setState(() {
           _offersList = value;
         });

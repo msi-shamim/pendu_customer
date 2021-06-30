@@ -13,7 +13,7 @@ import 'package:pendu_customer/utils/utils_pendu_theme.dart';
 import 'package:pendu_customer/utils/utils_button_progress.dart';
 import 'package:pendu_customer/utils/utils_text_progress_page.dart';
 import 'package:pendu_customer/utils/utils_snackBar_message.dart';
-import 'package:pendu_customer/utils/utils_fetch_data.dart';
+import 'package:pendu_customer/api/api_manipulation.dart';
 
 import '../utils/utils_progress_delivery.dart';
 
@@ -76,7 +76,7 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
   @override
   void initState() {
     if (token != null) {
-      FetchDataUtils(context).getProductCategories(token).then((value) {
+      ApiManipulation(context).getProductCategories(token).then((value) {
         setState(() {
           _pCategoryListData = value;
           _pCategoryItems = _pCategoryListData

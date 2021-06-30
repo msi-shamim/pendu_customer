@@ -24,7 +24,7 @@ import 'package:pendu_customer/models/task_collect_drop_model.dart';
 import 'package:pendu_customer/models/task_mover_model.dart';
 import 'package:pendu_customer/models/task_shop_drop_model.dart';
 import 'package:pendu_customer/models/update_user_model.dart';
-import 'package:pendu_customer/utils/utils_fetch_data.dart';
+import 'package:pendu_customer/api/api_manipulation.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -79,7 +79,7 @@ class CallApi {
       var str = await response.stream.bytesToString();
       ResponseRegisterModel rrm = ResponseRegisterModel.fromJson(str);
       callLoginApi(rrm.data.email, password);
-      FetchDataUtils(_context).validateUser();
+      ApiManipulation(_context).validateUser();
     } else {
       print(response.reasonPhrase);
     }
@@ -789,7 +789,7 @@ class CallApi {
 
     if (sharedPreferences.getString(PenduConstants.spToken) != null) {
       User uUser = User.fromJson(json.decode(user));
-      FetchDataUtils(_context).validateUser();
+      ApiManipulation(_context).validateUser();
     } else {
       print('from API: Token null');
     }

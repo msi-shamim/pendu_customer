@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pendu_customer/screens/page_shop_drop_1.dart';
+import 'package:pendu_customer/api/api_manipulation.dart';
 import 'package:pendu_customer/home_directories/breadcramp.dart';
 import 'package:pendu_customer/home_directories/driver_card.dart';
 import 'package:pendu_customer/home_directories/image_carousel.dart';
@@ -13,11 +13,10 @@ import 'package:pendu_customer/profile_screen/page_user_profile_menu.dart';
 import 'package:pendu_customer/profile_screen/profile_notification.dart';
 import 'package:pendu_customer/screen_collect_and_deliver/page_collect_drop_1.dart';
 import 'package:pendu_customer/screen_movers/page_movers_1.dart';
+import 'package:pendu_customer/screens/page_shop_drop_1.dart';
 import 'package:pendu_customer/utils/icon_title.dart';
 import 'package:pendu_customer/utils/utils_bottom_nav_bar.dart';
 import 'package:pendu_customer/utils/utils_text_progress_page.dart';
-import 'package:pendu_customer/utils/utils_snackBar_message.dart';
-import 'package:pendu_customer/utils/utils_fetch_data.dart';
 
 import 'announcement_container.dart';
 import 'box_section.dart';
@@ -46,16 +45,8 @@ class _HomeState extends State<HomePage> {
 
   _HomeState(this.user, this.token);
 
-  List<ProDriverList> _proDriverList = [];
-
   @override
   void initState() {
-    if (token != null) {
-      _proDriverList = FetchDataUtils(context).getProDrivers(token);
-    } else {
-      SnackBarClass.snackBarMethod(
-          message: "Something went wrong", context: context);
-    }
     super.initState();
   }
 
@@ -225,21 +216,22 @@ class _HomeState extends State<HomePage> {
               Container(
                   height: 280,
                   child: FutureBuilder(
-                    future: buildText(),
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    future: ApiManipulation(context).getProDrivers(token),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<ProDriverList>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done &&
-                          _proDriverList != null) {
+                          snapshot != null) {
                         return ListView.separated(
+                          shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: _proDriverList.length,
+                          itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int i) =>
-                              DriverCard(_proDriverList[i]),
+                              DriverCard(snapshot.data[i]),
                           separatorBuilder: (BuildContext context, int i2) =>
                               Divider(),
                         );
                       } else {
-                        return Center(
-                            child: CircularProgressIndicator());
+                        return Center(child: CircularProgressIndicator());
                       }
                     },
                   ))

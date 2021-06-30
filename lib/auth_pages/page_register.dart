@@ -2,7 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/models/response_register_model.dart';
-import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/api/api_call.dart';
 import 'package:pendu_customer/auth_pages/page_login.dart';
 import 'package:pendu_customer/utils/utils_button_auth.dart';
 import 'package:pendu_customer/utils/utils_app_bar_common.dart';

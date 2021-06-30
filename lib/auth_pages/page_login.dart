@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pendu_customer/api/api_consts.dart';
-import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/api/api_call.dart';
 import 'package:pendu_customer/auth_pages/page_register.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/utils/utils_button_auth.dart';

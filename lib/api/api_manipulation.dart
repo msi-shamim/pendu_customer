@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:pendu_customer/api/api_consts.dart';
-import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/api/api_call.dart';
 import 'package:pendu_customer/auth_pages/page_login.dart';
 import 'package:pendu_customer/auth_pages/page_phone_otp.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
@@ -17,15 +17,15 @@ import 'package:pendu_customer/models/response_service_category_model.dart';
 import 'package:pendu_customer/on_boarding/on_boarding_01.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class FetchDataUtils{
+class ApiManipulation{
   final BuildContext context;
-  FetchDataUtils(this.context);
+  ApiManipulation(this.context);
   var token;
   /*
-    1. isLoggedIn
-    1.1 loggedIn -> home page
-    1.2 !loggedIn -> login page
-    * */
+  * loggedIn or not
+  * - user null or not
+  * - phone verified or not
+  * */
   validateUser(){
     _isLoggedIn().then((loggedIn){
       if(loggedIn){
@@ -58,24 +58,14 @@ class FetchDataUtils{
     });
   }
 
-  List<Datum> getBlogs (String blogToken){
-    List<Datum> blogs = [];
-    CallApi(context).callBlogPostApi(blogToken).then((value) {
-      if(value != null){
-        blogs = value.data;
-      }
-    });
-    return blogs;
+  Future<List<Datum>> getBlogs (String blogToken) async{
+    ResponseBlogPostModel blogPostModel = await CallApi(context).callBlogPostApi(blogToken);
+    return blogPostModel.data;
   }
 
-  List<ProDriverList> getProDrivers(String userToken){
-    List<ProDriverList> proDrivers = [];
-    CallApi(context).callProDriverApi(userToken).then((value){
-      if(value!= null){
-        proDrivers = value.proDriverList;
-      }
-    });
-    return proDrivers;
+  Future<List<ProDriverList>> getProDrivers(String token) async {
+    ResponseProDriverModel proDriverModel = await CallApi(context).callProDriverApi(token);
+    return proDriverModel.proDriverList;
   }
 
   Future<List<ProductCategoryList>> getProductCategories(String userToken) async {

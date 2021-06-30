@@ -12,7 +12,7 @@ import 'package:pendu_customer/utils/utils_pendu_theme.dart';
 import 'package:pendu_customer/utils/utils_button_progress.dart';
 import 'package:pendu_customer/utils/utils_text_progress_page.dart';
 import 'package:pendu_customer/utils/utils_snackBar_message.dart';
-import 'package:pendu_customer/utils/utils_fetch_data.dart';
+import 'package:pendu_customer/api/api_manipulation.dart';
 
 
 class ShopDropPage2 extends StatefulWidget {
@@ -42,7 +42,7 @@ class _ShopDropPage2State extends State<ShopDropPage2> {
   @override
   void initState() {
     if(token != null){
-      FetchDataUtils(context).getDeliveryTimeInfo(token).then((value){
+      ApiManipulation(context).getDeliveryTimeInfo(token).then((value){
         setState(() {
           _deliveryTimeList = value;
         });

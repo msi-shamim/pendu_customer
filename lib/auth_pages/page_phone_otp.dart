@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:pendu_customer/api/call_api.dart';
+import 'package:pendu_customer/api/api_call.dart';
 import 'package:pendu_customer/auth_pages/page_new_pass.dart';
 import 'package:pendu_customer/home_directories/page_home.dart';
 import 'package:pendu_customer/models/response_common.dart';
@@ -12,7 +12,7 @@ import 'package:pendu_customer/utils/utils_app_bar_common.dart';
 import 'package:pendu_customer/utils/utils_pendu_theme.dart';
 import 'package:pendu_customer/utils/utils_snackBar_message.dart';
 import 'package:pendu_customer/utils/utils_snack_bar.dart';
-import 'package:pendu_customer/utils/utils_fetch_data.dart';
+import 'package:pendu_customer/api/api_manipulation.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyPhoneNumberPage extends StatefulWidget {
@@ -41,7 +41,7 @@ class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
-    FetchDataUtils(context).fetchUser().then((value){
+    ApiManipulation(context).fetchUser().then((value){
       if(value != null){
         setState(() {
           _user = value;
@@ -224,7 +224,7 @@ class _VerifyPhoneNumberPageState extends State<VerifyPhoneNumberPage> {
     if (response.status == 200) {
       bool logout = await CallApi(context).logOut();
       if(logout){
-        FetchDataUtils(context).validateUser();
+        ApiManipulation(context).validateUser();
       }
     }else{
       ShowSnackBar(context, 'Something went wrong!').show();

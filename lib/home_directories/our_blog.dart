@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pendu_customer/api/api_manipulation.dart';
 import 'package:pendu_customer/models/response_post_model.dart';
 import 'package:pendu_customer/network_data/blog_network.dart';
 import 'package:pendu_customer/utils/utils_pendu_theme.dart';
-import 'package:pendu_customer/utils/utils_snackBar_message.dart';
-import 'package:pendu_customer/utils/utils_fetch_data.dart';
 
 class OurBlog extends StatefulWidget {
   final String token;
@@ -21,19 +20,6 @@ class _OurBlogState extends State<OurBlog> {
 
   final BlogNetwork blogNetwork = BlogNetwork();
 
-  List<Datum> _blogList;
-
-  @override
-  void initState() {
-    if (token != null) {
-      _blogList = FetchDataUtils(context).getBlogs(widget.token);
-    } else {
-      SnackBarClass.snackBarMethod(
-          message: "Something went wrong", context: context);
-    }
-    super.initState();
-  }
-
   Future buildText() {
     return Future.delayed(Duration(seconds: 3), () => print('waiting...'));
   }
@@ -43,14 +29,15 @@ class _OurBlogState extends State<OurBlog> {
     return Container(
         height: 400,
         child: FutureBuilder(
-          future: buildText(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+          future: ApiManipulation(context).getBlogs(token),
+          builder: (BuildContext context, AsyncSnapshot<List<Datum>> snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
-                _blogList != null) {
+                snapshot != null) {
               return ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
+                itemCount: 3,
+                itemBuilder: (BuildContext context, int i) {
                   return Container(
                       height: 80,
                       //   width: 100,
@@ -91,7 +78,7 @@ class _OurBlogState extends State<OurBlog> {
                                       Expanded(
                                         flex: 6,
                                         child: Text(
-                                          _blogList[index].title,
+                                          snapshot.data[i].title,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -112,7 +99,7 @@ class _OurBlogState extends State<OurBlog> {
                                   ),
                                   Container(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(_blogList[index].body,
+                                    child: Text(snapshot.data[i].body,
                                         maxLines: 3,
                                         style: TextStyle(fontSize: 12)),
                                   ),
