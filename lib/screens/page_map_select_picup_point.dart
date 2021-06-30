@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pendu_customer/screens/page_map_select_dropup_point.dart';
 import 'package:pendu_customer/models/response_login_model.dart';
 import 'package:pendu_customer/utils/utils_app_bar_common.dart';
@@ -21,8 +22,43 @@ class _SelectPickupPointMapPageState extends State<SelectPickupPointMapPage> {
   final String token;
   final String adNotes;
   final String totalCost;
-  String pickUpLocation=   '3/A Jadobpur, Abdul Goli, MD Pur, Dhaka 1204';
   _SelectPickupPointMapPageState(this.user, this.token, this.adNotes, this.totalCost);
+  String pickUpLocation=   '3/A Jadobpur, Abdul Goli, MD Pur, Dhaka 1204';
+
+  static const _initialCameraPosition = CameraPosition(target: LatLng(-33.865143, 151.209900), zoom: 11.5);
+  GoogleMapController _googleMapController;
+  Marker _pickUpMarker;
+@override
+  void dispose(){
+  _googleMapController.dispose();
+  super.dispose();
+}
+  Widget _buildGoogleMap()
+  { return GoogleMap(
+  initialCameraPosition: _initialCameraPosition,
+  zoomControlsEnabled: false,
+  myLocationButtonEnabled: false,
+  onMapCreated: (controller) =>  _googleMapController = controller,
+  markers: {
+    if(_pickUpMarker != null) _pickUpMarker,
+  },
+  onLongPress: _addMarker,
+);
+}
+//on long press add pickup marker
+void _addMarker(LatLng pos){
+
+    setState(() {
+      _pickUpMarker = Marker(
+        markerId: const MarkerId('pickup'),
+        infoWindow: const InfoWindow(title: 'Pickup Point'),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+        position: pos,
+      );
+    });
+
+
+}
   Widget _buildPickUpSection(){
     return Container(
       height: 200,
@@ -110,12 +146,7 @@ class _SelectPickupPointMapPageState extends State<SelectPickupPointMapPage> {
           alignment: AlignmentDirectional.center,
           children: [
             Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                colorFilter: ColorFilter.linearToSrgbGamma(),
-                image: AssetImage("assets/map.png"),
-                fit: BoxFit.fill,
-              )),
+         child: _buildGoogleMap(),
             ),
             Positioned(
               top: 0,

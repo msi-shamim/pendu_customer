@@ -27,7 +27,7 @@ class _OurBlogState extends State<OurBlog> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 400,
+        height: 300,
         child: FutureBuilder(
           future: ApiManipulation(context).getBlogs(token),
           builder: (BuildContext context, AsyncSnapshot<List<Datum>> snapshot) {

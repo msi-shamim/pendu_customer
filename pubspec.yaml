@@ -43,7 +43,9 @@ dependencies:
   package_info: ^2.0.2
   image_picker: ^0.7.4
   google_maps_flutter: ^2.0.6
+  flutter_polyline_points: ^1.0.0
   country_code_picker: ^2.0.2
+
 
 
 

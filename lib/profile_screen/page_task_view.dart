@@ -54,41 +54,41 @@ class _TaskViewPageState extends State<TaskViewPage>
           child: AppBarCommonUtils('Task'),
         ),
         body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
           width: MediaQuery.of(context).size.width,
-          child: Expanded(
-            child: DefaultTabController(
-              length: 2,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 25),
-                    child: ButtonsTabBar(
-                      height: 50,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 40),
-                      backgroundColor: Theme.of(context).accentColor,
-                      unselectedBackgroundColor: Colors.white,
-                      borderColor: Theme.of(context).accentColor,
-                      borderWidth: 2,
-                      unselectedBorderColor: Pendu.color('707070'),
-                      labelStyle: TextStyle(color: Colors.white),
-                      unselectedLabelStyle:
-                          TextStyle(color: Pendu.color('707070')),
-                      tabs: [
-                        Tab(child: Center(child: Text('In Progress'))),
-                        Tab(child: Center(child: Text('  Pending  '))),
-                      ],
-                    ),
+          alignment: Alignment.center,
+          child: DefaultTabController(
+            length: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ButtonsTabBar(
+              height: 50,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 40),
+                  backgroundColor: Theme.of(context).accentColor,
+                  unselectedBackgroundColor: Colors.white,
+
+                  borderColor: Theme.of(context).accentColor,
+                  borderWidth: 1,
+                  unselectedBorderColor: Pendu.color('707070'),
+                  labelStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                  unselectedLabelStyle:
+                      TextStyle(color: Pendu.color('707070')),
+                  tabs: [
+                    Tab( text:'In Progress',),
+                    Tab(text:'  Pending  '),
+                  ],
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: <Widget>[
+                      TaskInProgressPage(),
+                      TaskPendingPage(),
+                    ],
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      children: <Widget>[
-                        TaskInProgressPage(),
-                        TaskPendingPage(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ));
