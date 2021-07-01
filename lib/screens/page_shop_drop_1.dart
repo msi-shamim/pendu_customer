@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -52,7 +54,6 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
   final String adNotes;
   final String totalCost;
   final String pickUpLocation;
-
   final String dropUpLocation;
 
   _ShopDropPage1State(this.user, this.token, this.pickUpLocation,
@@ -68,6 +69,7 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
   final _formKey = GlobalKey<FormState>();
   final notesController = TextEditingController();
   final totalCostController = TextEditingController();
+  final categoryController = TextEditingController();
   TextEditingController pTitleController = TextEditingController();
   TextEditingController pPriceController = TextEditingController();
   TextEditingController pQuantityController = TextEditingController();
@@ -96,6 +98,7 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
   void dispose() {
     notesController.dispose();
     totalCostController.dispose();
+    categoryController.dispose();
     pTitleController.dispose();
     pPriceController.dispose();
     pQuantityController.dispose();
@@ -137,6 +140,7 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
             onConfirm: (values) {
               setState(() {
                 _pCategoryList = values;
+                categoryController.text = json.encode(_pCategoryList);
               });
             },
           ),
@@ -255,21 +259,35 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
 
     Widget _buildMultiSelect() {
       return Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: EdgeInsets.symmetric(vertical: 8.0),
         color: Colors.grey[200],
-        height: 40,
-        padding: EdgeInsets.only(left: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Tap to select your categories',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                )),
+            Expanded(
+              child: TextFormField(
+                validator: (cat) {
+                  if (cat == null || cat.isEmpty) {
+                    return 'Tap to select your categories';
+                  }
+                  return null;
+                },
+                enabled: false,
+                controller: categoryController,
+                decoration: InputDecoration(
+                  hintText: 'Enter your total cost of the items',
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+
+                ),
+              ),
+            ),
             IconButton(
                 onPressed: () {
-                 // _buildMultiselect();
                   _showCategoriesMultiSelect(context);
                 },
                 icon: Icon(
@@ -382,7 +400,7 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
     }
     Widget _buildNotesTextField() {
       return Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: EdgeInsets.symmetric(vertical: 8.0),
         color: Pendu.color('E7F9EF'),
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: TextFormField(
@@ -407,7 +425,7 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
 
     Widget _buildItemCostTextField() {
       return Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: EdgeInsets.symmetric(vertical: 8.0),
         color: Colors.grey[200],
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: TextFormField(
@@ -417,6 +435,7 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
             }
             return null;
           },
+          keyboardType: TextInputType.number,
           controller: totalCostController,
           decoration: InputDecoration(
             hintText: 'Enter your total cost of the items',
@@ -490,7 +509,7 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
 
     Widget _buildDropUpTextField() {
       return Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: EdgeInsets.symmetric(vertical: 8.0),
         color: Colors.grey[200],
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: Row(
@@ -515,17 +534,22 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
               flex: 1,
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SelectDropUpPointMapPage(
-                              user: user,
-                              token: token,
-                              adNotes: notesController.text,
-                              totalCost: totalCostController.text,
-                              pickUpLocation: pickUpLocation,
-                            )),
-                  );
+                  if(pickUpLocation != null){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SelectDropUpPointMapPage(
+                            user: user,
+                            token: token,
+                            adNotes: notesController.text,
+                            totalCost: totalCostController.text,
+                            pickUpLocation: pickUpLocation,
+                          )),
+                    );
+                  } else {
+                    SnackBarClass.snackBarMethod(message: 'Pickup Location can not be null', context: context);
+                  }
+
                 },
                 icon: Icon(
                   Icons.location_on_outlined,
@@ -553,11 +577,10 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ScreenProgressUtils(screenValue: 1),
-                SizedBox(height: 15),
+                SizedBox(height: 16),
                 ProgressPageHeaderTextUtils(text: 'Categories'),
-                SizedBox(height: 8),
                 _buildMultiSelect(),
-                SizedBox(height: 10),
+                SizedBox(height: 16),
                 ProgressPageHeaderTextUtils(text: 'Products'),
                 SizedBox(height: 8),
                 BottomWarringTextUtils(
@@ -566,30 +589,29 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
                     text:
                         'Please Provide clear name & details if you have it, You will receive photos of the items once shopper begin the shipping'),
                 // Product Container
-                SizedBox(height: 10),
+                SizedBox(height: 8),
                 _buildProductListBox(),
 
+                SizedBox(height: 16),
                 ProgressPageHeaderTextUtils(text: 'Additional Notes'),
-
                 _buildNotesTextField(),
-
                 _buildItemCostTextField(),
 
+                SizedBox(height: 8),
                 ProgressPageHeaderTextUtils(text: 'Enter shops/Pickup address'),
-
                 _buildPickUpTextField(),
 
+                SizedBox(height: 8),
                 ProgressPageHeaderTextUtils(text: 'Enter delivery address'),
-
                 _buildDropUpTextField(),
 
-                SizedBox(height: 10),
+                SizedBox(height: 8),
                 BottomWarringTextUtils(
                     borderColor: Pendu.color('E8E8E8'),
                     textColor: Pendu.color('FFB44A'),
                     text:
                         'Youwill be asked to security hold the funds in the app after you have accepted an offer & you will onlu be paying for the item you requested.'),
-                SizedBox(height: 10),
+                SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
