@@ -70,6 +70,9 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
   final notesController = TextEditingController();
   final totalCostController = TextEditingController();
   final categoryController = TextEditingController();
+  final picUpLocationController = TextEditingController();
+  final dropLocationController = TextEditingController();
+
   TextEditingController pTitleController = TextEditingController();
   TextEditingController pPriceController = TextEditingController();
   TextEditingController pQuantityController = TextEditingController();
@@ -90,7 +93,8 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
       SnackBarClass.snackBarMethod(
           message: "Something went wrong", context: context);
     }
-
+    picUpLocationController.text = pickUpLocation;
+    dropLocationController.text = dropUpLocation;
     super.initState();
   }
 
@@ -99,6 +103,8 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
     notesController.dispose();
     totalCostController.dispose();
     categoryController.dispose();
+    picUpLocationController.dispose();
+    dropLocationController.dispose();
     pTitleController.dispose();
     pPriceController.dispose();
     pQuantityController.dispose();
@@ -269,14 +275,14 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
               child: TextFormField(
                 validator: (cat) {
                   if (cat == null || cat.isEmpty) {
-                    return 'Tap to select your categories';
+                    return 'Categories can not be empty';
                   }
                   return null;
                 },
                 enabled: false,
                 controller: categoryController,
                 decoration: InputDecoration(
-                  hintText: 'Enter your total cost of the items',
+                  hintText: 'Select Your pickup address',
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
@@ -460,51 +466,55 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
 
     Widget _buildPickUpTextField() {
       return Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: EdgeInsets.symmetric(vertical: 8.0),
         color: Colors.grey[200],
         padding: EdgeInsets.symmetric(horizontal: 10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              flex: 8,
-              child: Container(
-                child: (pickUpLocation != null)
-                    ? Text(
-                        pickUpLocation,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    : Text(
-                        "Select Your pickup address",
-                        style: TextStyle(fontSize: 16, color: Colors.black54),
-                      ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SelectPickupPointMapPage(
-                              user: user,
-                              token: token,
-                              adNotes: notesController.text,
-                              totalCost: totalCostController.text,
-                            )),
-                  );
+              child: TextFormField(
+                validator: (picUp) {
+                  if (picUp == null || picUp.isEmpty) {
+                    return 'Pickup address cannot be empty';
+                  }
+                  return null;
                 },
-                icon: Icon(
-                  Icons.location_on_outlined,
-                  color: Pendu.color('FFB44A'),
+                enabled: false,
+                controller: picUpLocationController,
+                decoration: InputDecoration(
+                  hintText: 'Select Your pickup address',
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+
                 ),
               ),
             ),
+            IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectPickupPointMapPage(
+                                    user: user,
+                                    token: token,
+                                    adNotes: notesController.text,
+                                    totalCost: totalCostController.text,
+                                  )),
+                        );
+                      },
+                      icon: Icon(
+                        Icons.location_on_outlined,
+                        color: Pendu.color('FFB44A'),
+                      ),
+                    ),
           ],
         ),
       );
+
     }
 
     Widget _buildDropUpTextField() {
@@ -516,50 +526,55 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              flex: 8,
-              child: Container(
-                child: (dropUpLocation != null)
-                    ? Text(
-                        dropUpLocation,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    : Text(
-                        "Select Your delivery address",
-                        style: TextStyle(fontSize: 16, color: Colors.black54),
-                      ),
+              child: TextFormField(
+                validator: (picUp) {
+                  if (picUp == null || picUp.isEmpty) {
+                    return 'Delivery address cannot be empty';
+                  }
+                  return null;
+                },
+                enabled: false,
+                controller: dropLocationController,
+                decoration: InputDecoration(
+                  hintText: 'Select Your delivery address',
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+
+                ),
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: IconButton(
-                onPressed: () {
-                  if(pickUpLocation != null){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SelectDropUpPointMapPage(
-                            user: user,
-                            token: token,
-                            adNotes: notesController.text,
-                            totalCost: totalCostController.text,
-                            pickUpLocation: pickUpLocation,
-                          )),
-                    );
-                  } else {
-                    SnackBarClass.snackBarMethod(message: 'Pickup Location can not be null', context: context);
-                  }
+            IconButton(
+              onPressed: () {
+                if(pickUpLocation != null){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SelectDropUpPointMapPage(
+                          user: user,
+                          token: token,
+                          adNotes: notesController.text,
+                          totalCost: totalCostController.text,
+                          pickUpLocation: pickUpLocation,
+                        )),
+                  );
+                } else {
+                  SnackBarClass.snackBarMethod(message: 'Pickup Location can not be null', context: context);
+                }
 
-                },
-                icon: Icon(
-                  Icons.location_on_outlined,
-                  color: Theme.of(context).accentColor,
-                ),
+              },
+              icon: Icon(
+                Icons.location_on_outlined,
+                color: Theme.of(context).accentColor,
               ),
             ),
           ],
         ),
       );
+
+
     }
 
     return Scaffold(
@@ -645,8 +660,8 @@ class _ShopDropPage1State extends State<ShopDropPage1> {
                   token: token,
                   adNotes: notesController.text,
                   totalCost: totalCostController.text,
-                  pickUpLocation: pickUpLocation,
-                  dropUpLocation: dropUpLocation,
+                  pickUpLocation: picUpLocationController.text,
+                  dropUpLocation: dropLocationController.text,
                 )),
       );
     } else {
